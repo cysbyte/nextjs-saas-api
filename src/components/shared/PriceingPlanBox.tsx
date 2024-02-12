@@ -11,7 +11,7 @@ interface IProps {
 const PricingPlanBox: FC<IProps> = ({ title, price, start, description }) => {
   return (
     <div>
-      <div className="border rounded-md bg-white shadow-xl basis-4/12 w-full md:w-[360px] h-full justify-start px-6 py-6 flex flex-col">
+      <div className="border rounded-md bg-white shadow-xl basis-4/12 w-full md:w-[360px] h-full justify-start px-6 py-6 flex flex-col hover:bg-gray-100 hover:scale-[1.02] active:scale-100 duration-300 hover:border-gray-700">
         <div className="border-b pb-10">
           <h4 className="font-semibold text-lg text-slate-600">{title}</h4>
           <p className="pt-2">
