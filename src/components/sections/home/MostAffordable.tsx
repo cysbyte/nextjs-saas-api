@@ -20,8 +20,8 @@ const MostAffordable = () => {
   return (
     <section>
       <Wrapper>
-        <div className="mt-20">
-          <h1 className="text-4xl sm:text-5xl font-bold mt-4 lg:leading-[60px]">
+        <div className="mt-20 flex flex-col items-center lg:items-start">
+          <h1 className="max-w-xl text-4xl sm:text-5xl font-bold mt-4 lg:leading-[60px]">
             Most affordable
             <br />
             AI voice generator
@@ -31,15 +31,15 @@ const MostAffordable = () => {
             a cost 10x lower than other Generative AI competitors.
           </p>
         </div>
-        <div className="flex h-auto mt-24">
-          <div className="flex-1 my-24">
+        <div className="flex flex-col lg:flex-row items-center lg:items-start h-auto mt-24">
+          <div className="lg:flex-1 my-24 ">
             <h4 className="text-14 font-semibold text-lg mt-4">Videos</h4>
             <p className="mt-6 text-lg text-slate-600 max-w-xl leading-[30px]">
               For content creators and short story writers alike, our AI voice
               generator enables you to craft engaging audio narratives.
             </p>
           </div>
-          <div className="flex-1 bg-[#d9d9d9] rounded-md"></div>
+          <div className="lg:flex-1 bg-[#d9d9d9] h-[400px] w-[600px] rounded-md"></div>
         </div>
         <div className="my-24">
           <h3 className="text-2xl font-semibold text-start">

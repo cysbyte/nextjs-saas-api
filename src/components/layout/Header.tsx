@@ -6,7 +6,7 @@ import logo from "public/logo.png";
 
 const Header = () => {
   return (
-    <header className="h-auto z-20 sticky inset-0 backdrop-blur-md py-3 bg-white bg-opacity-90">
+    <header className="h-auto z-20 sticky inset-0 backdrop-blur-md py-0 bg-white bg-opacity-90">
       <Wrapper>
         <div className="flex justify-between py-5 items-center">
           <Link className="hover:text-teal-700 duration-300" href={"/"}>
@@ -15,43 +15,80 @@ const Header = () => {
             </div>
           </Link>
 
-          <ul className="flex h-full items-center duration-300 gap-x-4 sm:gap-x-8 text-16">
-            <li className="relative group cursor-pointer hover:text-teal-700">
-              <div className="flex gap-x-2 items-center">
-                <p>Products</p>
-                <svg
-                  width="13"
-                  height="12"
-                  viewBox="0 0 13 12"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M3.5 4.5L6.5 7.5L9.5 4.5"
-                    stroke="#111827"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </div>
-            </li>
-            <Link className="hover:text-teal-700 duration-300" href={""}>
-              <li>Pricing</li>
-            </Link>
+          <div className="m-auto hidden sm:block">
+            <ul className="flex h-full items-center duration-300 gap-x-4 sm:gap-x-8 text-16">
+              <li className="group cursor-pointer hover:text-teal-700">
+                <div className="group relative flex gap-x-2 items-center justify-center">
+                  <p>Products</p>
+                  <div className="relative ml-1 flex h-full items-center justify-center">
+                    <svg
+                      width="13"
+                      height="12"
+                      viewBox="0 0 13 12"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="absolute group-hover:invisible"
+                    >
+                      <path
+                        d="M3.5 4.5L6.5 7.5L9.5 4.5"
+                        stroke="#111827"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                    <svg
+                      width="13"
+                      height="12"
+                      viewBox="0 0 13 12"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="absolute invisible group-hover:visible"
+                    >
+                      <path
+                        d="M9.5 7.5L6.5 4.5L3.5 7.5"
+                        stroke="#0F172A"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div className="invisible absolute z-50 pt-2 flex w-[15%] flex-col bg-white py-1 px-4 rounded-md text-gray-800 shadow-xl group-hover:visible">
+                  <a className="y-2 block border-b border-gray-100 py-2 font-normal text-black hover:bg-gray-100 rounded-md md:mx-2">
+                    Text to Speech
+                  </a>
 
-            <Link className="hover:text-teal-700 duration-300" href={""}>
-              <li>About</li>
-            </Link>
-          </ul>
+                  <a className="my-2 block border-b border-gray-100 py-2 font-normal text-black hover:bg-gray-100 rounded-md md:mx-2">
+                    Voice Clone
+                  </a>
+                  <a className="my-2 block border-b border-gray-100 py-2 font-normal text-black hover:bg-gray-100 rounded-md md:mx-2">
+                    API
+                  </a>
+                  <a className="my-2 block border-b border-gray-100 py-2 font-normal text-black hover:bg-gray-100 rounded-md md:mx-2">
+                    Voice Chat Bot
+                  </a>
+                </div>
+              </li>
+              <Link className="hover:text-teal-700 duration-300" href={""}>
+                <li>Pricing</li>
+              </Link>
+
+              <Link className="hover:text-teal-700 duration-300" href={""}>
+                <li>About</li>
+              </Link>
+            </ul>
+          </div>
 
           <ul className="flex h-full items-center duration-300 gap-x-4 sm:gap-x-8 text-16">
-            <Link className="hover:text-teal-700 duration-300" href={""}>
+            <button className="hover:text-teal-700 duration-300">
               <li>Sign in</li>
-            </Link>
+            </button>
 
-            <Link className="px-5 py-2 hover:shadow-lg hover:scale-105 active:scale-100 duration-300 border-2 border-black rounded-md" href={""}>
+            <button
+              className="px-5 py-2 hover:shadow-lg hover:scale-105 hover:bg-black hover:text-white active:scale-100 duration-300 border-2 border-black rounded-md"
+            >
               <li>Sign up</li>
-            </Link>
+            </button>
           </ul>
         </div>
       </Wrapper>
