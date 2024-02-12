@@ -74,7 +74,7 @@ const PriceingPlan = () => {
             Pricing Plans
           </h1>
         </div>
-        <div className="flex justify-between mt-16 border-b pb-16">
+        <div className="flex flex-col md:flex-row justify-between mt-16 border-b pb-16">
           {priceingPlanData.map((item, index) => (
             <PricingPlanBox
               key={index}

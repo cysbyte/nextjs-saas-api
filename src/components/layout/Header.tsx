@@ -3,7 +3,6 @@ import Link from "next/link";
 import React from "react";
 import Wrapper from "@/components/shared/Wrapper";
 import logo from "public/logo.png";
-import { redirect } from "next/navigation";
 
 const Header = () => {
   return (
@@ -12,7 +11,7 @@ const Header = () => {
         <div className="flex justify-between py-5 items-center">
           <Link className="hover:text-teal-700 duration-300" href={"/"}>
             <div>
-              <Image src={logo} alt="Minimax AI Voice Generator" />
+              <Image className="w-[69]" src={logo} alt="Minimax AI Voice Generator" />
             </div>
           </Link>
 
