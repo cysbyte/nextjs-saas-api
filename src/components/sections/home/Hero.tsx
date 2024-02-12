@@ -19,7 +19,7 @@ const Hero = () => {
               ideal for video creators, developers, and businesses. <br />
               More than 1 Billion people have heard our voices worldwide.
             </p>
-            <div className="mx-auto">
+            <div className="mx-auto mt-7">
               <Button text={"Get Started For Free"}/>
             </div>
             

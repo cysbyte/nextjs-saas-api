@@ -15,7 +15,7 @@ const Header = () => {
             </div>
           </Link>
 
-          <div className="m-auto hidden sm:block">
+          <div className="m-auto hidden lg:block">
             <ul className="flex h-full items-center duration-300 gap-x-4 sm:gap-x-8 text-16">
               <li className="group cursor-pointer hover:text-teal-700">
                 <div className="group relative flex gap-x-2 items-center justify-center">
@@ -54,9 +54,9 @@ const Header = () => {
                   </div>
                 </div>
                 <div className="invisible absolute z-50 pt-4 flex w-[15%] flex-col bg-white py-1 px-4 rounded-md text-gray-800 shadow-xl group-hover:visible">
-                  <a className="y-2 block border-b border-gray-100 py-2 font-normal text-black hover:bg-gray-100 rounded-md md:mx-2">
+                  <Link href='/product/text-to-speech' className="y-2 block border-b border-gray-100 py-2 font-normal text-black hover:bg-gray-100 rounded-md md:mx-2">
                     Text to Speech
-                  </a>
+                  </Link>
 
                   <a className="my-2 block border-b border-gray-100 py-2 font-normal text-black hover:bg-gray-100 rounded-md md:mx-2">
                     Voice Clone
