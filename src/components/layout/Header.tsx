@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import Wrapper from "@/components/shared/Wrapper";
 import logo from "public/logo.png";
+import { redirect } from "next/navigation";
 
 const Header = () => {
   return (
@@ -53,7 +54,7 @@ const Header = () => {
                     </svg>
                   </div>
                 </div>
-                <div className="invisible absolute z-50 pt-2 flex w-[15%] flex-col bg-white py-1 px-4 rounded-md text-gray-800 shadow-xl group-hover:visible">
+                <div className="invisible absolute z-50 pt-4 flex w-[15%] flex-col bg-white py-1 px-4 rounded-md text-gray-800 shadow-xl group-hover:visible">
                   <a className="y-2 block border-b border-gray-100 py-2 font-normal text-black hover:bg-gray-100 rounded-md md:mx-2">
                     Text to Speech
                   </a>
@@ -69,7 +70,7 @@ const Header = () => {
                   </a>
                 </div>
               </li>
-              <Link className="hover:text-teal-700 duration-300" href={""}>
+              <Link className="hover:text-teal-700 duration-300" href={"/price"}>
                 <li>Pricing</li>
               </Link>
 
@@ -80,15 +81,19 @@ const Header = () => {
           </div>
 
           <ul className="flex h-full items-center duration-300 gap-x-4 sm:gap-x-8 text-16">
-            <button className="hover:text-teal-700 duration-300">
-              <li>Sign in</li>
-            </button>
-
-            <button
-              className="px-5 py-2 hover:shadow-lg hover:scale-105 hover:bg-black hover:text-white active:scale-100 duration-300 border-2 border-black rounded-md"
+            <Link
+              className="hover:text-teal-700 duration-300"
+              href='/signin'
             >
-              <li>Sign up</li>
-            </button>
+              <li>Sign in</li>
+            </Link>
+
+            <Link
+              className="px-5 py-2 hover:shadow-lg hover:scale-105 hover:bg-black hover:text-white active:scale-100 duration-300 border-2 border-black rounded-md"
+              href='/signup'
+            >
+              <li >Sign up</li>
+            </Link>
           </ul>
         </div>
       </Wrapper>

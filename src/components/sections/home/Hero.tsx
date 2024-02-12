@@ -1,3 +1,4 @@
+import Button from "@/components/shared/Button";
 import Image from "next/image";
 import React from "react";
 import Wrapper from "../../shared/Wrapper";
@@ -18,10 +19,13 @@ const Hero = () => {
               ideal for video creators, developers, and businesses. <br />
               More than 1 Billion people have heard our voices worldwide.
             </p>
-            <button className="mx-auto w-fit mt-7 px-5 py-2 bg-indigo-600 rounded-md text-white w">Get Started For Free</button>
+            <div className="mx-auto">
+              <Button text={"Get Started For Free"}/>
             </div>
+            
+          </div>
                   
-            <Image className="mt-10 mb-20" src={usecase} alt='Minimax Use Case'/>
+            <Image className="mt-10 mb-20 w-[70%]" src={usecase} alt='Minimax Use Case'/>
         </div>
       </Wrapper>
     </section>

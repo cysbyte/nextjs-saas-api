@@ -7,7 +7,7 @@ interface IProps {
 
 const QuestionBox: React.FC<IProps> = ({ question, answer }) => {
   return (
-    <div className="px-3 py-3 border-b">
+    <div className="px-2 py-2 border-b">
       <div className="flex justify-between items-center">
         <p className="mt-3 leading-8 text-black">{question}</p>
         {answer ? (

@@ -41,6 +41,7 @@ const MostAffordable = () => {
           </div>
           <div className="lg:flex-1 bg-[#d9d9d9] h-[400px] w-[600px] rounded-md"></div>
         </div>
+        
         <div className="my-24">
           <h3 className="text-2xl font-semibold text-start">
             Frequently asked questions

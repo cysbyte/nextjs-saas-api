@@ -58,7 +58,16 @@ const Hero = () => {
         </svg>
         <p className=" ml-2">Sign up with Google</p>
       </div>
-      <p className="mt-8"> <span className="text-slate-600 "> Don’t have an account? </span><span className="ml-1 underline"><Link href=''>Create an account</Link></span></p>
+      <p className="mt-8">
+        <span className="text-slate-600 "> By signing up, you agree to our </span>
+        <span className="ml-1 underline">
+          <Link href=''>Terms of Service</Link>
+        </span>
+        <span className="text-slate-600 "> and </span>
+        <span className="ml-1 underline">
+          <Link href=''>Privacy Policy</Link>
+        </span>
+      </p>
     </section>
   );
 };
