@@ -20,7 +20,7 @@ const MostAffordable = () => {
   return (
     <section>
       <Wrapper>
-        <div className="mt-20 flex flex-col items-center lg:items-start">
+        <div className="mt-10 md:mt-20 flex flex-col items-center lg:items-start">
           <h1 className="max-w-xl text-4xl sm:text-5xl font-bold mt-4 lg:leading-[60px]">
             Most affordable
             <br />
@@ -39,7 +39,7 @@ const MostAffordable = () => {
               generator enables you to craft engaging audio narratives.
             </p>
           </div>
-          <div className="lg:flex-1 bg-[#d9d9d9] h-[400px] w-[600px] rounded-md"></div>
+          <div className="lg:flex-1 bg-[#d9d9d9] h-300 w-400  md:h-[400px] md:w-[600px]  rounded-md"></div>
         </div>
         
         <div className="my-24">
