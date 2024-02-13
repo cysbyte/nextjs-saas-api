@@ -2,15 +2,15 @@ import Header from '@/components/layout/Header'
 import PriceingPlan from '@/components/sections/price/PriceingPlan'
 import ProductSideBar from '@/components/layout/ProductSideBar'
 import React from 'react'
-import Case from '@/components/sections/product/text-to-speech'
+import Case from '@/components/sections/product/voice'
 
-const TextToSpeech = () => {
+const Voice = () => {
   return (
       <main className='flex flex-row'>
-          <ProductSideBar productName='TextToSpeech'/>
-          <Case/>
+          <ProductSideBar productName='Voice'/>
+          <Case />
     </main>
   )
 }
 
-export default TextToSpeech
+export default Voice

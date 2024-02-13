@@ -3,9 +3,13 @@ import React from "react";
 import logo from "public/logo.png";
 import Link from "next/link";
 
-const ProductSideBar = () => {
+interface Props{
+  productName: string;
+}
+
+const ProductSideBar = ({productName}: Props) => {
   return (
-    <div className="flex flex-col justify-between h-screen flex-[1] border-r">
+    <div className="flex flex-col justify-between h-screen flex-[1] border-r sticky top-0">
       <div className="mt-6 mx-3">
         <Link className="hover:text-teal-700 duration-300" href={"/"}>
           <div>
@@ -18,7 +22,7 @@ const ProductSideBar = () => {
         </Link>
 
         <div className="mt-6 w-full rounded-md">
-          <div className="flex justify-start items-center hover:bg-gray-100 p-3">
+          <div className={`${productName === 'TextToSpeech'?'bg-gray-100':'bg-white'} flex justify-start items-center hover:bg-gray-100 p-3`}>
             <svg
               width="16"
               height="16"
@@ -48,12 +52,12 @@ const ProductSideBar = () => {
                 stroke-linejoin="round"
               />
             </svg>
-            <p className="ml-2">Text to Speech</p>
+            <Link href='/product/text-to-speech' className="ml-2">Text to Speech</Link>
           </div>
         </div>
 
         <div className="mt-2 w-full rounded-md">
-          <div className="flex justify-start items-center hover:bg-gray-100 p-3">
+        <div className={`${productName === 'Voice'?'bg-gray-100':'bg-white'} flex justify-start items-center hover:bg-gray-100 p-3`}>
             <svg
               width="16"
               height="16"
@@ -126,12 +130,12 @@ const ProductSideBar = () => {
               </defs>
             </svg>
 
-            <p className="ml-2">Voice</p>
+            <Link href='/product/voice' className="ml-2">Voice</Link>
           </div>
         </div>
 
         <div className="mt-2 w-full rounded-md">
-          <div className="flex justify-start items-center hover:bg-gray-100 p-3">
+        <div className={`${productName === 'APIAccess'?'bg-gray-100':'bg-white'} flex justify-start items-center hover:bg-gray-100 p-3`}>
             <svg
               width="16"
               height="16"
@@ -160,7 +164,7 @@ const ProductSideBar = () => {
         </div>
 
         <div className="mt-2 w-full rounded-md">
-          <div className="flex justify-start items-center hover:bg-gray-100 p-3">
+        <div className={`${productName === 'Subscription'?'bg-gray-100':'bg-white'} flex justify-start items-center hover:bg-gray-100 p-3`}>
             <svg
               width="16"
               height="16"
@@ -189,7 +193,7 @@ const ProductSideBar = () => {
         </div>
 
         <div className="mt-2 w-full rounded-md">
-          <div className="flex justify-start items-center hover:bg-gray-100 p-3">
+        <div className={`${productName === 'Support'?'bg-gray-100':'bg-white'} flex justify-start items-center hover:bg-gray-100 p-3`}>
             <svg
               width="16"
               height="16"
@@ -217,6 +221,7 @@ const ProductSideBar = () => {
           </div>
         </div>
       </div>
+
       <div className="my-4 px-2">
         <div className="border-b py-3">
           <h6 className="text-sm font-semibold">Plan name</h6>

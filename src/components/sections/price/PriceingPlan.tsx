@@ -1,4 +1,4 @@
-import PricingPlanBox from "@/components/shared/PriceingPlanBox";
+import PricingPlanBox from "@/components/sections/price/PriceingPlanBox";
 import QuestionBox from "@/components/shared/QuestionBox";
 import Wrapper from "@/components/shared/Wrapper";
 import React from "react";

@@ -10,7 +10,7 @@ const Hero = () => {
       <Wrapper>
         <div className="flex flex-col items-center justify-center">
           <div className="mt-12 md:mt-24 flex flex-col justify-center text-center">
-            <h1 className="mx-auto text-4xl sm:text-5xl font-bold mt-4 lg:leading-[60px]">
+            <h1 className="mx-auto max-w-fit text-4xl sm:text-5xl font-bold mt-4 lg:leading-[60px]">
               AI Voice Generator
             </h1>
             <p className="mx-auto text-center mt-6 text-lg text-slate-600 max-w-2xl leading-[30px] md:leading-[35px]">

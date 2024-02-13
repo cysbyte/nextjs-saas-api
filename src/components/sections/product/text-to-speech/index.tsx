@@ -1,7 +1,7 @@
 import PricingPlanButton from "@/components/shared/PriceingPlanButton";
 import React from "react";
 
-const Hero = () => {
+const Case = () => {
   return (
     <section className="flex-[5] h-screen w-full">
       <div className="max-w-3xl mt-10 ml-10">
@@ -93,4 +93,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default Case;

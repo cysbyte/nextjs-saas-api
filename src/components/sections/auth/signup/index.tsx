@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react"; //]
 
-const Hero = () => {
+const Case = () => {
   return (
     <section className="flex flex-col justify-center items-center">
       <div className="flex w-fit bg-white group cursor-pointer px-20 py-2 mt-24 rounded-md justify-center items-center">
@@ -41,7 +41,7 @@ const Hero = () => {
             />
           </g>
         </svg>
-        <p className=" ml-2">Sign in with Google</p>
+        <p className=" ml-2">Sign up with Google</p>
       </div>
       <div className="flex w-fit bg-white group cursor-pointer px-20 py-2 mt-6 rounded-md justify-center items-center">
         <svg
@@ -56,11 +56,20 @@ const Hero = () => {
             fill="#333333"
           />
         </svg>
-        <p className=" ml-2">Sign in with Google</p>
+        <p className=" ml-2">Sign up with Google</p>
       </div>
-      <p className="mt-8"> <span className="text-slate-600 "> Don’t have an account? </span><span className="ml-1 underline"><Link href=''>Create an account</Link></span></p>
+      <p className="mt-8">
+        <span className="text-slate-600 "> By signing up, you agree to our </span>
+        <span className="ml-1 underline">
+          <Link href=''>Terms of Service</Link>
+        </span>
+        <span className="text-slate-600 "> and </span>
+        <span className="ml-1 underline">
+          <Link href=''>Privacy Policy</Link>
+        </span>
+      </p>
     </section>
   );
 };
 
-export default Hero;
+export default Case;

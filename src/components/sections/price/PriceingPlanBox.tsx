@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import PricingPlanButton from "./PriceingPlanButton";
+import PricingPlanButton from "../../shared/PriceingPlanButton";
 
 interface IProps {
   title: string;
