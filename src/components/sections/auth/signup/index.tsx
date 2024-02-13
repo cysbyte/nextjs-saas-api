@@ -58,7 +58,7 @@ const Case = () => {
         </svg>
         <p className=" ml-2">Sign up with Google</p>
       </div>
-      <p className="mt-8">
+      <p className="mt-8 max-w-[78%] md:max-w-full text-center">
         <span className="text-slate-600 "> By signing up, you agree to our </span>
         <span className="ml-1 underline">
           <Link href=''>Terms of Service</Link>
