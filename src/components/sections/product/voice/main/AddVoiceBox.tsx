@@ -77,7 +77,7 @@ const AddVoiceBox: FC = () => {
           </div>
 
           <p className="text-[13px] mx-auto mt-2 text-center text-slate-400">2/1000</p>
-          <div className="mt-6 w-full">
+          <div className="mt-6 w-full cursor-pointer">
             <svg
               width="41"
               height="40"

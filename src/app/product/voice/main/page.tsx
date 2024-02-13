@@ -1,8 +1,5 @@
-import Header from '@/components/layout/Header'
-import PriceingPlan from '@/components/sections/price/PriceingPlan'
 import ProductSideBar from '@/components/layout/ProductSideBar'
-import React from 'react'
-import Case from '@/components/sections/product/voice'
+import Case from '@/components/sections/product/voice/main'
 
 const Voice = () => {
   return (

@@ -84,7 +84,7 @@ const MyCreatedBox: FC = () => {
           </p>
         </div>
         <div className="flex justify-between mt-6 w-full">
-          <div className="flex mx-auto items-center border-[2px] rounded-md px-4 py-1">
+          <div className="flex mx-auto items-center border-[2px] rounded-md px-4 py-1 cursor-pointer">
             <svg
               width="16"
               height="16"
@@ -117,7 +117,7 @@ const MyCreatedBox: FC = () => {
 
             <p className="ml-1">Use</p>
           </div>
-          <div className="flex mx-auto items-center border-[2px] rounded-md px-4 py-1">
+          <div className="flex mx-auto items-center border-[2px] rounded-md px-4 py-1 cursor-pointer">
             <svg
               width="16"
               height="16"
@@ -150,7 +150,7 @@ const MyCreatedBox: FC = () => {
 
             <p className="ml-1">Edit</p>
           </div>
-          <div className="flex mx-auto items-center border-[2px] rounded-md px-3 py-1">
+          <div className="flex mx-auto items-center border-[2px] rounded-md px-3 py-1 cursor-pointer">
             <svg
               width="16"
               height="16"

@@ -52,7 +52,7 @@ const ProductSideBar = ({productName}: Props) => {
                 stroke-linejoin="round"
               />
             </svg>
-            <Link href='/product/text-to-speech' className="ml-2">Text to Speech</Link>
+            <Link href='/product/text-to-speech' className="ml-2 w-full h-full">Text to Speech</Link>
           </div>
         </div>
 
@@ -130,7 +130,7 @@ const ProductSideBar = ({productName}: Props) => {
               </defs>
             </svg>
 
-            <Link href='/product/voice' className="ml-2">Voice</Link>
+            <Link href='/product/voice/main' className="ml-2 w-full h-full">Voice</Link>
           </div>
         </div>
 
@@ -159,7 +159,7 @@ const ProductSideBar = ({productName}: Props) => {
               </defs>
             </svg>
 
-            <p className="ml-2">API Access</p>
+            <p className="ml-2 w-full h-full">API Access</p>
           </div>
         </div>
 
@@ -188,7 +188,7 @@ const ProductSideBar = ({productName}: Props) => {
               />
             </svg>
 
-            <p className="ml-2">Subscription</p>
+            <p className="ml-2 w-full h-full">Subscription</p>
           </div>
         </div>
 
@@ -217,7 +217,7 @@ const ProductSideBar = ({productName}: Props) => {
               />
             </svg>
 
-            <p className="ml-2">Support</p>
+            <p className="ml-2 w-full h-full">Support</p>
           </div>
         </div>
       </div>
