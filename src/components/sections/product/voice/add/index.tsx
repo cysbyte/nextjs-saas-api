@@ -1,4 +1,4 @@
-import PricingPlanButton from "@/components/shared/PriceingPlanButton";
+import PricingPlanButton from "@/components/shared/PricingPlanButton";
 import Link from "next/link";
 import React, { useState } from "react";
 
@@ -125,7 +125,7 @@ const Case = () => {
                   Voice Names
                 </label>
                 <input
-                  className="appearance-none border rounded-md w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="appearance-none border rounded-md w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline placeholder:text-sm placeholder:pl-2"
                   id="voiceId"
                   type="text"
                   placeholder="Apple"
@@ -140,7 +140,7 @@ const Case = () => {
                   Voice Description
                 </label>
                 <textarea
-                  className="appearance-none border rounded-md w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="appearance-none border rounded-md w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline placeholder:text-sm placeholder:pl-2"
                   id="voiceId"
                   rows={2}
                   placeholder="Enter description here..."
@@ -166,7 +166,7 @@ const Case = () => {
               </label>
             </div>
             <div className="w-full my-4">
-              <PricingPlanButton text="Generate" />
+              <PricingPlanButton text="Generate" isScale={false} />
             </div>
           </form>
         </div>

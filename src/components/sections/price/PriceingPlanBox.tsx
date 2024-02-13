@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import PricingPlanButton from "../../shared/PriceingPlanButton";
+import PricingPlanButton from "../../shared/PricingPlanButton";
 
 interface IProps {
   title: string;
@@ -19,7 +19,7 @@ const PricingPlanBox: FC<IProps> = ({ title, price, start, description }) => {
             <span className="text-slate-600 ml-2">/month</span>
           </p>
           <div className="w-full mt-7">
-            <PricingPlanButton text={start} />
+            <PricingPlanButton text={'start'} isScale={true} />
           </div>
         </div>
 

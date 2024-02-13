@@ -1,4 +1,4 @@
-import PricingPlanButton from "@/components/shared/PriceingPlanButton";
+import PricingPlanButton from "@/components/shared/PricingPlanButton";
 import React, { useState } from "react";
 
 const Case = () => {

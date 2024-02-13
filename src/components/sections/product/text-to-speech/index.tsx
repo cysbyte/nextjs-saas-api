@@ -1,9 +1,9 @@
-import PricingPlanButton from "@/components/shared/PriceingPlanButton";
+import PricingPlanButton from "@/components/shared/PricingPlanButton";
 import React from "react";
 
 const Case = () => {
   return (
-    <section className="flex-[5] h-screen w-full">
+    <section className="flex-[5] h-full w-full overflow-auto">
       <div className="max-w-3xl mt-10 ml-10">
         <div className="border-b py-2">
           <h1 className="text-4xl font-semibold">Text to Speech</h1>
@@ -16,7 +16,7 @@ const Case = () => {
         <div className="mt-4">
           <h2 className=" font-semibold">Settings</h2>
 
-          <div className="w-full">
+          <div className="w-full border-b pb-5">
             <form className="bg-white w-full">
               <div className="pb-3 border-b">
                 <div className="mt-3 w-full">
@@ -27,7 +27,7 @@ const Case = () => {
                     Voice ID
                   </label>
                   <input
-                    className="appearance-none border rounded-md w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="appearance-none border rounded-md w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline placeholder:text-sm placeholder:pl-2"
                     id="voiceId"
                     type="text"
                     placeholder="Enter voice ID"
@@ -42,7 +42,7 @@ const Case = () => {
                     Voice Names
                   </label>
                   <input
-                    className="appearance-none border rounded-md w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="appearance-none border rounded-md w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline placeholder:text-sm placeholder:pl-2"
                     id="voiceId"
                     type="text"
                     placeholder="Apple"
@@ -57,7 +57,7 @@ const Case = () => {
                     Voice Description
                   </label>
                   <textarea
-                    className="appearance-none border rounded-md w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="appearance-none border rounded-md w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline placeholder:text-sm placeholder:pl-2"
                     id="voiceId"
                     rows={2}
                     placeholder="Enter description here..."
@@ -75,18 +75,28 @@ const Case = () => {
                     Text
                   </label>
                   <textarea
-                    className="appearance-none border rounded-md w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="appearance-none border rounded-md w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline placeholder:text-sm placeholder:pl-2"
                     id="voiceId"
                     rows={4}
                     placeholder="Enter voice ID"
                   />
                 </div>
+                <div className="mt-1 flex justify-between">
+                  <p className="text-[12px] text-slate-400">0/2500</p>
+                  <p className="text-[12px] text-slate-400">Token remaining 9500</p>
+                </div>
               </div>
               <div className="w-full mt-4">
-                <PricingPlanButton text="Generate" />
+                <PricingPlanButton text="Generate" isScale={false} />
               </div>
             </form>
           </div>
+
+          <div>
+            <h2 className="mt-3 font-semibold">Voice Audio</h2>
+            <p className="text-[13px] mt-2 text-slate-400">*You can click the generate button again to get a different voice.</p>
+          </div>
+
         </div>
       </div>
     </section>
