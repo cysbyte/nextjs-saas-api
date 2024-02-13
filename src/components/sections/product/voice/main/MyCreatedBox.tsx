@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { FC } from "react";
 
 const MyCreatedBox: FC = () => {
@@ -76,47 +77,52 @@ const MyCreatedBox: FC = () => {
                 My Created
               </h4>
             </div>
-            <div className="border-[2px] rounded-md px-1 py-1 text-sm text-slate-400">ID001</div>
+            <div className="border-[2px] rounded-md px-1 py-1 text-sm text-slate-400">
+              ID001
+            </div>
           </div>
 
           <p className="text-[13px] mx-auto mt-2 text-start px-2 text-slate-400">
             No description
           </p>
         </div>
-        <div className="flex justify-between mt-6 w-full">
-          <div className="flex mx-auto items-center border-[2px] rounded-md px-4 py-1 cursor-pointer">
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M8 1.33325C7.46957 1.33325 6.96086 1.54397 6.58579 1.91904C6.21071 2.29411 6 2.80282 6 3.33325V7.99992C6 8.53035 6.21071 9.03906 6.58579 9.41413C6.96086 9.78921 7.46957 9.99992 8 9.99992C8.53043 9.99992 9.03914 9.78921 9.41421 9.41413C9.78929 9.03906 10 8.53035 10 7.99992V3.33325C10 2.80282 9.78929 2.29411 9.41421 1.91904C9.03914 1.54397 8.53043 1.33325 8 1.33325Z"
-                stroke="#0F172A"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M12.6667 6.66675V8.00008C12.6667 9.23776 12.175 10.4247 11.2998 11.2999C10.4247 12.1751 9.23769 12.6667 8.00001 12.6667C6.76233 12.6667 5.57535 12.1751 4.70018 11.2999C3.82501 10.4247 3.33334 9.23776 3.33334 8.00008V6.66675"
-                stroke="#0F172A"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M8 12.6667V14.6667"
-                stroke="#0F172A"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
 
-            <p className="ml-1">Use</p>
-          </div>
+        <div className="flex justify-between mt-6 w-full">
+          <Link href="/product/text-to-speech">
+            <div className="flex mx-auto items-center border-[2px] rounded-md px-4 py-1 cursor-pointer">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M8 1.33325C7.46957 1.33325 6.96086 1.54397 6.58579 1.91904C6.21071 2.29411 6 2.80282 6 3.33325V7.99992C6 8.53035 6.21071 9.03906 6.58579 9.41413C6.96086 9.78921 7.46957 9.99992 8 9.99992C8.53043 9.99992 9.03914 9.78921 9.41421 9.41413C9.78929 9.03906 10 8.53035 10 7.99992V3.33325C10 2.80282 9.78929 2.29411 9.41421 1.91904C9.03914 1.54397 8.53043 1.33325 8 1.33325Z"
+                  stroke="#0F172A"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M12.6667 6.66675V8.00008C12.6667 9.23776 12.175 10.4247 11.2998 11.2999C10.4247 12.1751 9.23769 12.6667 8.00001 12.6667C6.76233 12.6667 5.57535 12.1751 4.70018 11.2999C3.82501 10.4247 3.33334 9.23776 3.33334 8.00008V6.66675"
+                  stroke="#0F172A"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M8 12.6667V14.6667"
+                  stroke="#0F172A"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+
+              <p className="ml-1">Use</p>
+            </div>
+          </Link>
           <div className="flex mx-auto items-center border-[2px] rounded-md px-4 py-1 cursor-pointer">
             <svg
               width="16"

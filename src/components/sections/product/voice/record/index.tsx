@@ -1,36 +1,12 @@
 import PricingPlanButton from "@/components/shared/PriceingPlanButton";
-import Link from "next/link";
 import React, { useState } from "react";
 
 const Case = () => {
   return (
     <aside className="flex-[5] w-full h-screen mb-3">
-      <div className="max-w-full mt-5 ml-10">
-        <div className="border-b py-4">
-          <h1 className="text-4xl font-semibold">Voice</h1>
-          <p className="mt-3 text-base text-slate-600 leading-[30px]">
-            Unlock the potential of our advanced technology to produce lifelike,
-            <br />
-            engaging speech across various languages.
-          </p>
-        </div>
-        <div className="py-2">
-          <h1 className="text-2xl font-semibold">Add Voice</h1>
-          <p className="mt-3 text-sm text-slate-600 leading-[20px]">
-            The file upload requirements are as follows:
-            <li>
-              The audio files to be uploaded should be in one of the following
-              formats: mp3, m4a, or wav.
-            </li>
-            <li>
-              The duration of the uploaded audio files should be at least 30
-              seconds and no more than 5 minutes.
-            </li>
-            <li>The size of the uploaded audio files must not exceed 20 MB.</li>
-          </p>
-        </div>
-        <div>
-          <form className="bg-white w-full max-w-3xl">
+          <div>
+              <div>
+          {/* <form className="bg-white w-full max-w-3xl">
             <div className="pb-2">
               <h4 className="text-base font-semibold">Reference Audio</h4>
               <div className="rounded-md border-[2px] w-full p-10">
@@ -80,7 +56,6 @@ const Case = () => {
                     />
                   </label>
 
-                  <Link href=''>
                   <div className="flex mx-auto items-center border-[2px] rounded-md px-4 py-1 cursor-pointer">
                     <svg
                       width="16"
@@ -113,8 +88,7 @@ const Case = () => {
                     </svg>
 
                     <p className="ml-2">Record</p>
-                    </div>
-                  </Link>
+                  </div>
                 </div>
               </div>
               <div className="mt-3 w-full">
@@ -168,7 +142,7 @@ const Case = () => {
             <div className="w-full my-4">
               <PricingPlanButton text="Generate" />
             </div>
-          </form>
+          </form> */}
         </div>
       </div>
     </aside>

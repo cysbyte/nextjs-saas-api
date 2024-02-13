@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { FC } from "react";
 
 const VoiceItemBox: FC = () => {
@@ -19,7 +20,9 @@ const VoiceItemBox: FC = () => {
           </p>
         </div>
         <div className="flex justify-between mt-6 w-full gap-x-3">
+        
           <div className="flex-1">
+            <Link href='/product/voice/record'>
             <div className="flex mx-auto justify-center items-center border-[2px] rounded-md px-7 py-1 cursor-pointer">
               <svg
                 width="16"
@@ -52,8 +55,10 @@ const VoiceItemBox: FC = () => {
               </svg>
 
               <p className="ml-1">Use</p>
+              </div>
+            </Link>
             </div>
-          </div>
+            
 
           <div className="flex-1 items-center">
             <div className="flex mx-auto justify-center items-center border-[2px] rounded-md px-7 py-1 cursor-pointer">
