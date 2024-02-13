@@ -7,24 +7,25 @@ import VoiceItemBox from "./VoiceItemBox";
 
 const Case = () => {
   const [myCreatedBoxList, setMyCreatedBoxList] = useState([
-    <MyCreatedBox />,
-    <MyCreatedBox />,
-    <MyCreatedBox />,
-    <MyCreatedBox />,
-    <MyCreatedBox />,
-    <MyCreatedBox />,
+    { id: 0, box: <MyCreatedBox /> },
+    { id: 1, box: <MyCreatedBox /> },
+    { id: 2, box: <MyCreatedBox /> },
+    { id: 3, box: <MyCreatedBox /> },
+    { id: 4, box: <MyCreatedBox /> },
+
   ]);
   const [voiceItemBoxList, setVoiceItemBoxList] = useState([
-    <VoiceItemBox />,
-    <VoiceItemBox />,
-    <VoiceItemBox />,
-    <VoiceItemBox />,
-    <VoiceItemBox />,
-    <VoiceItemBox />,
-    <VoiceItemBox />,
-    <VoiceItemBox />,
-    <VoiceItemBox />,
-    <VoiceItemBox />,
+    { id: 0, box: <VoiceItemBox /> },
+    { id: 1, box: <VoiceItemBox /> },
+    { id: 2, box: <VoiceItemBox /> },
+    { id: 3, box: <VoiceItemBox /> },
+    { id: 4, box: <VoiceItemBox /> },
+    { id: 5, box: <VoiceItemBox /> },
+    { id: 6, box: <VoiceItemBox /> },
+    { id: 7, box: <VoiceItemBox /> },
+    { id: 8, box: <VoiceItemBox /> },
+    { id: 9, box: <VoiceItemBox /> },
+
   ]);
 
   return (
@@ -44,10 +45,10 @@ const Case = () => {
           </Link>
 
           {myCreatedBoxList.map((item, index) => (
-            <div key={index}>{item}</div>
+            <div key={item.id}>{item.box}</div>
           ))}
           {voiceItemBoxList.map((item, index) => (
-            <div key={index}>{item}</div>
+            <div key={item.id}>{item.box}</div>
           ))}
         </div>
       </div>

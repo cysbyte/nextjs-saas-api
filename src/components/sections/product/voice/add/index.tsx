@@ -5,7 +5,7 @@ import React, { useState } from "react";
 const Case = () => {
   return (
     <aside className="flex-[5] w-full h-screen mb-3">
-      <div className="max-w-full mt-10 ml-10">
+      <div className="max-w-full mt-5 ml-10">
         <div className="border-b py-4">
           <h1 className="text-4xl font-semibold">Voice</h1>
           <p className="mt-3 text-base text-slate-600 leading-[30px]">
@@ -31,7 +31,7 @@ const Case = () => {
         </div>
         <div>
           <form className="bg-white w-full max-w-3xl">
-            <div className="pb-3 border-b">
+            <div className="pb-2">
               <h4 className="text-base font-semibold">Reference Audio</h4>
               <div className="rounded-md border-[2px] w-full p-10">
                 <h4 className="font-semibold text-center mx-auto">
