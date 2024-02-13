@@ -43,13 +43,29 @@ const Case = () => {
           <Link href="/product/voice/add">
             <AddVoiceBox />
           </Link>
+          <MyCreatedBox/>
+          <MyCreatedBox/>
+          <MyCreatedBox/>
+          <MyCreatedBox/>
+          <MyCreatedBox/>
+          <MyCreatedBox />
+          <VoiceItemBox/>
+          <VoiceItemBox/>
+          <VoiceItemBox/>
+          <VoiceItemBox/>
+          <VoiceItemBox/>
+          <VoiceItemBox/>
+          <VoiceItemBox/>
+          <VoiceItemBox/>
+          <VoiceItemBox/>
+          <VoiceItemBox/>
 
-          {myCreatedBoxList.map((item, index) => (
+          {/* {myCreatedBoxList.map((item, index) => (
             <div key={item.id}>{item.box}</div>
           ))}
           {voiceItemBoxList.map((item, index) => (
             <div key={item.id}>{item.box}</div>
-          ))}
+          ))} */}
         </div>
       </div>
     </aside>
