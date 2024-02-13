@@ -20,7 +20,7 @@ const MostAffordable = () => {
   return (
     <section>
       <Wrapper>
-        <div className="mt-10 md:mt-20 flex flex-col items-center lg:items-start">
+        <div className="mt-10 md:mt-20 flex flex-col items-center lg:items-start text-center">
           <h1 className="max-w-xl text-4xl sm:text-5xl font-bold mt-4 lg:leading-[60px]">
             Most affordable
             <br />
@@ -31,8 +31,8 @@ const MostAffordable = () => {
             a cost 10x lower than other Generative AI competitors.
           </p>
         </div>
-        <div className="flex flex-col lg:flex-row items-center lg:items-start h-auto mt-24">
-          <div className="lg:flex-1 my-24 ">
+        <div className="flex flex-col lg:flex-row items-center lg:items-start h-auto mt-12 md:mt-24">
+          <div className="lg:flex-1 my-12 md:my-24 ">
             <h4 className="text-14 font-semibold text-lg mt-4">Videos</h4>
             <p className="mt-6 text-lg text-slate-600 max-w-xl leading-[30px]">
               For content creators and short story writers alike, our AI voice
