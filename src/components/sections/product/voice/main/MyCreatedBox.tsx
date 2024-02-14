@@ -87,9 +87,8 @@ const MyCreatedBox: FC = () => {
           </p>
         </div>
 
-        <div className="flex justify-between mt-6 w-full">
-          <Link href="/product/text-to-speech">
-            <div className="flex mx-auto items-center border-[2px] rounded-md px-4 py-1 cursor-pointer">
+        <div className="flex justify-between mt-6 w-full gap-x-3">
+          <Link href="/product/text-to-speech" className="btn-border flex-1">
               <svg
                 width="16"
                 height="16"
@@ -121,9 +120,8 @@ const MyCreatedBox: FC = () => {
               </svg>
 
               <p className="ml-1">Use</p>
-            </div>
           </Link>
-          <div className="flex mx-auto items-center border-[2px] rounded-md px-4 py-1 cursor-pointer">
+          <button className="btn-border flex-1">
             <svg
               width="16"
               height="16"
@@ -155,8 +153,8 @@ const MyCreatedBox: FC = () => {
             </svg>
 
             <p className="ml-1">Edit</p>
-          </div>
-          <div className="flex mx-auto items-center border-[2px] rounded-md px-3 py-1 cursor-pointer">
+          </button>
+          <button className="btn-border flex-1">
             <svg
               width="16"
               height="16"
@@ -188,7 +186,7 @@ const MyCreatedBox: FC = () => {
             </svg>
 
             <p className="ml-1">Delete</p>
-          </div>
+          </button>
         </div>
       </div>
     </div>

@@ -1,3 +1,6 @@
+"use client";
+
+import AudioRecorder from "@/components/shared/AudioRecorder";
 import PricingPlanButton from "@/components/shared/PricingPlanButton";
 import React from "react";
 
@@ -83,7 +86,9 @@ const Case = () => {
                 </div>
                 <div className="mt-1 flex justify-between">
                   <p className="text-[12px] text-slate-400">0/2500</p>
-                  <p className="text-[12px] text-slate-400">Token remaining 9500</p>
+                  <p className="text-[12px] text-slate-400">
+                    Token remaining 9500
+                  </p>
                 </div>
               </div>
               <div className="w-full mt-4">
@@ -92,11 +97,17 @@ const Case = () => {
             </form>
           </div>
 
-          <div>
+          <div className="mb-6">
             <h2 className="mt-3 font-semibold">Voice Audio</h2>
-            <p className="text-[13px] mt-2 text-slate-400">*You can click the generate button again to get a different voice.</p>
+            <p className="text-[13px] mt-2 text-slate-400">
+              *You can click the generate button again to get a different voice.
+            </p>
           </div>
-
+          <div className="mt-4">
+            <div>
+              <AudioRecorder />
+            </div>
+          </div>
         </div>
       </div>
     </section>

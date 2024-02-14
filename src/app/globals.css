@@ -2,3 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+    .btn-border {
+      @apply flex mx-auto justify-center hover:bg-indigo-600 hover:text-white duration-300 items-center border-[2px] rounded-md px-3 py-1 cursor-pointer;
+    }
+  }

@@ -23,7 +23,7 @@ const VoiceItemBox: FC = () => {
         
           <div className="flex-1">
             <Link href='/product/voice/record'>
-            <div className="flex mx-auto justify-center items-center border-[2px] rounded-md px-7 py-1 cursor-pointer">
+            <div className="btn-border">
               <svg
                 width="16"
                 height="16"
@@ -61,7 +61,7 @@ const VoiceItemBox: FC = () => {
             
 
           <div className="flex-1 items-center">
-            <div className="flex mx-auto justify-center items-center border-[2px] rounded-md px-7 py-1 cursor-pointer">
+            <div className="btn-border">
               <svg
                 width="17"
                 height="16"
