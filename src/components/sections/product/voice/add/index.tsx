@@ -1,10 +1,11 @@
+import AudioRecorder from "@/components/shared/AudioRecorder";
 import PricingPlanButton from "@/components/shared/PricingPlanButton";
 import Link from "next/link";
 import React, { useState } from "react";
 
 const Case = () => {
   return (
-    <aside className="flex-[5] w-full h-screen mb-3">
+    <aside className="flex-[5] w-full h-auto mb-3">
       <div className="max-w-full mt-5 ml-10">
         <div className="border-b py-4">
           <h1 className="text-4xl font-semibold">Voice</h1>
@@ -169,6 +170,10 @@ const Case = () => {
               <PricingPlanButton text="Generate" isScale={false} />
             </div>
           </form>
+        </div>
+
+        <div className="mt-4 max-w-3xl">
+          <AudioRecorder/>
         </div>
       </div>
     </aside>
