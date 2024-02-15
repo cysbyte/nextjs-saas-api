@@ -148,7 +148,7 @@ const RecordControl: FC<Props> = (props) => {
   return (
     <div className="flex flex-col justify-between items-center mt-4">
       <div className="flex justify-center items-center w-full ">
-        <div className="relative w-full h-auto mx-auto ml-4">
+        <div className="relative w-full h-auto mx-auto ml-4 mb-6">
           <div className="absolute">
             <svg
               width="680"
@@ -939,7 +939,7 @@ const RecordControl: FC<Props> = (props) => {
         </div>
       </div>
 
-      <div className="w-full flex justify-between mx-5 mt-12 px-4">
+      <div className="w-full flex justify-between mx-5 pt-6 px-4">
         <p className="text-[12px] text-slate-400">
           {recordingStatus === "inactive"
             ? "00:00"
@@ -950,7 +950,7 @@ const RecordControl: FC<Props> = (props) => {
         <p className="text-[12px] text-slate-400">0:00</p>
       </div>
 
-      <div className="w-full flex items-center justify-between px-4 mt-4">
+      <div className="w-full flex items-center justify-between px-4 mt-6">
         <div className="flex gap-x-4">
           {recordingStatus !== "inactive" ? (
             <button

@@ -5,22 +5,25 @@ import PlayControl from "./PlayControl";
 import PricingPlanButton from "./PricingPlanButton";
 import RecordControl from "./RecordControl";
 
-const AudioRecorder: FC = () => {
+type Props = {
+  isDone: boolean;
+}
+const AudioRecorder: FC<Props> = (props) => {
   const [audio, setAudio] = useState<string>("");
-  const [isDone, setIsDone] = useState<boolean>(false);
+  const [isDone, setIsDone] = useState<boolean>(props.isDone);
 
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
   return (
     <div className="w-full">
-      <div className="border rounded-md bg-white shadow-xl w-full h-auto justify-start px-6 py-6 flex flex-col">
-        <div className="w-full h-auto border-b pb-6">
+      <div className="border rounded-md bg-white shadow-xl w-full h-auto justify-start px-6 py-3 flex flex-col">
+        <div className="w-full h-auto border-b pb-3">
           <h2 className="text-base text-center font-bold whitespace-pre-line leading-8 text-black">
-            Record Audio
+            {!isDone ? 'Record Audio' : 'Audio'}
           </h2>
         </div>
 
-        <div>
+        <div className="py-6">
           {!isDone && (
             <div className="">
               <RecordControl

@@ -105,7 +105,7 @@ const Case = () => {
           </div>
           <div className="mt-4">
             <div>
-              <AudioRecorder />
+              <AudioRecorder isDone={true}  />
             </div>
           </div>
         </div>

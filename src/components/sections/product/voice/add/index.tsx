@@ -17,8 +17,9 @@ const Case = () => {
         </div>
         <div className="py-2">
           <h1 className="text-2xl font-semibold">Add Voice</h1>
-          <p className="mt-3 text-md text-slate-600 leading-[30px]">
+          <div className="ml-0 text-md text-slate-600 leading-[30px]">
             The file upload requirements are as follows:
+            <ul className="list-disc list-inside">
             <li>
               The audio files to be uploaded should be in one of the following
               formats: mp3, m4a, or wav.
@@ -27,8 +28,9 @@ const Case = () => {
               The duration of the uploaded audio files should be at least 30
               seconds and no more than 5 minutes.
             </li>
-            <li>The size of the uploaded audio files must not exceed 20 MB.</li>
-          </p>
+              <li>The size of the uploaded audio files must not exceed 20 MB.</li>
+            </ul>
+          </div>
         </div>
         <div>
           <form className="bg-white w-full max-w-3xl">
@@ -173,7 +175,7 @@ const Case = () => {
         </div>
 
         <div className="mt-4 max-w-3xl">
-          <AudioRecorder/>
+          <AudioRecorder isDone={true} />
         </div>
       </div>
     </aside>
