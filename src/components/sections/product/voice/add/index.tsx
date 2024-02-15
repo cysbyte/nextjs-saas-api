@@ -42,7 +42,7 @@ const Case = () => {
                 </h4>
                 <div className="w-[20%] mx-auto flex gap-x-3 justify-center mt-4">
                   <label htmlFor="file">
-                    <div className="flex mx-auto items-center border-[2px] rounded-md px-4 py-1 cursor-pointer">
+                    <button className="flex mx-auto items-center border-[2px] rounded-md px-4 py-1 cursor-pointer">
                       <svg
                         width="16"
                         height="16"
@@ -74,7 +74,7 @@ const Case = () => {
                       </svg>
 
                       <p className="ml-2">Upload</p>
-                    </div>
+                    </button>
                     <input
                       type="file"
                       id="file"
@@ -83,7 +83,7 @@ const Case = () => {
                     />
                   </label>
 
-                  <Link href=''>
+                  <Link href='/product/voice/add?modal=true'>
                   <div className="flex mx-auto items-center border-[2px] rounded-md px-4 py-1 cursor-pointer">
                     <svg
                       width="16"
@@ -175,7 +175,7 @@ const Case = () => {
         </div>
 
         <div className="mt-4 max-w-3xl">
-          <AudioRecorder isDone={true} />
+          <AudioRecorder isDone={false} />
         </div>
       </div>
     </aside>
