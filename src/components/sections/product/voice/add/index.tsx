@@ -17,7 +17,7 @@ const Case = () => {
         </div>
         <div className="py-2">
           <h1 className="text-2xl font-semibold">Add Voice</h1>
-          <p className="mt-3 text-sm text-slate-600 leading-[20px]">
+          <p className="mt-3 text-md text-slate-600 leading-[30px]">
             The file upload requirements are as follows:
             <li>
               The audio files to be uploaded should be in one of the following
@@ -34,7 +34,7 @@ const Case = () => {
           <form className="bg-white w-full max-w-3xl">
             <div className="pb-2">
               <h4 className="text-base font-semibold">Reference Audio</h4>
-              <div className="rounded-md border-[2px] w-full p-10">
+              <div className="rounded-md border-[2px] w-full p-16">
                 <h4 className="font-semibold text-center mx-auto">
                   Drop file here or record audio
                 </h4>

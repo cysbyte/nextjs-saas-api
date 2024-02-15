@@ -80,7 +80,7 @@ const Case = () => {
                   <textarea
                     className="appearance-none border rounded-md w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline placeholder:text-sm placeholder:pl-2"
                     id="voiceId"
-                    rows={4}
+                    rows={8}
                     placeholder="Enter voice ID"
                   />
                 </div>
