@@ -15,7 +15,7 @@ export default function Products() {
 
     return (
         <>
-            <RecordModal title="" onClose={onClose} onOk={onOk}/>                     
+            <RecordModal/>                     
         </>
     )
 }

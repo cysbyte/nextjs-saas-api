@@ -9,7 +9,7 @@ type Props = {
   onOk: () => void;
 };
 
-export default function RecordModal({ title, onClose, onOk }: Props) {
+export default function RecordModal() {
   const searchParams = useSearchParams();
   const dialogRef = useRef<null | HTMLDialogElement>(null);
   const modal = searchParams?.get("modal");
@@ -22,15 +22,15 @@ export default function RecordModal({ title, onClose, onOk }: Props) {
     }
   }, [modal]);
 
-  const closeDialog = () => {
-    dialogRef.current?.close();
-    onClose();
-  };
+  // const closeDialog = () => {
+  //   dialogRef.current?.close();
+  //   onClose();
+  // };
 
-  const clickOk = () => {
-    onOk();
-    closeDialog();
-  };
+  // const clickOk = () => {
+  //   onOk();
+  //   closeDialog();
+  // };
 
   const dialog: JSX.Element | null =
     modal === "true" ? (
