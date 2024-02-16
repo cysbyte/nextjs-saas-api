@@ -236,7 +236,7 @@ const Case = () => {
               </div>
             </div>
             <div className="w-full my-4">
-              <PricingPlanButton text="Generate" isScale={false} />
+              <PricingPlanButton text="Save Voice" isScale={false} />
             </div>
           </form>
         </div>

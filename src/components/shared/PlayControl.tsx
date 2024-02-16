@@ -95,11 +95,18 @@ const PlayControl: FC<Props> = (props) => {
     setIsTrimming(false);
   }
 
-  const [boxes, setBoxes] = useState([]);
+  const [boxList, setBoxList] = React.useState<any>([]);
 
-  const handleClick = ({ pageX, pageY }:{pageX: number, pageY:number}) => {
-    // on every click push a new coordinate to the boxes array
-    console.log(pageX, pageY)
+  const handleClick = (e:any) => {
+    if (e.target.classList.contains("btn")) {
+      setBoxList([]);
+      return;
+    }
+    setBoxList((prev: any) => {
+      const { pageX, pageY } = e;
+      const newBox = { left: pageX, top: pageY };
+      return [...prev, newBox];
+    });
   };
 
   return (

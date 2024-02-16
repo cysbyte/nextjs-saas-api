@@ -158,6 +158,10 @@ const RecordControl: FC<Props> = (props) => {
   const seconds = Math.floor((elapsedTime % 6000) / 100);
   const milliseconds = elapsedTime * 10;
 
+  if (milliseconds === 30000) {
+    props.setIsDone(true);
+  }
+
   return (
     <>
       <div className="flex flex-col">
@@ -167,8 +171,8 @@ const RecordControl: FC<Props> = (props) => {
           </h2>
         </div>
       <div className="flex justify-center items-center w-full mx-auto">
-        <div className="relative w-full h-auto mx-auto">
-          <div className="absolute w-full mx-auto">
+        <div className="relative w-fit h-auto mx-auto">
+          <div className=" w-fit ">
             <svg
               width="680"
               height="40"
@@ -266,18 +270,29 @@ const RecordControl: FC<Props> = (props) => {
           </div>
 
             <div
-              className={`absolute w-full overflow-hidden mx-auto`}
+              className={`absolute overflow-hidden mx-auto left-0 top-0`}
               style={{
                 width: `${Math.floor((milliseconds * 100) / 30000)}%`,
               }}
             >
+              <div className="relative w-full mx-auto">
+                <svg
+                    width="4"
+                    height="40"
+                    viewBox="0 0 4 40"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="absolute right-0 top-0"
+                  >
+                    <rect width="4" height="40" rx="2" fill="#6366F1" />
+                  </svg>
               <svg
                 width="680"
                 height="40"
                 viewBox="0 0 680 40"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="ml-11"
+                className=""
               >
                 <rect
                   x="6"
@@ -951,7 +966,8 @@ const RecordControl: FC<Props> = (props) => {
                   rx="2"
                   fill="#34D399"
                 />
-              </svg>
+                </svg>
+                </div>
             </div>
 
           <div
@@ -1328,7 +1344,7 @@ const RecordControl: FC<Props> = (props) => {
         </div>
       </div>
 
-      <div className="w-full mx-auto flex justify-between py-4 px-11">
+      <div className="w-full mx-auto flex justify-between pb-4 px-11 -mt-5">
         <p className="text-[12px] text-slate-400">0:00</p>
         <p className="text-[12px] text-slate-400">0:00</p>
       </div>
