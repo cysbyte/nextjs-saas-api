@@ -159,7 +159,7 @@ const ProductSideBar = ({productName}: Props) => {
               </defs>
             </svg>
 
-            <p className="ml-2 w-full h-full">API Access</p>
+            <Link href='/product/api-access' className="ml-2 w-full h-full">API Access</Link>
           </div>
         </div>
 

@@ -18,11 +18,6 @@ const AudioRecorder: FC<Props> = (props) => {
   return (
     <div className="w-full">
       <div className="border rounded-md bg-white shadow-xl w-full h-auto justify-start flex flex-col">
-        <div className="w-full h-auto">
-          <h2 className="text-base text-center font-bold whitespace-pre-line leading-8 text-black py-5">
-            {!isDone ? 'Record Audio' : 'Audio'}
-          </h2>
-        </div>
 
         <div className="">
           {!isDone && (

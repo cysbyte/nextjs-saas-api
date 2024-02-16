@@ -12,6 +12,7 @@ const PlayControl: FC<Props> = (props) => {
 
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [progressTime, setProgressTime] = useState<number>(0);
+  const [isTrimming, setIsTrimming] = useState<boolean>(false);
 
   let interval: string | number | NodeJS.Timeout | undefined;
 
@@ -50,7 +51,7 @@ const PlayControl: FC<Props> = (props) => {
   };
 
   const handleTrimClick = () => {
-    props.setIsDone(false);
+    //props.setIsDone(false);
   }
 
   // useEffect(() => {
@@ -86,9 +87,34 @@ const PlayControl: FC<Props> = (props) => {
     return "00:00";
   };
 
+  const handleCutClick = () => {
+    setIsTrimming(true);
+  }
+
+  const handleCancelCutClick = () => {
+    setIsTrimming(false);
+  }
+
+  const [boxes, setBoxes] = useState([]);
+
+  const handleClick = ({ pageX, pageY }:{pageX: number, pageY:number}) => {
+    // on every click push a new coordinate to the boxes array
+    console.log(pageX, pageY)
+  };
+
   return (
     <>
-    <div className="flex flex-col">
+      <div className="flex flex-col">
+      <div className="w-full h-auto relative">
+          <h2 className="text-base text-center font-bold whitespace-pre-line leading-8 text-black py-5">
+            Audio
+          </h2>
+          {isTrimming && <div className="absolute h-fit flex top-5 right-7 gap-x-3">
+            <button className="btn-border w-[70px] text-sm">Trim</button>
+            <button onClick={handleCancelCutClick} className="btn-border w-[70px] text-sm">Cancel</button>
+          </div>
+          }
+        </div>
       <div className="flex justify-center items-center w-fit mx-auto">
         <div className="relative w-fit h-auto mx-auto">
           <div className="absolute w-fit mx-auto">
@@ -558,7 +584,8 @@ const PlayControl: FC<Props> = (props) => {
           </div>
 
           <div
-            className="absolut w-full overflow-hidden left-0"
+              className="absolut w-full overflow-hidden left-0"
+              onClick={handleClick}
             style={{
               width: `${
                 audioRef.current && Math.floor((progressTime * 100) / audioRef.current.duration)
@@ -1241,7 +1268,7 @@ const PlayControl: FC<Props> = (props) => {
               />
             </svg>
           </button>
-          <button onClick={handleTrimClick}>
+          {!isTrimming && <button onClick={handleCutClick}>
             <svg
               width="24"
               height="24"
@@ -1286,7 +1313,7 @@ const PlayControl: FC<Props> = (props) => {
               />
             </svg>
           </button>
-
+          }
           <select
             id="speed"
             className="bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block p-2.5 w-fit"

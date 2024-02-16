@@ -160,7 +160,12 @@ const RecordControl: FC<Props> = (props) => {
 
   return (
     <>
-          <div className="flex flex-col">
+      <div className="flex flex-col">
+      <div className="w-full h-auto">
+          <h2 className="text-base text-center font-bold whitespace-pre-line leading-8 text-black py-5">
+            Record Audio
+          </h2>
+        </div>
       <div className="flex justify-center items-center w-full mx-auto">
         <div className="relative w-full h-auto mx-auto">
           <div className="absolute w-full mx-auto">
