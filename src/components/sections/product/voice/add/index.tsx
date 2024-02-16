@@ -1,11 +1,13 @@
 import AudioRecorder from "@/components/shared/AudioRecorder";
 import PricingPlanButton from "@/components/shared/PricingPlanButton";
+import Dialog from "@/components/shared/RecordModal";
 import Link from "next/link";
 import React, { useState } from "react";
 
 const Case = () => {
+  
   return (
-    <aside className="flex-[5] w-full h-auto mb-3">
+    <aside className="flex-[5] w-full h-auto mb-3">     
       <div className="max-w-full mt-5 ml-10">
         <div className="border-b py-4">
           <h1 className="text-4xl font-semibold">Voice</h1>
@@ -33,6 +35,7 @@ const Case = () => {
           </div>
         </div>
         <div>
+          
           <form className="bg-white w-full max-w-3xl">
             <div className="pb-2">
               <h4 className="text-base font-semibold">Reference Audio</h4>
@@ -83,7 +86,7 @@ const Case = () => {
                     />
                   </label>
 
-                  <Link href='/product/voice/add?modal=true'>
+                  <Link href='/product/voice?modal=true'>
                   <div className="flex mx-auto items-center border-[2px] rounded-md px-4 py-1 cursor-pointer">
                     <svg
                       width="16"
@@ -120,7 +123,10 @@ const Case = () => {
                   </Link>
                 </div>
               </div>
-              <div className="mt-3 w-full">
+            </div>
+
+            <div>
+            <div className="mt-3 w-full">
                 <label
                   className="block text-black text-sm mb-2 font-semibold"
                   htmlFor="voiceId"
@@ -149,8 +155,7 @@ const Case = () => {
                   placeholder="Enter description here..."
                 />
               </div>
-            </div>
-            <div className="flex justify-start items-start">
+            <div className="flex justify-start items-start mt-5">
               <input
                 className="mt-1 mr-2"
                 type="checkbox"
@@ -167,6 +172,68 @@ const Case = () => {
                 activities. I also reaffirm my commitment to adhere to the Terms
                 of Service and Privacy Policy of useHifi.
               </label>
+              </div>
+            </div>
+            <div className="w-full my-4">
+              <PricingPlanButton text="Generate" isScale={false} />
+            </div>
+          </form>
+
+
+          <form className="bg-white w-full max-w-3xl">
+            <div className="pb-2">
+              <h4 className="text-base font-semibold">Reference Audio</h4>
+              <AudioRecorder isDone={true} hasDownload={false} />
+            </div>
+
+            <div>
+            <div className="mt-3 w-full">
+                <label
+                  className="block text-black text-sm mb-2 font-semibold"
+                  htmlFor="voiceId"
+                >
+                  Voice Names
+                </label>
+                <input
+                  className="appearance-none border rounded-md w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline placeholder:text-sm placeholder:pl-2"
+                  id="voiceId"
+                  type="text"
+                  placeholder="Apple"
+                />
+              </div>
+
+              <div className="mt-3 w-full">
+                <label
+                  className="block text-black text-sm mb-2 font-semibold"
+                  htmlFor="voiceId"
+                >
+                  Voice Description
+                </label>
+                <textarea
+                  className="appearance-none border rounded-md w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline placeholder:text-sm placeholder:pl-2"
+                  id="voiceId"
+                  rows={2}
+                  placeholder="Enter description here..."
+                />
+              </div>
+            <div className="flex justify-start items-start mt-5">
+              <input
+                className="mt-1 mr-2"
+                type="checkbox"
+                id="agree"
+                name=""
+                value="true"
+              />
+              <label htmlFor="agree" className="text-[12px] text-slate-400">
+                {" "}
+                I confirm that I possess all the necessary rights and
+                permissions to upload and replicate these voice samples.
+                Furthermore, I assure that I will not utilize the content
+                created by the platform for any unlawful, deceitful, or damaging
+                activities. I also reaffirm my commitment to adhere to the Terms
+                of Service and Privacy Policy of useHifi.
+              </label>
+              </div>
             </div>
             <div className="w-full my-4">
               <PricingPlanButton text="Generate" isScale={false} />
@@ -175,8 +242,10 @@ const Case = () => {
         </div>
 
         <div className="mt-4 max-w-3xl">
-          <AudioRecorder isDone={false} />
+          <AudioRecorder isDone={true} hasDownload={true} />
         </div>
+
+        
       </div>
     </aside>
   );

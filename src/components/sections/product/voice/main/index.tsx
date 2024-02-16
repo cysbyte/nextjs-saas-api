@@ -39,7 +39,7 @@ const Case = () => {
           </p>
         </div>
 
-        <div className="mt-4 grid grid-cols-3 gap-x-2 gap-y-2">
+        <div className="mt-4 grid grid-cols-3 gap-x-2 gap-y-2 w-[1100px] overflow-auto">
           <Link href="/product/voice/add">
             <AddVoiceBox />
           </Link>

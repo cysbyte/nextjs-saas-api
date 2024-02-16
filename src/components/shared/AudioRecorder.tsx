@@ -7,6 +7,7 @@ import RecordControl from "./RecordControl";
 
 type Props = {
   isDone: boolean;
+  hasDownload: boolean;
 }
 const AudioRecorder: FC<Props> = (props) => {
   const [audio, setAudio] = useState<string>("");
@@ -16,14 +17,14 @@ const AudioRecorder: FC<Props> = (props) => {
 
   return (
     <div className="w-full">
-      <div className="border rounded-md bg-white shadow-xl w-full h-auto justify-start px-6 py-3 flex flex-col">
-        <div className="w-full h-auto border-b pb-3">
-          <h2 className="text-base text-center font-bold whitespace-pre-line leading-8 text-black">
+      <div className="border rounded-md bg-white shadow-xl w-full h-auto justify-start flex flex-col">
+        <div className="w-full h-auto">
+          <h2 className="text-base text-center font-bold whitespace-pre-line leading-8 text-black py-5">
             {!isDone ? 'Record Audio' : 'Audio'}
           </h2>
         </div>
 
-        <div className="py-6">
+        <div className="">
           {!isDone && (
             <div className="">
               <RecordControl
@@ -37,16 +38,17 @@ const AudioRecorder: FC<Props> = (props) => {
 
           {isDone && (
             <div className="">
-              <PlayControl audio={audio} />
+              <PlayControl audio={audio} isDone={isDone} setIsDone={setIsDone} />
             </div>
           )}
         </div>
       </div>
-      <Link href={"audio"} target="_blank" download>
+      {props.hasDownload && <Link href={"audio"} target="_blank" download>
         <div className="my-5">
           <PricingPlanButton text="Download" isScale={false} />
         </div>
       </Link>
+      }
     </div>
   );
 };

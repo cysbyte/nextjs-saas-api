@@ -1,6 +1,11 @@
 import { Playpen_Sans } from "next/font/google";
 import React, { FC, useEffect, useRef, useState } from "react";
-type Props = { audio: string };
+
+type Props = {
+  audio: string;
+  isDone: boolean;
+  setIsDone: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
 const PlayControl: FC<Props> = (props) => {
   const audioRef = useRef<any>(null);
@@ -44,6 +49,10 @@ const PlayControl: FC<Props> = (props) => {
 
   };
 
+  const handleTrimClick = () => {
+    props.setIsDone(false);
+  }
+
   // useEffect(() => {
   //   if (isPlaying) {
   //     audioRef.current.play();
@@ -78,10 +87,11 @@ const PlayControl: FC<Props> = (props) => {
   };
 
   return (
+    <>
     <div className="flex flex-col">
-      <div className="flex justify-center items-center w-full mx-auto">
-        <div className="relative w-full h-auto mx-auto">
-          <div className="absolute w-full mx-auto">
+      <div className="flex justify-center items-center w-fit mx-auto">
+        <div className="relative w-fit h-auto mx-auto">
+          <div className="absolute w-fit mx-auto">
             <svg
               width="680"
               height="40"
@@ -185,7 +195,7 @@ const PlayControl: FC<Props> = (props) => {
               viewBox="0 0 680 40"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="mx-auto ml-5"
+              className="mx-auto"
             >
               <rect x="6" y="12" width="4" height="16" rx="2" fill="#34D399" />
               <rect x="14" y="7" width="4" height="26" rx="2" fill="#34D399" />
@@ -548,20 +558,32 @@ const PlayControl: FC<Props> = (props) => {
           </div>
 
           <div
-            className="absolut w-0 overflow-hidden"
+            className="absolut w-full overflow-hidden left-0"
             style={{
               width: `${
                 audioRef.current && Math.floor((progressTime * 100) / audioRef.current.duration)
               }%`,
             }}
-          >
+            >
+                <div className="relative w-full mx-auto">
+                {progressTime > 0 && <svg
+                    width="4"
+                    height="40"
+                    viewBox="0 0 4 40"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="absolute right-0 top-0"
+                  >
+                    <rect width="4" height="40" rx="2" fill="#6366F1" />
+                  </svg>
+                }
             <svg
               width="680"
               height="40"
               viewBox="0 0 680 40"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="mx-auto ml-5"
+              className=""
             >
               <rect x="6" y="12" width="4" height="16" rx="2" fill="#34D399" />
               <rect x="14" y="7" width="4" height="26" rx="2" fill="#34D399" />
@@ -920,17 +942,20 @@ const PlayControl: FC<Props> = (props) => {
                 rx="2"
                 fill="#34D399"
               />
-            </svg>
+                </svg>
+                </div>
           </div>
         </div>
       </div>
 
-      <div className="w-full mx-auto flex justify-between py-4 px-6">
+      <div className="w-full mx-auto flex justify-between py-4 px-11">
         <p className="text-[12px] text-slate-400">0:00</p>
         <p className="text-[12px] text-slate-400">0:00</p>
       </div>
 
-      <div className="flex justify-between items-center mx-6">
+      
+    </div>
+    <div className="flex justify-between items-center px-6 py-5 border-t">
         <div className="flex flex-1 items-center justify-start">
           <svg
             width="24"
@@ -1216,7 +1241,7 @@ const PlayControl: FC<Props> = (props) => {
               />
             </svg>
           </button>
-          <button>
+          <button onClick={handleTrimClick}>
             <svg
               width="24"
               height="24"
@@ -1281,7 +1306,7 @@ const PlayControl: FC<Props> = (props) => {
           onLoadedMetadata={onLoadedMetadata}
         />
       </div>
-    </div>
+    </>
   );
 };
 
