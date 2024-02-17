@@ -32,7 +32,7 @@ const Case = () => {
     <aside className="flex-[5] w-full h-auto overflow-auto">
       <div className="max-w-full mt-10 ml-10">
         <div className="border-b py-4">
-          <h1 className="text-4xl font-semibold">Voice</h1>
+          <h1 className="text-4xl font-semibold">Voice Clone</h1>
           <p className="mt-3 text-base text-slate-600 leading-[30px]">
             Unlock the potential of our advanced technology to produce lifelike,<br/>
             engaging speech across various languages.

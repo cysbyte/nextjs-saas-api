@@ -12,7 +12,11 @@ const PlayControl: FC<Props> = (props) => {
 
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [progressTime, setProgressTime] = useState<number>(0);
+
   const [isTrimming, setIsTrimming] = useState<boolean>(false);
+  const [startX, setStartX] = useState<number>(0);
+  const [endX, setEndX] = useState<number>(0);
+  const [clickTimes, setClickTimes]=useState<number>(0)
 
   let interval: string | number | NodeJS.Timeout | undefined;
 
@@ -95,18 +99,18 @@ const PlayControl: FC<Props> = (props) => {
     setIsTrimming(false);
   }
 
-  const [boxList, setBoxList] = React.useState<any>([]);
-
   const handleClick = (e:any) => {
-    if (e.target.classList.contains("btn")) {
-      setBoxList([]);
-      return;
+    const { left, top } = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - left;
+    const y = e.clientY - top;
+    setClickTimes((prev) => prev + 1);
+    if (clickTimes % 2 === 0) {
+      setStartX(x);
+    } else {
+      setEndX(x);
     }
-    setBoxList((prev: any) => {
-      const { pageX, pageY } = e;
-      const newBox = { left: pageX, top: pageY };
-      return [...prev, newBox];
-    });
+    console.log(clickTimes)
+    console.log(x)
   };
 
   return (
@@ -123,7 +127,8 @@ const PlayControl: FC<Props> = (props) => {
           }
         </div>
       <div className="flex justify-center items-center w-fit mx-auto">
-        <div className="relative w-fit h-auto mx-auto">
+          <button className="relative w-fit h-auto mx-auto" onClick={handleClick}>
+            <button className={`absolute h-full w-[200px] bg-red-400/50 left-[${startX}px] top-0`}></button>
           <div className="absolute w-fit mx-auto">
             <svg
               width="680"
@@ -592,7 +597,7 @@ const PlayControl: FC<Props> = (props) => {
 
           <div
               className="absolut w-full overflow-hidden left-0"
-              onClick={handleClick}
+              
             style={{
               width: `${
                 audioRef.current && Math.floor((progressTime * 100) / audioRef.current.duration)
@@ -979,7 +984,7 @@ const PlayControl: FC<Props> = (props) => {
                 </svg>
                 </div>
           </div>
-        </div>
+        </button>
       </div>
 
       <div className="w-full mx-auto flex justify-between py-4 px-11">

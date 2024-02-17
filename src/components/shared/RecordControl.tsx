@@ -159,7 +159,7 @@ const RecordControl: FC<Props> = (props) => {
   const milliseconds = elapsedTime * 10;
 
   if (milliseconds === 30000) {
-    props.setIsDone(true);
+    handleDone();
   }
 
   return (
