@@ -33,7 +33,7 @@ const AudioRecorder: FC<Props> = (props) => {
 
           {isDone && (
             <div className="">
-              <PlayControl audio={audio} isDone={isDone} setIsDone={setIsDone} />
+              <PlayControl audio={audio} setAudio={setAudio} isDone={isDone} setIsDone={setIsDone} />
             </div>
           )}
         </div>

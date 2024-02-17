@@ -1,8 +1,9 @@
-import { Playpen_Sans } from "next/font/google";
 import React, { FC, useEffect, useRef, useState } from "react";
+import { browserName, CustomView } from 'react-device-detect';
 
 type Props = {
   audio: string;
+  setAudio: React.Dispatch<React.SetStateAction<string>>;
   isDone: boolean;
   setIsDone: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -16,7 +17,7 @@ const PlayControl: FC<Props> = (props) => {
   const [isTrimming, setIsTrimming] = useState<boolean>(false);
   const [startX, setStartX] = useState<number>(0);
   const [endX, setEndX] = useState<number>(0);
-  const [clickTimes, setClickTimes]=useState<number>(0)
+  const [enableDrag, setEnableDrag] = useState<boolean>(false);
 
   let interval: string | number | NodeJS.Timeout | undefined;
 
@@ -93,25 +94,56 @@ const PlayControl: FC<Props> = (props) => {
 
   const handleCutClick = () => {
     setIsTrimming(true);
+    setProgressTime(audioRef.current.duration);
   }
 
   const handleCancelCutClick = () => {
     setIsTrimming(false);
+    setStartX(0);
+    setEndX(0);
   }
 
-  const handleClick = (e:any) => {
+  const handleTrim = () => {
+
+  }
+
+  const onMouseDown = (e: any) => {
+    if (!isTrimming) return;
     const { left, top } = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - left;
     const y = e.clientY - top;
-    setClickTimes((prev) => prev + 1);
-    if (clickTimes % 2 === 0) {
-      setStartX(x);
-    } else {
-      setEndX(x);
-    }
-    console.log(clickTimes)
-    console.log(x)
+    setEnableDrag(true);
+    setStartX(x);
+    //console.log('down',x)
   };
+
+  const onMouseMove = (e: any) => {
+    if (!isTrimming && !enableDrag) return;
+    const { left, top } = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - left;
+    const y = e.clientY - top;
+    
+    setEndX(x);
+    //console.log('move',x)
+  };
+
+  const onMouseUp = (e: any) => {
+    if (!isTrimming) return;
+    const { left, top } = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - left;
+    const y = e.clientY - top;
+    setEnableDrag(false);
+    setEndX(x);
+    //console.log('up',x)
+  }
+
+  let dragWidth_chrome = Math.floor(endX - startX) * 1.17;
+  let left_chrome = startX + 65;
+
+  let dragWidth = Math.floor(endX - startX);
+  let left = startX;
+
+  //console.log(dragWidth, left);
 
   return (
     <>
@@ -127,8 +159,16 @@ const PlayControl: FC<Props> = (props) => {
           }
         </div>
       <div className="flex justify-center items-center w-fit mx-auto">
-          <button className="relative w-fit h-auto mx-auto" onClick={handleClick}>
-            <button className={`absolute h-full w-[200px] bg-red-400/50 left-[${startX}px] top-0`}></button>
+          <div className="relative w-fit h-auto mx-auto" onMouseDown={onMouseDown}
+            onMouseMove={onMouseMove}
+            onMouseUp={onMouseUp}
+          >
+            <div className={`absolute h-full w-0 bg-[#f97316]/50 left-0 top-0`}
+              style={{
+                width: `${browserName === 'Chrome' ? dragWidth_chrome : dragWidth}px `,
+                left: `${browserName==='Chrome' ? left_chrome: left}px `
+              }}
+            ></div>
           <div className="absolute w-fit mx-auto">
             <svg
               width="680"
@@ -984,7 +1024,7 @@ const PlayControl: FC<Props> = (props) => {
                 </svg>
                 </div>
           </div>
-        </button>
+        </div>
       </div>
 
       <div className="w-full mx-auto flex justify-between py-4 px-11">

@@ -226,7 +226,7 @@ const ProductSideBar = ({productName}: Props) => {
         <div className="border-b py-3">
           <h6 className="text-sm font-semibold">Plan name</h6>
           <div className="w-full bg-gray-200 rounded-full mt-2">
-            <div className="w-2/3 h-2 bg-indigo-400 rounded-full"></div>
+            <div className="w-1/3 h-2 bg-indigo-400 rounded-full"></div>
           </div>
           <p className="text-[12px] mt-1 text-slate-500">
             500 of 10000 token used
