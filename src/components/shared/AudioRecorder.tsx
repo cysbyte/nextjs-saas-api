@@ -12,6 +12,7 @@ type Props = {
 const AudioRecorder: FC<Props> = (props) => {
   const [audio, setAudio] = useState<string>("");
   const [isDone, setIsDone] = useState<boolean>(props.isDone);
+  const [audioBlob, setAudioBlob] = useState<Blob>();
 
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
@@ -23,6 +24,8 @@ const AudioRecorder: FC<Props> = (props) => {
           {!isDone && (
             <div className="">
               <RecordControl
+                audioBlob={audioBlob}
+                setAudioBlob={setAudioBlob}
                 audio={audio}
                 setAudio={setAudio}
                 isDone={isDone}
@@ -33,12 +36,18 @@ const AudioRecorder: FC<Props> = (props) => {
 
           {isDone && (
             <div className="">
-              <PlayControl audio={audio} setAudio={setAudio} isDone={isDone} setIsDone={setIsDone} />
+              <PlayControl
+                audioBlob={audioBlob}
+                setAudioBlob={setAudioBlob}
+                audio={audio}
+                setAudio={setAudio}
+                isDone={isDone}
+                setIsDone={setIsDone} />
             </div>
           )}
         </div>
       </div>
-      {props.hasDownload && <Link href={"audio"} target="_blank" download>
+      {props.hasDownload && <Link href={audio} target="_blank" download>
         <div className="my-5">
           <PricingPlanButton text="Download" isScale={false} />
         </div>
