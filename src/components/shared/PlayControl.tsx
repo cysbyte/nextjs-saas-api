@@ -10,6 +10,7 @@ import React, {
 import { browserName, CustomView } from "react-device-detect";
 import { MIMETYPE } from "./RecordControl";
 import encodeWAV from "audiobuffer-to-wav";
+import { strategy } from "sharp";
 
 type Props = {
   audio: string;
@@ -31,6 +32,10 @@ const PlayControl: FC<Props> = (props) => {
   const [isTrimming, setIsTrimming] = useState<boolean>(false);
   const [startX, setStartX] = useState<number>(0);
   const [endX, setEndX] = useState<number>(0);
+  
+  const [startTime, setStartTime] = useState(0);
+  const [endTime, setEndTime] = useState(0);
+  const [percent, setPercent] = useState(0);
   const [enableDrag, setEnableDrag] = useState<boolean>(false);
 
   let interval: string | number | NodeJS.Timeout | undefined;
@@ -70,39 +75,11 @@ const PlayControl: FC<Props> = (props) => {
 
   const onTrimClick = async () => {
     setIsTrimming(false);
-    let duration = audioRef.current.duration;
-    let start = (startX + 40) / 600;
-    let end = (endX + 40) / 600;
     setStartX(0);
     setEndX(0);
-    console.log(duration);
-    console.log(start * duration.toFixed(2));
-    console.log(end * duration.toFixed(2));
-    let startTime = Number((start * duration).toFixed(2));
-    let endTime = Number((end * duration).toFixed(2));
-    if (startTime < 0) startTime = 0;
-    if (endTime > duration) endTime = duration;
+
     await trimAudio(startTime, endTime);
 
-    // if (props.audioBlob) {
-    //   console.log(Math.floor(props.audioBlob.size * start));
-    //   console.log(Math.floor(props.audioBlob.size * end));
-    //   console.log(Math.floor(props.audioBlob.size))
-    //   console.log(props.audioBlob);
-    //   const trimmedBlob = props.audioBlob.slice(0, Math.floor(props.audioBlob.size * end), MIMETYPE);
-    //   console.log(trimmedBlob)
-    //   const trimmedBlob1 = props.audioBlob.slice(100, Math.floor(props.audioBlob.size * end), MIMETYPE);
-    //   console.log(trimmedBlob1)
-    //   const audioUrl = URL.createObjectURL(trimmedBlob);
-    //   console.log(audioUrl)
-
-    //   const audioUrl1 = URL.createObjectURL(trimmedBlob1);
-    //   console.log(audioUrl1)
-
-    //   props.setAudio(audioUrl1);
-    //   console.log(audioUrl);
-    // }
-    //props.setIsDone(false);
   };
 
   // useEffect(() => {
@@ -207,7 +184,26 @@ const PlayControl: FC<Props> = (props) => {
   // console.log(seconds)
   // console.log(minutes)
 
-  //console.log(dragWidth, left);
+  useEffect(() => {
+    if (audioRef.current) {
+      let duration = audioRef.current.duration;
+      let start = (startX + 40) / 600;
+      let end = (endX + 40) / 600;
+
+      console.log('duration', duration);
+      console.log('start', start * duration.toFixed(2));
+      console.log('end', end * duration.toFixed(2));
+      let _startTime = Number((start * duration).toFixed(2));
+      let _endTime = Number((end * duration).toFixed(2));
+      if (_startTime < 0) _startTime = 0;
+      if (_endTime > duration) _endTime = duration;
+      setStartTime(_startTime);
+      setEndTime(_endTime);
+      const percent = (endTime - startTime) * 100 / duration;
+      setPercent(percent);
+    }
+  }, [startX, endX]);
+  
 
   let audioContext: any;
   function trimAudioBuffer(buffer: any, startTime: number, endTime: number) {
@@ -324,15 +320,29 @@ const PlayControl: FC<Props> = (props) => {
             onMouseMove={onMouseMove}
             onMouseUp={onMouseUp}
           >
-            <div
-              className={`absolute h-full w-0 bg-[#f97316]/50 left-0 top-0 rounded-md border-2 border-opacity-50 border-indigo-700`}
-              style={{
-                width: `${
-                  browserName === "Chrome" ? dragWidth_chrome : dragWidth
-                }px `,
-                left: `${browserName === "Chrome" ? left_chrome : left}px `,
-              }}
-            ></div>
+            {isTrimming && startX !== endX && <div>
+              <p className="absolute left-0 -top-6 text-[14px] text-slate-600"
+                style={{
+                  left: `${browserName === "Chrome" ? left_chrome - 7 : left - 7}px `,
+                }}
+              >{isNaN(startTime) ? '' : startTime + 's'}</p>
+              <p className="absolute left-0 -top-6 text-[14px] text-slate-600"
+                style={{
+                  left: `${browserName === "Chrome" ? left_chrome + dragWidth : left + dragWidth}px `,
+                }}
+              >{!isNaN(endTime) && percent > 6 ? endTime + 's' : ''}</p>
+              <div
+                className={`absolute h-full w-0 bg-[#f97316]/50 left-0 top-0 rounded-md border-2 border-opacity-50 border-indigo-700`}
+                style={{
+                  width: `${browserName === "Chrome" ? dragWidth_chrome : dragWidth
+                    }px `,
+                  left: `${browserName === "Chrome" ? left_chrome : left}px `,
+                }}
+              ></div>
+            </div>
+            }
+            
+
             <div className="absolute w-fit mx-auto">
               <svg
                 width="680"
@@ -1701,7 +1711,7 @@ const PlayControl: FC<Props> = (props) => {
                 />
               </svg>
             </div>
-
+ 
             <div
               className="absolut w-full overflow-hidden left-0"
               style={{

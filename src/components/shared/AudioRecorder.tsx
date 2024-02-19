@@ -52,7 +52,7 @@ const AudioRecorder: FC<Props> = (props) => {
           )}
         </div>
       </div>
-      {true && <Link href={audio} target="_blank" download>
+      {props.hasDownload && <Link href={audio} target="_blank" download>
         <div className="my-5">
           <PricingPlanButton text="Download" isScale={false} />
         </div>
