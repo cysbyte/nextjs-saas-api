@@ -4,7 +4,7 @@ const AddVoiceBox: FC = () => {
   return (
     <div>
       <div className="border rounded-md bg-white shadow-xl basis-4/12 w-full md:w-[360px] h-auto justify-start px-6 py-6 flex flex-col hover:bg-gray-100 hover:scale-[1.02] active:scale-100 duration-300">
-        <div className="my-4 mx-auto">
+        <div className="my-5 mx-auto">
           <div className="flex">
             <svg
               width="24"

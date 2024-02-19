@@ -269,7 +269,7 @@ const PlayControl: FC<Props> = (props) => {
 
               offlineContext.startRendering().then((renderedBuffer) => {
                 const wavBuffer = encodeWAV(renderedBuffer);
-                const blob = new Blob([wavBuffer], { type: "audio/webm" });
+                const blob = new Blob([wavBuffer], { type: MIMETYPE });
 
                 const audioUrl = URL.createObjectURL(blob);
                 //new Audio(audioUrl).play();
