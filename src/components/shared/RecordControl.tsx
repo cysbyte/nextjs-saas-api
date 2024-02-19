@@ -8,7 +8,8 @@ import React, {
   useRef,
   useState,
 } from "react";
-const MIMETYPE = "audio/webm";
+
+export const MIMETYPE = "audio/webm";
 
 type Props = {
   isDone: boolean;
@@ -17,6 +18,8 @@ type Props = {
   setAudio: Dispatch<SetStateAction<string>>;
   audioBlob: Blob | undefined;
   setAudioBlob: Dispatch<SetStateAction<Blob | undefined>>;
+  audioChunks: any;
+  setAudioChunks: Dispatch<SetStateAction<any>>;
 };
 
 const RecordControl: FC<Props> = (props) => {
@@ -26,7 +29,6 @@ const RecordControl: FC<Props> = (props) => {
   const mediaRecorder = useRef<any>(null);
   const [recordingStatus, setRecordingStatus] = useState<string>("inactive");
   const [stream, setStream] = useState<any>(null);
-  const [audioChunks, setAudioChunks] = useState([]);
   const [elapsedTime, setElapsedTime] = useState<number>(0);
 
   let interval: string | number | NodeJS.Timeout | undefined;
@@ -55,7 +57,7 @@ const RecordControl: FC<Props> = (props) => {
               if (event.data.size === 0) return;
               localAudioChunks.push(event.data);
             };
-            setAudioChunks(localAudioChunks);
+            props.setAudioChunks(localAudioChunks);
           })
           .catch((error) => {
             console.error("Error accessing microphone:", error);
@@ -88,13 +90,13 @@ const RecordControl: FC<Props> = (props) => {
     mediaRecorder.current.stop();
     mediaRecorder.current.onstop = () => {
       //creates a blob file from the audiochunks data
-      const audioBlob = new Blob(audioChunks, { type: MIMETYPE });
+      const audioBlob = new Blob(props.audioChunks, { type: MIMETYPE });
       props.setAudioBlob(audioBlob);
       //creates a playable URL from the blob file.
       const audioUrl = URL.createObjectURL(audioBlob);
       console.log(audioUrl);
       props.setAudio(audioUrl);
-      setAudioChunks([]);
+      props.setAudioChunks([]);
     };
   };
 
@@ -1355,7 +1357,7 @@ const RecordControl: FC<Props> = (props) => {
                 .toString()
                 .padStart(2, "0")}`}
         </p>
-        <p className="text-[12px] text-slate-400">0:00</p>
+        <p className="text-[12px] text-slate-400">0:30</p>
       </div>
 
       

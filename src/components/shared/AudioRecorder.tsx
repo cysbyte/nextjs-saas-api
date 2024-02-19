@@ -13,6 +13,7 @@ const AudioRecorder: FC<Props> = (props) => {
   const [audio, setAudio] = useState<string>("");
   const [isDone, setIsDone] = useState<boolean>(props.isDone);
   const [audioBlob, setAudioBlob] = useState<Blob>();
+  const [audioChunks, setAudioChunks] = useState<any>([]);
 
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
@@ -26,6 +27,8 @@ const AudioRecorder: FC<Props> = (props) => {
               <RecordControl
                 audioBlob={audioBlob}
                 setAudioBlob={setAudioBlob}
+                audioChunks={audioChunks}
+                setAudioChunks={setAudioChunks}
                 audio={audio}
                 setAudio={setAudio}
                 isDone={isDone}
@@ -39,6 +42,8 @@ const AudioRecorder: FC<Props> = (props) => {
               <PlayControl
                 audioBlob={audioBlob}
                 setAudioBlob={setAudioBlob}
+                audioChunks={audioChunks}
+                setAudioChunks={setAudioChunks}
                 audio={audio}
                 setAudio={setAudio}
                 isDone={isDone}
@@ -47,7 +52,7 @@ const AudioRecorder: FC<Props> = (props) => {
           )}
         </div>
       </div>
-      {props.hasDownload && <Link href={audio} target="_blank" download>
+      {true && <Link href={audio} target="_blank" download>
         <div className="my-5">
           <PricingPlanButton text="Download" isScale={false} />
         </div>

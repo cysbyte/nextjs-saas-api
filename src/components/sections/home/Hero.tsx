@@ -25,7 +25,11 @@ const Hero = () => {
             
           </div>
                   
-            <Image className="my-10 md:mb-20 w-[98%] md:w-[80%]" src={usecase} alt='Minimax Use Case'/>
+          <Image
+            className="my-10 md:mb-20 w-[98%] md:w-[80%]"
+            src={usecase}
+            quality={100}
+            alt='Minimax Use Case' />
         </div>
       </Wrapper>
     </section>

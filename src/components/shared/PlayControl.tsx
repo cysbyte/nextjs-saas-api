@@ -1,6 +1,15 @@
 import { copyFileSync } from "fs";
-import React, { Dispatch, FC, SetStateAction, useEffect, useRef, useState } from "react";
+import React, {
+  Dispatch,
+  FC,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { browserName, CustomView } from "react-device-detect";
+import { MIMETYPE } from "./RecordControl";
+import encodeWAV from "audiobuffer-to-wav";
 
 type Props = {
   audio: string;
@@ -9,6 +18,8 @@ type Props = {
   setIsDone: React.Dispatch<React.SetStateAction<boolean>>;
   audioBlob: Blob | undefined;
   setAudioBlob: Dispatch<SetStateAction<Blob | undefined>>;
+  audioChunks: any;
+  setAudioChunks: Dispatch<SetStateAction<any>>;
 };
 
 const PlayControl: FC<Props> = (props) => {
@@ -57,23 +68,40 @@ const PlayControl: FC<Props> = (props) => {
     }
   };
 
-  const onTrimClick = () => {
+  const onTrimClick = async () => {
     setIsTrimming(false);
-    const durtion = audioRef.current.duration;
-    const start = (startX + 55) / 570;
-    const end = (endX + 55) / 570;
+    let duration = audioRef.current.duration;
+    let start = (startX + 40) / 600;
+    let end = (endX + 40) / 600;
     setStartX(0);
     setEndX(0);
-    // console.log(durtion);
-    // console.log(start)
-    // console.log(end)
+    console.log(duration);
+    console.log(start * duration.toFixed(2));
+    console.log(end * duration.toFixed(2));
+    let startTime = Number((start * duration).toFixed(2));
+    let endTime = Number((end * duration).toFixed(2));
+    if (startTime < 0) startTime = 0;
+    if (endTime > duration) endTime = duration;
+    await trimAudio(startTime, endTime);
 
-    if (props.audioBlob) {
-      const trimmedBlob = props.audioBlob.slice(0, Math.floor(props.audioBlob.size*end));
-      const audioUrl = URL.createObjectURL(trimmedBlob);
-      props.setAudio(audioUrl);
-      console.log(audioUrl);
-    }
+    // if (props.audioBlob) {
+    //   console.log(Math.floor(props.audioBlob.size * start));
+    //   console.log(Math.floor(props.audioBlob.size * end));
+    //   console.log(Math.floor(props.audioBlob.size))
+    //   console.log(props.audioBlob);
+    //   const trimmedBlob = props.audioBlob.slice(0, Math.floor(props.audioBlob.size * end), MIMETYPE);
+    //   console.log(trimmedBlob)
+    //   const trimmedBlob1 = props.audioBlob.slice(100, Math.floor(props.audioBlob.size * end), MIMETYPE);
+    //   console.log(trimmedBlob1)
+    //   const audioUrl = URL.createObjectURL(trimmedBlob);
+    //   console.log(audioUrl)
+
+    //   const audioUrl1 = URL.createObjectURL(trimmedBlob1);
+    //   console.log(audioUrl1)
+
+    //   props.setAudio(audioUrl1);
+    //   console.log(audioUrl);
+    // }
     //props.setIsDone(false);
   };
 
@@ -144,7 +172,7 @@ const PlayControl: FC<Props> = (props) => {
 
     setEndX(x);
     // console.log(enableDrag);
-    // console.log("move", x);
+    console.log("move", x);
   };
 
   const onMouseUp = (e: any) => {
@@ -157,8 +185,8 @@ const PlayControl: FC<Props> = (props) => {
     //console.log('up',x)
   };
 
-  let dragWidth_chrome = Math.floor(endX - startX) * 1.17;
-  let left_chrome = startX + 70;
+  let dragWidth_chrome = Math.floor(endX - startX) * 1.12;
+  let left_chrome = startX + 40;
 
   let dragWidth = Math.floor(endX - startX);
   let left = startX;
@@ -166,20 +194,104 @@ const PlayControl: FC<Props> = (props) => {
   const onPlayBackRateSelect = (e: any) => {
     console.log(e.target.value);
     audioRef.current.playbackRate = e.target.value;
-  }
+  };
 
-  const onVolumeChange = (e:any) => {
+  const onVolumeChange = (e: any) => {
     console.log(e.target.value);
     audioRef.current.volume = e.target.value / 20;
-  }
+  };
 
-  const minutes = Math.floor((progressTime % 60));
+  const minutes = Math.floor(progressTime / 60);
   const seconds = Math.floor(progressTime);
   // console.log(progressTime)
   // console.log(seconds)
   // console.log(minutes)
 
   //console.log(dragWidth, left);
+
+  let audioContext: any;
+  function trimAudioBuffer(buffer: any, startTime: number, endTime: number) {
+    const sampleRate = buffer.sampleRate;
+    const startFrame = startTime * sampleRate;
+    const endFrame = endTime * sampleRate;
+    const duration = endTime - startTime;
+    const channels = buffer.numberOfChannels;
+
+    // Create a new AudioBuffer for the trimmed audio
+    const trimmedBuffer = audioContext.createBuffer(
+      channels,
+      endFrame - startFrame,
+      sampleRate
+    );
+
+    for (let channel = 0; channel < channels; channel++) {
+      const sourceData = buffer
+        .getChannelData(channel)
+        .subarray(startFrame, endFrame);
+      trimmedBuffer.getChannelData(channel).set(sourceData);
+    }
+    return trimmedBuffer;
+  }
+
+  async function trimAudio(startTime: number, endTime: number) {
+    const audioFile = props.audio;
+    if (audioFile) {
+      try {
+        audioContext = new window.AudioContext();
+
+        let fileReader = new FileReader();
+        let arrayBuffer;
+
+        fileReader.onloadend = async () => {
+          arrayBuffer = fileReader.result;
+
+          if (!arrayBuffer) return;
+
+          audioContext.decodeAudioData(
+            arrayBuffer,
+            (newAudioBuffer: AudioBuffer) => {
+              const trimmedBuffer = trimAudioBuffer(
+                newAudioBuffer,
+                startTime,
+                endTime
+              );
+              const offlineContext = new OfflineAudioContext(
+                trimmedBuffer.numberOfChannels,
+                trimmedBuffer.length,
+                trimmedBuffer.sampleRate
+              );
+              const offlineSource = offlineContext.createBufferSource();
+              const offlineStereoPanner = offlineContext.createStereoPanner();
+
+              offlineSource.buffer = trimmedBuffer;
+              //offlineStereoPanner.pan.setValueAtTime(-1, 0);
+
+              offlineSource.connect(offlineStereoPanner);
+              offlineStereoPanner.connect(offlineContext.destination);
+
+              offlineSource.start();
+
+              offlineContext.startRendering().then((renderedBuffer) => {
+                const wavBuffer = encodeWAV(renderedBuffer);
+                const blob = new Blob([wavBuffer], { type: "audio/webm" });
+
+                const audioUrl = URL.createObjectURL(blob);
+                //new Audio(audioUrl).play();
+                props.setAudio(audioUrl);
+                //downloadFile(blob);
+              });
+            }
+          );
+        };
+        if (!props.audioBlob) return;
+        fileReader.readAsArrayBuffer(props.audioBlob);
+      } catch (error) {
+        console.error("Error trimming audio:", error);
+      }
+    } else {
+      console.error("Please select an audio file.");
+    }
+  }
 
   return (
     <>
@@ -213,7 +325,7 @@ const PlayControl: FC<Props> = (props) => {
             onMouseUp={onMouseUp}
           >
             <div
-              className={`absolute h-full w-0 bg-[#f97316]/50 left-0 top-0`}
+              className={`absolute h-full w-0 bg-[#f97316]/50 left-0 top-0 rounded-md border-2 border-opacity-50 border-indigo-700`}
               style={{
                 width: `${
                   browserName === "Chrome" ? dragWidth_chrome : dragWidth
@@ -1600,7 +1712,7 @@ const PlayControl: FC<Props> = (props) => {
               }}
             >
               <div className="relative w-full mx-auto">
-                {progressTime > 0 && (
+                {progressTime > 0 && !isTrimming && (
                   <svg
                     width="4"
                     height="40"
@@ -2299,11 +2411,11 @@ const PlayControl: FC<Props> = (props) => {
         </div>
 
         <div className="w-full mx-auto flex justify-between py-4 px-11">
-        <p className="text-[12px] text-slate-400">
-          { `${minutes.toString().padStart(2, "0")}:${seconds
-                .toString()
-                .padStart(2, "0")}`}
-        </p>
+          <p className="text-[12px] text-slate-400">
+            {`${minutes.toString().padStart(2, "0")}:${seconds
+              .toString()
+              .padStart(2, "0")}`}
+          </p>
           <p className="text-[12px] text-slate-400">0:30</p>
         </div>
       </div>
@@ -2652,11 +2764,12 @@ const PlayControl: FC<Props> = (props) => {
           <select
             id="speed"
             onChange={onPlayBackRateSelect}
-
             className="bg-gray-50 border cursor-pointer border-gray-300 text-gray-500 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block p-2.5 w-fit"
           >
             <option value="0.5">0.5X</option>
-            <option selected value="1">1X</option>
+            <option selected value="1">
+              1X
+            </option>
             <option value="1.5">1.5X</option>
             <option value="2">2X</option>
           </select>
