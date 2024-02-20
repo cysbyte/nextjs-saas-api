@@ -96,6 +96,7 @@ const PlayControl: FC<Props> = (props) => {
     if (isPlaying) {
       interval = setInterval(() => {
         setProgressTime(audioRef.current.currentTime);
+        setDuration(audioRef.current.duration);
 
         if (audioRef.current.currentTime >= audioRef.current.duration) {
           setIsPlaying(false);

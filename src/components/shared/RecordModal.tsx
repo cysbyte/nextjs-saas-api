@@ -1,6 +1,6 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import AudioRecorder from "./AudioRecorder";
 
 type Props = {
@@ -13,6 +13,8 @@ export default function RecordModal() {
   const searchParams = useSearchParams();
   const dialogRef = useRef<null | HTMLDialogElement>(null);
   const modal = searchParams?.get("modal");
+
+  const [audio, setAudio] = useState('');
 
   useEffect(() => {
     if (modal === "true") {
@@ -39,7 +41,7 @@ export default function RecordModal() {
         className="fixed w-[720px] top-50 left-50 -translate-x-50 -translate-y-50 z-10 rounded-xl backdrop:bg-gray-800/80 overflow-hidden"
       >
         <div className="w-full">
-          <AudioRecorder isDone={false} hasDownload={false} />
+          <AudioRecorder audio={audio} setAudio={setAudio} isDone={false} hasDownload={false} />
         </div>
       </dialog>
     ) : null;
