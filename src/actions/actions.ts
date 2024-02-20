@@ -30,18 +30,18 @@ export const addTextToSpeech = async (formData: FormData) => {
     const description = formData.get('description') as string;
     const text = formData.get('text') as string;
 
-        // const new_voice = prisma.textToSpeech.create({
-        //     data: {
-        //         voiceId,
-        //         voiceName,
-        //         description: description ? description : null,
-        //         text
-        //     }
-        // })
+        const new_voice = prisma.textToSpeech.create({
+            data: {
+                voiceId,
+                voiceName,
+                description: description ? description : null,
+                text
+            }
+        })
 
         const translatedTextPromise = new Promise((resolve, reject) => {
             exec(
-                `source virenv/bin/activate && python3 text-to-speech.py "${voiceId}" "${text}"`,
+                `python3 text-to-speech.py "${voiceId}" "${text}"`,
                 (error, stdout, stderr) => {
                 if (error) {
                     console.error(error);
