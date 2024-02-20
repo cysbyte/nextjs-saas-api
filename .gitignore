@@ -6,7 +6,7 @@
 .pnp.js
 .yarn/install-state.gz
 /public/audio-tts
-
+/virenv
 
 # testing
 /coverage
