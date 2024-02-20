@@ -52,7 +52,7 @@ export const addTextToSpeech = async (formData: FormData) => {
         // })
     
     const translatedTextPromise = new Promise((resolve, reject) => {
-        const pyprog = spawn('python3', ["lib/text-to-speech.py", voiceId, text]);
+        const pyprog = spawn('python3', ["text-to-speech.py", voiceId, text]);
         pyprog.stdout.on('data', function (data) {
             resolve(data.toString());
         });

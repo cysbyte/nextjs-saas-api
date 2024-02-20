@@ -10,13 +10,13 @@ const nextConfig = {
         config.resolve.fallback.net = false
           config.resolve.fallback.child_process = false
           
-          config.plugins.push(
-            new CopyPlugin({
-              patterns: [
-                { from: 'src/lib/text-to-speech.py', to: 'lib/text-to-speech.py' },
-              ],
-            }),
-          );
+        //   config.plugins.push(
+        //     new CopyPlugin({
+        //       patterns: [
+        //         { from: 'src/lib/text-to-speech.py', to: 'lib/text-to-speech.py' },
+        //       ],
+        //     }),
+        //   );
       }
   
       return config
