@@ -1,20 +1,17 @@
-"use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 import AddVoiceBox from "./AddVoiceBox";
 import MyCreatedBox from "./MyCreatedBox";
 import VoiceItemBox from "./VoiceItemBox";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 const Case = () => {
-  const [myCreatedBoxList, setMyCreatedBoxList] = useState([
-    { id: 0, box: <MyCreatedBox /> },
-    { id: 1, box: <MyCreatedBox /> },
-    { id: 2, box: <MyCreatedBox /> },
-    { id: 3, box: <MyCreatedBox /> },
-    { id: 4, box: <MyCreatedBox /> },
+  // const voices = await prisma.textToSpeech.findMany({});
+  // console.log(voices)
 
-  ]);
-  const [voiceItemBoxList, setVoiceItemBoxList] = useState([
+  const voiceItemBoxList=[
     { id: 0, box: <VoiceItemBox /> },
     { id: 1, box: <VoiceItemBox /> },
     { id: 2, box: <VoiceItemBox /> },
@@ -25,8 +22,7 @@ const Case = () => {
     { id: 7, box: <VoiceItemBox /> },
     { id: 8, box: <VoiceItemBox /> },
     { id: 9, box: <VoiceItemBox /> },
-
-  ]);
+  ];
 
   return (
     <aside className="flex-[5] w-full h-auto overflow-auto">

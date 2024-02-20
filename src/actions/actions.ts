@@ -2,9 +2,9 @@
 import { PrismaClient } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-
-const prisma = new PrismaClient();
-
+import { runPythonScript } from "@/lib/util";
+import prisma from "@/lib/prismadb";
+import { exec } from 'child_process';
 
 // export const fetchBlogs = async () => {
 //     const blogs = await prisma.blog.findMany({});
@@ -25,25 +25,34 @@ const prisma = new PrismaClient();
 
 export const addTextToSpeech = async (formData: FormData) => {
 
-    // collect info from form using formData
     const voiceId = formData.get('voiceId') as string;
     const voiceName = formData.get('voiceName') as string;
     const description = formData.get('description') as string;
     const text = formData.get('text') as string;
 
+        // const new_voice = prisma.textToSpeech.create({
+        //     data: {
+        //         voiceId,
+        //         voiceName,
+        //         description: description ? description : null,
+        //         text
+        //     }
+        // })
 
-    // push the data into the DB
-    const new_blog = await prisma.textToSpeech.create({
-        data: {
-            voiceId,
-            voiceName,
-            description: description ? description : null,
-            text
-        }
-    })
-
-    revalidatePath('/product/voice/main')
-    redirect('/product/voice/main')
+        const translatedTextPromise = new Promise((resolve, reject) => {
+            exec(
+                `source virenv/bin/activate && python3 text-to-speech.py "${voiceId}" "${text}"`,
+                (error, stdout, stderr) => {
+                if (error) {
+                    console.error(error);
+                    reject(error);
+                }
+                resolve(stdout)
+            });
+        })
+    const src = await translatedTextPromise;
+    console.log(src)
+    return src;
 
 }
 

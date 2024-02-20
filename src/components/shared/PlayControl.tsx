@@ -33,6 +33,7 @@ const PlayControl: FC<Props> = (props) => {
   const [startX, setStartX] = useState<number>(0);
   const [endX, setEndX] = useState<number>(0);
   
+  const [duration, setDuration] = useState(0);
   const [startTime, setStartTime] = useState(0);
   const [endTime, setEndTime] = useState(0);
   const [percent, setPercent] = useState(0);
@@ -65,6 +66,7 @@ const PlayControl: FC<Props> = (props) => {
       audioRef.current.currentTime = 1e101;
       audioRef.current.ontimeupdate = function () {
         this.ontimeupdate = () => {
+          setDuration(audioRef.current.duration);
           return;
         };
         audioRef.current.currentTime = 1e101;
@@ -197,6 +199,7 @@ const PlayControl: FC<Props> = (props) => {
       let _endTime = Number((end * duration).toFixed(2));
       if (_startTime < 0) _startTime = 0;
       if (_endTime > duration) _endTime = duration;
+      setDuration(duration);
       setStartTime(_startTime);
       setEndTime(_endTime);
       const percent = (endTime - startTime) * 100 / duration;
@@ -2426,7 +2429,9 @@ const PlayControl: FC<Props> = (props) => {
               .toString()
               .padStart(2, "0")}`}
           </p>
-          <p className="text-[12px] text-slate-400">0:30</p>
+          <p className="text-[12px] text-slate-400">
+            {formatTime(duration)}
+          </p>
         </div>
       </div>
       <div className="flex justify-between items-center px-6 py-5 border-t">

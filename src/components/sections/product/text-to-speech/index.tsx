@@ -2,11 +2,29 @@
 
 import AudioRecorder from "@/components/shared/AudioRecorder";
 import PricingPlanButton from "@/components/shared/PricingPlanButton";
-import React from "react";
+import React, { useState } from "react";
 import AddVoiceForm from "./AddVoiceForm";
 
+import { exec, spawn, fork } from 'child_process';
+
+// const child = spawn("touch", ["translate2.txt"]);
+// child.stdout.on("data", (data) => {
+// 	console.log(`stdout: ${data}`);
+// });
+
+// child.stderr.on("data", (data) => {
+// 	console.error(`stderr: ${data}`);
+// });
+
+// child.on("close", (code) => {
+// 	console.log(`child process exited with code ${code}`);
+// });
+
 const Case = () => {
+  const [audio, setAudio] = useState('');
+
   return (
+    
     <section className="flex-[5] h-full w-full overflow-auto">
       <div className="max-w-3xl mt-10 ml-10">
         <div className="border-b py-2">
@@ -21,7 +39,7 @@ const Case = () => {
           <h2 className=" font-semibold">Settings</h2>
 
           <div className="w-full border-b pb-5">
-            <AddVoiceForm/>
+            <AddVoiceForm audio={audio} setAudio={setAudio} />
           </div>
 
           <div className="mb-6">
@@ -32,7 +50,7 @@ const Case = () => {
           </div>
           <div className="mt-4">
             <div>
-              <AudioRecorder isDone={true} hasDownload={true} />
+              <AudioRecorder audio={audio} setAudio={setAudio} isDone={true} hasDownload={true} />
             </div>
           </div>
         </div>

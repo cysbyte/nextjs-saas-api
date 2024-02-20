@@ -4,8 +4,8 @@ import Case from '@/components/sections/product/voice/main'
 const Voice = () => {
   return (
       <main className='flex flex-row'>
-          <ProductSideBar productName='Voice'/>
-          <Case />
+      <ProductSideBar productName='Voice' />
+      <Case />
     </main>
   )
 }

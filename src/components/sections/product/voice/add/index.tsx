@@ -1,3 +1,5 @@
+'use client';
+
 import AudioRecorder from "@/components/shared/AudioRecorder";
 import PricingPlanButton from "@/components/shared/PricingPlanButton";
 import Dialog from "@/components/shared/RecordModal";
@@ -5,6 +7,8 @@ import Link from "next/link";
 import React, { useState } from "react";
 
 const Case = () => {
+
+  const [audio, setAudio] = useState('');
   
   return (
     <aside className="flex-[5] w-full h-auto mb-3">     
@@ -183,7 +187,7 @@ const Case = () => {
           <form className="bg-white w-full max-w-3xl">
             <div className="pb-2">
               <h4 className="text-base font-semibold">Reference Audio</h4>
-              <AudioRecorder isDone={true} hasDownload={false} />
+              <AudioRecorder audio={audio} setAudio={setAudio} isDone={true} hasDownload={false} />
             </div>
 
             <div>
@@ -242,7 +246,7 @@ const Case = () => {
         </div>
 
         <div className="mt-4 max-w-3xl">
-          <AudioRecorder isDone={true} hasDownload={true} />
+          <AudioRecorder audio={audio} setAudio={setAudio} isDone={true} hasDownload={true} />
         </div>
 
         

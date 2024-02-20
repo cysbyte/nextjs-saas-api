@@ -1,16 +1,28 @@
 "use client";
 
 import { addTextToSpeech } from "@/actions/actions";
+import GenerateButton from "@/components/shared/GenerateButton";
 import PricingPlanButton from "@/components/shared/PricingPlanButton";
-import React, { RefObject, useRef } from "react";
+import { PythonShell } from 'python-shell';
+import React, { Dispatch, FC, RefObject, SetStateAction, useRef, useState } from "react";
 
-const AddVoiceForm = () => {
+type Props = {
+  audio: string;
+  setAudio: Dispatch<React.SetStateAction<string>>;
+}
+
+const AddVoiceForm:FC<Props> = (props) => {
 
     const ref = useRef<HTMLFormElement>(null);
 
-    const addVoiceHandler = async (formData: FormData) => {
-        await addTextToSpeech(formData);
-        ref?.current?.reset();
+  const addVoiceHandler = async (formData: FormData) => {
+
+    const src = await addTextToSpeech(formData);
+    if (src) {
+      props.setAudio(src.toString().replace('public', ''));
+    }
+    
+    //ref?.current?.reset();
     }
 
   return (
@@ -21,7 +33,7 @@ const AddVoiceForm = () => {
             Voice ID
           </label>
           <input
-            className="appearance-none border rounded-md w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline placeholder:text-sm placeholder:pl-2"
+            className="input-border"
             id="voiceId"
             name="voiceId"
             type="text"
@@ -34,7 +46,7 @@ const AddVoiceForm = () => {
             Voice Names
           </label>
           <input
-            className="appearance-none border rounded-md w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline placeholder:text-sm placeholder:pl-2"
+            className="input-border focus:outline-none focus:shadow-outline"
             id="voiceName"
             name="voiceName"
             type="text"
@@ -50,7 +62,7 @@ const AddVoiceForm = () => {
             Voice Description
           </label>
           <textarea
-            className="appearance-none border rounded-md w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline placeholder:text-sm placeholder:pl-2"
+            className="input-border focus:outline-none focus:shadow-outline"
             id="description"
             name="description"
             rows={2}
@@ -66,7 +78,7 @@ const AddVoiceForm = () => {
             Text
           </label>
           <textarea
-            className="appearance-none border rounded-md w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline placeholder:text-sm placeholder:pl-2"
+            className="input-border focus:outline-none focus:shadow-outline"
             id="text"
             name="text"
             rows={8}
@@ -78,9 +90,7 @@ const AddVoiceForm = () => {
           <p className="text-[12px] text-slate-400">Token remaining 9500</p>
         </div>
       </div>
-      <div className="w-full mt-4">
-        <PricingPlanButton text="Generate" isScale={false} />
-      </div>
+      <GenerateButton/>
     </form>
   );
 };

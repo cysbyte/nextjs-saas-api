@@ -14,6 +14,11 @@ const config: Config = {
       }
     },
   },
+  variants: {
+    extend: {
+      border: ['focus'],
+    }
+  },
   plugins: [],
 };
 export default config;
