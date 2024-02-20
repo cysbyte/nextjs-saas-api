@@ -4,11 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && next build",
+    "build": "prisma generate && python3 -m venv virenv && source virenv/bin/activate && pip install -r requirements.txt && next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "prisma generate",
-    "install-python": " pip3 install requests"
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^1.3.3",
