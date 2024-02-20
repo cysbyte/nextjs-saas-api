@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+import CopyPlugin from 'copy-webpack-plugin'
+
 const nextConfig = {
     reactStrictMode: true,
     webpack: (config, { isServer }) => {
@@ -6,7 +8,15 @@ const nextConfig = {
         config.resolve.fallback.fs = false
         config.resolve.fallback.tls = false
         config.resolve.fallback.net = false
-        config.resolve.fallback.child_process = false
+          config.resolve.fallback.child_process = false
+          
+          config.plugins.push(
+            new CopyPlugin({
+              patterns: [
+                { from: 'src/lib/text-to-speech.py', to: 'lib/text-to-speech.py' },
+              ],
+            }),
+          );
       }
   
       return config

@@ -14,6 +14,7 @@
     "@prisma/client": "^5.9.1",
     "@types/python-shell": "^1.0.3",
     "audiobuffer-to-wav": "^1.0.0",
+    "copy-webpack-plugin": "^12.0.2",
     "next": "14.1.0",
     "next-auth": "^4.24.5",
     "python-shell": "^5.0.0",
