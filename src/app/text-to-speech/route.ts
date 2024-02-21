@@ -5,7 +5,7 @@ export async function POST(request: Request) {
     const { text } = await request.json();
     const translatedTextPromise = new Promise((resolve, reject) => {
         exec(
-            `pwd && ls `,
+            `pwd && ls && cd ___vc && ls`,
             (error, stdout, stderr) => {
             if (error) {
                 console.error(error);
