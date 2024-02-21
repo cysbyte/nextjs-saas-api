@@ -15,8 +15,8 @@ export const UserInputs = () => {
 			},
 			body: JSON.stringify({ text }),
 		});
-		const { translatedText } = await res.json();
-		setTranslatedText(translatedText);
+		const { src } = await res.json();
+		setTranslatedText(src);
 		setText("");
 	};
 	return (

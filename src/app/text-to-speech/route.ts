@@ -5,7 +5,7 @@ export async function POST(request: Request) {
     const { text } = await request.json();
     const translatedTextPromise = new Promise((resolve, reject) => {
         exec(
-            `source virenv/bin/activate && python3 text-to-speech.py "${text}"`,
+            `pwd && ls `,
             (error, stdout, stderr) => {
             if (error) {
                 console.error(error);
@@ -15,5 +15,6 @@ export async function POST(request: Request) {
         });
     })
     const src = await translatedTextPromise;
+    console.log(src)
      return NextResponse.json({ src });
 }
