@@ -30,39 +30,41 @@ export const addTextToSpeech = async (formData: FormData) => {
     const description = formData.get('description') as string;
     const text = formData.get('text') as string;
 
-        const new_voice = prisma.textToSpeech.create({
-            data: {
-                voiceId,
-                voiceName,
-                description: description ? description : null,
-                text
-            }
-        })
-
-        // const translatedTextPromise = new Promise((resolve, reject) => {
-        //     exec(
-        //         `cd virenv && source virenv/bin/activate && python3 text-to-speech.py "${voiceId}" "${text}"`,
-        //         (error, stdout, stderr) => {
-        //         if (error) {
-        //             console.error(error);
-        //             reject(error);
-        //         }
-        //         resolve(stdout)
-        //     });
-        // })
-    
-    const translatedTextPromise = new Promise((resolve, reject) => {
-        const pyprog = spawn('python3', ["text-to-speech.py", voiceId, text]);
-        pyprog.stdout.on('data', function (data) {
-            resolve(data.toString());
-        });
-        pyprog.stderr.on('data', (data) => {
-            reject(data.toString());
-        });
+    const new_voice = await prisma.textToSpeech.create({
+        data: {
+            voiceId,
+            voiceName,
+            description: description ? description : null,
+            text
+        }
     });
-    const src = await translatedTextPromise;
-    console.log(src)
-    return src;
+
+    const response = await fetch(`http://54.95.52.19/text-to-speech`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            'voice_id': voiceId,
+            'text': text
+        }),
+    });
+    const result = await response.json();
+    console.log(result)
+    return result;
+    
+    // const translatedTextPromise = new Promise((resolve, reject) => {
+    //     const pyprog = spawn('python3', ["text-to-speech.py", voiceId, text]);
+    //     pyprog.stdout.on('data', function (data) {
+    //         resolve(data.toString());
+    //     });
+    //     pyprog.stderr.on('data', (data) => {
+    //         reject(data.toString());
+    //     });
+    // });
+    // const src = await translatedTextPromise;
+    // console.log(src)
+    // return src;
 
 }
 

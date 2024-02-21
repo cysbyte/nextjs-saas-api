@@ -17,9 +17,9 @@ const AddVoiceForm:FC<Props> = (props) => {
 
   const addVoiceHandler = async (formData: FormData) => {
 
-    const src = await addTextToSpeech(formData);
-    if (src) {
-      props.setAudio(src.toString().replace('public', ''));
+    const {file_name} = await addTextToSpeech(formData);
+    if (file_name) {
+      props.setAudio('https://saas-minimax.s3.ap-northeast-1.amazonaws.com/'+file_name);
     }
     
     //ref?.current?.reset();
