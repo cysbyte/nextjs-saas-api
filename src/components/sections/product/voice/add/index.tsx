@@ -314,25 +314,7 @@ const Case = () => {
               <PricingPlanButton text="Save Voice" isScale={false} />
             </div>
           </form>
-          
         </div>
-
-        <div className="mt-4 max-w-3xl">
-          <AudioRecorder
-            audio={audio}
-            setAudio={setAudio}
-            isDone={true}
-            hasDownload={true}
-            isRecording={isRecording}
-            setIsRecording={setIsRecording}
-            audioBlob={audioBlob}
-            setAudioBlob={setAudioBlob}
-            file={file}
-            setFile={setFile}
-          />
-        </div>
-
-        
       </div>
     </aside>
   );
