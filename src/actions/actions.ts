@@ -6,21 +6,8 @@ import { runPythonScript } from "@/lib/util";
 import prisma from "@/lib/prismadb";
 import { exec, spawn } from 'child_process';
 
-// export const fetchBlogs = async () => {
-//     const blogs = await prisma.blog.findMany({});
-//     return blogs
-// }
-
-
-// export const fetchSingleBlog = async (id) => {
-//     const blogs = await prisma.blog.findFirst({
-//         where: {
-//             id: id
-//         }
-//     });
-//     return blogs
-// }
-
+const group_id='1697534675713802'
+const api_key = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJHcm91cE5hbWUiOiJoZWV5byIsIlVzZXJOYW1lIjoiaGVleW8iLCJBY2NvdW50IjoiIiwiU3ViamVjdElEIjoiMTY5NzUzNDY3NTQ4MDI3MyIsIlBob25lIjoiIiwiR3JvdXBJRCI6IjE2OTc1MzQ2NzU3MTM4MDIiLCJQYWdlTmFtZSI6IiIsIk1haWwiOiJkZXZAaGVleW8ubGlmZSIsIkNyZWF0ZVRpbWUiOiIyMDI0LTAyLTExIDEwOjQ3OjA4IiwiaXNzIjoibWluaW1heCJ9.rlxFHGoLAgMgx4wgsNHoxhOL2k37PEQpsr_RxKh0pZgEAL_VuPI5bIo10l97PcV9SvkX5XxBL2koS9Jt1HMp-Ig2y8NSWo0dTyddV0QZ02KtRvsdGmpEGZGpkKJY9_Cp0j35CSvdf1OEGvF3TWusThAyvNtaCJk4Ti1yD_OrBt977PWKdFfmQ4xWjTPjTZY-i6FvCMOJbqn47CeVWBgJkqy9-cdaajciI4dq9n4ZATcgxGtVDKloO98eZiVQhMP3eM8HDp8N1LU7uERmQSRHXHrCuwoGyRg99Q3l2LeOGUfI9v2xUdtqD2ld9-1Y-PVJyMrY--tERstauCFwDxwKxw'
 
 
 export const addTextToSpeech = async (formData: FormData) => {
@@ -68,4 +55,61 @@ export const addTextToSpeech = async (formData: FormData) => {
 
 }
 
+export const uploadAudio = async (formData: FormData)=> {
+
+    const file: File | null = formData.get('file') as unknown as File
+    if (!file) {
+      throw new Error('No file uploaded')
+    }
+
+    const url = `https://api.minimax.chat/v1/files/upload?GroupId=${group_id}`;
+    formData.set('purpose', 'voice_clone');
+
+    try {
+        const result = await fetch(url, {
+          method: "POST",
+          headers: {
+            'authority': 'api.minimax.chat',
+            'authorization': `Bearer ${api_key}`
+        },
+          body: formData,
+        });
+
+        const data = await result.json();
+
+        console.log('data', data);
+        return data;
+      } catch (error) {
+        console.error(error);
+      }
+
+    return { success: true }
+}
+  
+export const cloneAudio = async (fileId: string, voiceId: string | null = '') => {
+    const url = `https://api.minimax.chat/v1/voice_clone?GroupId=${group_id}`;
+
+    try {
+        const result = await fetch(url, {
+          method: "POST",
+          headers: {
+            'content-type': 'application/json',
+            'authorization': `Bearer ${api_key}`
+        },
+            body: JSON.stringify({
+                "file_id": fileId,
+                "voice_id": voiceId
+          }),
+        });
+
+        const data = await result.json();
+
+        console.log('data', data);
+        return data;
+      } catch (error) {
+        console.error(error);
+      }
+
+    return { success: true }
+}
 

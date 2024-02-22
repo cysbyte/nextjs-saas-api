@@ -26,7 +26,7 @@ const Case = () => {
   return (
     
     <section className="flex-[5] h-full w-full overflow-auto">
-      <div className="max-w-3xl mt-10 ml-10">
+      <div className="max-w-3xl mt-14 ml-10">
         <div className="border-b py-2">
           <h1 className="text-4xl font-semibold">Text to Speech</h1>
           <p className="mt-3 text-base text-slate-600 leading-[30px] max max-w-screen-sm">
@@ -50,7 +50,14 @@ const Case = () => {
           </div>
           <div className="mt-4">
             <div>
-              <AudioRecorder audio={audio} setAudio={setAudio} isDone={true} hasDownload={true} />
+              <AudioRecorder
+                audio={audio}
+                setAudio={setAudio}
+                isDone={true}
+                hasDownload={true}
+                isRecording={null}
+                setIsRecording={null}
+              />
             </div>
           </div>
         </div>

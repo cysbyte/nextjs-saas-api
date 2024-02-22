@@ -10,6 +10,8 @@ type Props = {
   hasDownload: boolean;
   audio: string;
   setAudio: Dispatch<React.SetStateAction<string>>
+  isRecording: boolean | null;
+  setIsRecording: Dispatch<React.SetStateAction<boolean | null>> | null
 }
 const AudioRecorder: FC<Props> = (props) => {
   //const [audio, setAudio] = useState<string>("");
@@ -35,6 +37,8 @@ const AudioRecorder: FC<Props> = (props) => {
                 setAudio={props.setAudio}
                 isDone={isDone}
                 setIsDone={setIsDone}
+                isRecording={props.isRecording}
+                setIsRecording={props.setIsRecording}
               />
             </div>
           )}

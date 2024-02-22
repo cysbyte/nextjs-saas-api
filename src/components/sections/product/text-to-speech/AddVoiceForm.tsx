@@ -13,13 +13,18 @@ type Props = {
 
 const AddVoiceForm:FC<Props> = (props) => {
 
-    const ref = useRef<HTMLFormElement>(null);
+  const ref = useRef<HTMLFormElement>(null);
+  
 
   const addVoiceHandler = async (formData: FormData) => {
 
-    const {file_name} = await addTextToSpeech(formData);
-    if (file_name) {
-      props.setAudio('https://saas-minimax.s3.ap-northeast-1.amazonaws.com/'+file_name);
+    try {
+      const { file_name } = await addTextToSpeech(formData);
+      if (file_name) {
+        props.setAudio('https://saas-minimax.s3.ap-northeast-1.amazonaws.com/' + file_name);
+      }
+    } catch (error) {
+      console.log(error)
     }
     
     //ref?.current?.reset();

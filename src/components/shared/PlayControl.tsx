@@ -43,6 +43,7 @@ const PlayControl: FC<Props> = (props) => {
 
   const togglePlayPause = () => {
     //setIsPlaying((prev) => !prev);
+    if (!props.audio) return;
     if (!isPlaying) {
       setIsPlaying(true);
       audioRef.current.play();
@@ -66,7 +67,6 @@ const PlayControl: FC<Props> = (props) => {
       audioRef.current.currentTime = 1e101;
       audioRef.current.ontimeupdate = function () {
         this.ontimeupdate = () => {
-          setDuration(audioRef.current.duration);
           return;
         };
         audioRef.current.currentTime = 1e101;
@@ -2699,7 +2699,7 @@ const PlayControl: FC<Props> = (props) => {
         </div>
 
         <div className="flex flex-1 items-center justify-end gap-x-3">
-          <button>
+          <button onClick={()=>props.setIsDone(false)}>
             <svg
               width="24"
               height="24"

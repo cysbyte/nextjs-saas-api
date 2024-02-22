@@ -1,6 +1,8 @@
 'use client';
 
+import { cloneAudio, uploadAudio } from "@/actions/actions";
 import AudioRecorder from "@/components/shared/AudioRecorder";
+import GenerateButton from "@/components/shared/GenerateButton";
 import PricingPlanButton from "@/components/shared/PricingPlanButton";
 import Dialog from "@/components/shared/RecordModal";
 import Link from "next/link";
@@ -9,9 +11,39 @@ import React, { useState } from "react";
 const Case = () => {
 
   const [audio, setAudio] = useState('');
+  const [isRecording, setIsRecording] = useState<boolean|null>(false);
+
+  const [file, setFile] = useState<File | null>(null);
+  const [status, setStatus] = useState<
+    "initial" | "uploading" | "success" | "fail"
+    >("initial");
   
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (e.target.files) {
+        setStatus("initial");
+        setFile(e.target.files[0]);
+      }
+    };
+  
+  const uploadVoiceHandler = async (formData: FormData) => {
+    console.log('formData', formData.get('file'))
+    try {
+      let result = await uploadAudio(formData);
+      const fileId = result.file.file_id;
+      result = await cloneAudio(fileId, formData.get('voiceId')?.toString());
+      
+      // if (file_name) {
+      //   props.setAudio('https://saas-minimax.s3.ap-northeast-1.amazonaws.com/' + file_name);
+      // }
+    } catch (error) {
+      console.log(error)
+    }
+    
+    //ref?.current?.reset();
+    }
+
   return (
-    <aside className="flex-[5] w-full h-auto mb-3">     
+    <aside className="flex-[5] w-full h-auto my-8">     
       <div className="max-w-full mt-5 ml-10">
         <div className="border-b py-4">
           <h1 className="text-4xl font-semibold">Voice</h1>
@@ -40,16 +72,18 @@ const Case = () => {
         </div>
         <div>
           
-          <form className="bg-white w-full max-w-3xl">
+         <form className="bg-white max-w-3xl"
+            action={uploadVoiceHandler}>
             <div className="pb-2">
               <h4 className="text-base font-semibold">Reference Audio</h4>
-              <div className="rounded-md border-[2px] w-full p-16">
-                <h4 className="font-semibold text-center mx-auto">
+              {!isRecording && <div className="rounded-md border-[2px] w-full p-20">
+                {file && <h4 className="font-base text-center mx-auto">{file.name}</h4>}
+                {!file && <h4 className="font-semibold text-center mx-auto">
                   Drop file here or record audio
-                </h4>
+                </h4>}
                 <div className="w-[20%] mx-auto flex gap-x-3 justify-center mt-4">
                   <label htmlFor="file">
-                    <button className="flex mx-auto items-center border-[2px] rounded-md px-4 py-1 cursor-pointer">
+                    <div className="btn-border">
                       <svg
                         width="16"
                         height="16"
@@ -81,56 +115,67 @@ const Case = () => {
                       </svg>
 
                       <p className="ml-2">Upload</p>
-                    </button>
+                    </div>
                     <input
                       type="file"
                       id="file"
                       name="file"
                       className="hidden"
+                      onChange={handleFileChange}
                     />
                   </label>
 
-                  <Link href='/product/voice?modal=true'>
-                  <div className="flex mx-auto items-center border-[2px] rounded-md px-4 py-1 cursor-pointer">
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M8 1.33325C7.46957 1.33325 6.96086 1.54397 6.58579 1.91904C6.21071 2.29411 6 2.80282 6 3.33325V7.99992C6 8.53035 6.21071 9.03906 6.58579 9.41413C6.96086 9.78921 7.46957 9.99992 8 9.99992C8.53043 9.99992 9.03914 9.78921 9.41421 9.41413C9.78929 9.03906 10 8.53035 10 7.99992V3.33325C10 2.80282 9.78929 2.29411 9.41421 1.91904C9.03914 1.54397 8.53043 1.33325 8 1.33325Z"
-                        stroke="#0F172A"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                      <path
-                        d="M12.6667 6.66675V8.00008C12.6667 9.23776 12.175 10.4247 11.2999 11.2999C10.4247 12.1751 9.23772 12.6667 8.00004 12.6667C6.76236 12.6667 5.57538 12.1751 4.70021 11.2999C3.82504 10.4247 3.33337 9.23776 3.33337 8.00008V6.66675"
-                        stroke="#0F172A"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                      <path
-                        d="M8 12.6667V14.6667"
-                        stroke="#0F172A"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
+                    <div className="btn-border" onClick={()=>setIsRecording(true)}>
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M8 1.33325C7.46957 1.33325 6.96086 1.54397 6.58579 1.91904C6.21071 2.29411 6 2.80282 6 3.33325V7.99992C6 8.53035 6.21071 9.03906 6.58579 9.41413C6.96086 9.78921 7.46957 9.99992 8 9.99992C8.53043 9.99992 9.03914 9.78921 9.41421 9.41413C9.78929 9.03906 10 8.53035 10 7.99992V3.33325C10 2.80282 9.78929 2.29411 9.41421 1.91904C9.03914 1.54397 8.53043 1.33325 8 1.33325Z"
+                          stroke="#0F172A"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M12.6667 6.66675V8.00008C12.6667 9.23776 12.175 10.4247 11.2999 11.2999C10.4247 12.1751 9.23772 12.6667 8.00004 12.6667C6.76236 12.6667 5.57538 12.1751 4.70021 11.2999C3.82504 10.4247 3.33337 9.23776 3.33337 8.00008V6.66675"
+                          stroke="#0F172A"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M8 12.6667V14.6667"
+                          stroke="#0F172A"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
 
-                    <p className="ml-2">Record</p>
+                      <p className="ml-2">Record</p>
                     </div>
-                  </Link>
+
                 </div>
               </div>
+              }
+              {isRecording && <div className="max-w-3xl">
+                <AudioRecorder
+                  audio={audio}
+                  setAudio={setAudio}
+                  isDone={false}
+                  hasDownload={false} 
+                  isRecording={isRecording}
+                  setIsRecording={setIsRecording}
+                  />
+                </div>}
             </div>
 
             <div>
-            <div className="mt-3 w-full">
+              <div className="mt-3 w-full">
                 <label
                   className="block text-black text-sm mb-2 font-semibold"
                   htmlFor="voiceId"
@@ -140,6 +185,7 @@ const Case = () => {
                 <input
                   className="appearance-none border rounded-md w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline placeholder:text-sm placeholder:pl-2"
                   id="voiceId"
+                  name='voiceId'
                   type="text"
                   placeholder="Apple"
                 />
@@ -148,46 +194,53 @@ const Case = () => {
               <div className="mt-3 w-full">
                 <label
                   className="block text-black text-sm mb-2 font-semibold"
-                  htmlFor="voiceId"
+                  htmlFor="description"
                 >
                   Voice Description
                 </label>
                 <textarea
                   className="appearance-none border rounded-md w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline placeholder:text-sm placeholder:pl-2"
                   id="voiceId"
+                  name="description"
                   rows={2}
                   placeholder="Enter description here..."
                 />
               </div>
-            <div className="flex justify-start items-start mt-5">
-              <input
-                className="mt-1 mr-2"
-                type="checkbox"
-                id="agree"
-                name=""
-                value="true"
-              />
-              <label htmlFor="agree" className="text-[12px] text-slate-400">
-                {" "}
-                I confirm that I possess all the necessary rights and
-                permissions to upload and replicate these voice samples.
-                Furthermore, I assure that I will not utilize the content
-                created by the platform for any unlawful, deceitful, or damaging
-                activities. I also reaffirm my commitment to adhere to the Terms
-                of Service and Privacy Policy of useHifi.
-              </label>
+              <div className="flex justify-start items-start mt-5">
+                <input
+                  className="mt-1 mr-2"
+                  type="checkbox"
+                  id="agree"
+                  name=""
+                  value="true"
+                />
+                <label htmlFor="agree" className="text-[12px] text-slate-400">
+                  {" "}
+                  I confirm that I possess all the necessary rights and
+                  permissions to upload and replicate these voice samples.
+                  Furthermore, I assure that I will not utilize the content
+                  created by the platform for any unlawful, deceitful, or damaging
+                  activities. I also reaffirm my commitment to adhere to the Terms
+                  of Service and Privacy Policy of useHifi.
+                </label>
               </div>
             </div>
             <div className="w-full my-4">
-              <PricingPlanButton text="Generate" isScale={false} />
+              <GenerateButton />
             </div>
           </form>
-
 
           <form className="bg-white w-full max-w-3xl">
             <div className="pb-2">
               <h4 className="text-base font-semibold">Reference Audio</h4>
-              <AudioRecorder audio={audio} setAudio={setAudio} isDone={true} hasDownload={false} />
+              <AudioRecorder
+                audio={audio}
+                setAudio={setAudio}
+                isDone={true}
+                hasDownload={false}
+                isRecording={isRecording}
+                setIsRecording={setIsRecording}
+              />
             </div>
 
             <div>
@@ -243,10 +296,18 @@ const Case = () => {
               <PricingPlanButton text="Save Voice" isScale={false} />
             </div>
           </form>
+          
         </div>
 
         <div className="mt-4 max-w-3xl">
-          <AudioRecorder audio={audio} setAudio={setAudio} isDone={true} hasDownload={true} />
+          <AudioRecorder
+            audio={audio}
+            setAudio={setAudio}
+            isDone={true}
+            hasDownload={true}
+            isRecording={isRecording}
+            setIsRecording={setIsRecording}
+          />
         </div>
 
         

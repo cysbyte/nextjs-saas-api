@@ -20,6 +20,8 @@ type Props = {
   setAudioBlob: Dispatch<SetStateAction<Blob | undefined>>;
   audioChunks: any;
   setAudioChunks: Dispatch<SetStateAction<any>>;
+  isRecording: boolean | null;
+  setIsRecording: Dispatch<React.SetStateAction<boolean | null>> | null;
 };
 
 const RecordControl: FC<Props> = (props) => {
@@ -124,7 +126,10 @@ const RecordControl: FC<Props> = (props) => {
 
   const handleCancel = () => {
     stopRecording();
-    router.push('/product/voice/add');
+    if (props.setIsRecording){
+        props.setIsRecording(false);  
+    }
+    // router.push('/product/voice/add');
   }
 
   const getMicrophonePermission = async () => {

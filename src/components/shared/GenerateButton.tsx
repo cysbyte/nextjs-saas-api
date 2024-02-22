@@ -8,7 +8,7 @@ const GenerateButton = () => {
   return (
     <div className="w-full mt-4">
           <PricingPlanButton
-              text={pending?"Generating Speech...":"Regenerate"}
+              text={pending?"Generating Speech...":"Generate"}
               isScale={false} />
       </div>
   )

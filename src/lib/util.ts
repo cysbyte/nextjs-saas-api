@@ -1,4 +1,5 @@
 import { spawn } from 'child_process';
+import * as FFmpeg from '@ffmpeg/ffmpeg';
 
 // Run a Python script and return output
 export function runPythonScript(scriptPath: string, args:any) {
@@ -27,3 +28,4 @@ export function runPythonScript(scriptPath: string, args:any) {
 
 // Run the Python file
 // runPythonScript('/path/to/python_file.py', [arg1, arg2]);
+

@@ -41,7 +41,7 @@ export default function RecordModal() {
         className="fixed w-[720px] top-50 left-50 -translate-x-50 -translate-y-50 z-10 rounded-xl backdrop:bg-gray-800/80 overflow-hidden"
       >
         <div className="w-full">
-          <AudioRecorder audio={audio} setAudio={setAudio} isDone={false} hasDownload={false} />
+          {/* <AudioRecorder audio={audio} setAudio={setAudio} isDone={false} hasDownload={false} /> */}
         </div>
       </dialog>
     ) : null;
