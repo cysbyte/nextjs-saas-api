@@ -10,15 +10,14 @@ import React, {
 import { browserName, CustomView } from "react-device-detect";
 import { MIMETYPE } from "./RecordControl";
 import encodeWAV from "audiobuffer-to-wav";
-import { strategy } from "sharp";
 
 type Props = {
   audio: string;
   setAudio: React.Dispatch<React.SetStateAction<string>>;
   isDone: boolean;
   setIsDone: React.Dispatch<React.SetStateAction<boolean>>;
-  audioBlob: Blob | undefined;
-  setAudioBlob: Dispatch<SetStateAction<Blob | undefined>>;
+  audioBlob: Blob;
+  setAudioBlob: Dispatch<SetStateAction<Blob>>;
   audioChunks: any;
   setAudioChunks: Dispatch<SetStateAction<any>>;
 };

@@ -57,10 +57,10 @@ export const addTextToSpeech = async (formData: FormData) => {
 
 export const uploadAudio = async (formData: FormData)=> {
 
-    const file: File | null = formData.get('file') as unknown as File
-    if (!file) {
-      throw new Error('No file uploaded')
-    }
+    // const file: File | Blob | null = formData.get('file') as unknown as File | Blob
+    // if (!file) {
+    //   throw new Error('No file uploaded')
+    // }
 
     const url = `https://api.minimax.chat/v1/files/upload?GroupId=${group_id}`;
     formData.set('purpose', 'voice_clone');

@@ -5,15 +5,17 @@ import AudioRecorder from "@/components/shared/AudioRecorder";
 import GenerateButton from "@/components/shared/GenerateButton";
 import PricingPlanButton from "@/components/shared/PricingPlanButton";
 import Dialog from "@/components/shared/RecordModal";
+import { convertWebmToMp3 } from "@/lib/util";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useTransition } from "react";
 
 const Case = () => {
 
   const [audio, setAudio] = useState('');
+  const [audioBlob, setAudioBlob] = useState<Blob>(new Blob());
   const [isRecording, setIsRecording] = useState<boolean|null>(false);
 
-  const [file, setFile] = useState<File | null>(null);
+  const [file, setFile] = useState<Blob | File | string>('');
   const [status, setStatus] = useState<
     "initial" | "uploading" | "success" | "fail"
     >("initial");
@@ -26,7 +28,8 @@ const Case = () => {
     };
   
   const uploadVoiceHandler = async (formData: FormData) => {
-    console.log('formData', formData.get('file'))
+    formData.set('file', file);
+    console.log(formData.get('file'))
     try {
       let result = await uploadAudio(formData);
       const fileId = result.file.file_id;
@@ -40,7 +43,12 @@ const Case = () => {
     }
     
     //ref?.current?.reset();
-    }
+  }
+  
+  const getFileName = () => {
+    //@ts-ignore
+    return file.name;
+  }
 
   return (
     <aside className="flex-[5] w-full h-auto my-8">     
@@ -77,7 +85,9 @@ const Case = () => {
             <div className="pb-2">
               <h4 className="text-base font-semibold">Reference Audio</h4>
               {!isRecording && <div className="rounded-md border-[2px] w-full p-20">
-                {file && <h4 className="font-base text-center mx-auto">{file.name}</h4>}
+                
+                {file && !isRecording && <h4 className="font-base text-center mx-auto">{getFileName()}</h4>}
+                {file && isRecording && <h4 className="font-base text-center mx-auto">{audio}</h4>}
                 {!file && <h4 className="font-semibold text-center mx-auto">
                   Drop file here or record audio
                 </h4>}
@@ -170,6 +180,10 @@ const Case = () => {
                   hasDownload={false} 
                   isRecording={isRecording}
                   setIsRecording={setIsRecording}
+                  audioBlob={audioBlob}
+                  setAudioBlob={setAudioBlob}
+                  file={file}
+                  setFile={setFile}
                   />
                 </div>}
             </div>
@@ -240,6 +254,10 @@ const Case = () => {
                 hasDownload={false}
                 isRecording={isRecording}
                 setIsRecording={setIsRecording}
+                audioBlob={audioBlob}
+                setAudioBlob={setAudioBlob}
+                file={file}
+                setFile={setFile}
               />
             </div>
 
@@ -307,6 +325,10 @@ const Case = () => {
             hasDownload={true}
             isRecording={isRecording}
             setIsRecording={setIsRecording}
+            audioBlob={audioBlob}
+            setAudioBlob={setAudioBlob}
+            file={file}
+            setFile={setFile}
           />
         </div>
 

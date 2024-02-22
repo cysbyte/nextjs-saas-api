@@ -9,14 +9,17 @@ type Props = {
   isDone: boolean;
   hasDownload: boolean;
   audio: string;
-  setAudio: Dispatch<React.SetStateAction<string>>
+  setAudio: Dispatch<React.SetStateAction<string>>;
   isRecording: boolean | null;
-  setIsRecording: Dispatch<React.SetStateAction<boolean | null>> | null
+  setIsRecording: Dispatch<React.SetStateAction<boolean | null>> | null;
+  audioBlob: Blob;
+  setAudioBlob: Dispatch<React.SetStateAction<Blob>>;
+  file: string | Blob | File;
+  setFile: Dispatch<React.SetStateAction<string | Blob | File>>;
 }
 const AudioRecorder: FC<Props> = (props) => {
   //const [audio, setAudio] = useState<string>("");
   const [isDone, setIsDone] = useState<boolean>(props.isDone);
-  const [audioBlob, setAudioBlob] = useState<Blob>();
   const [audioChunks, setAudioChunks] = useState<any>([]);
 
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
@@ -29,8 +32,8 @@ const AudioRecorder: FC<Props> = (props) => {
           {!isDone && (
             <div className="">
               <RecordControl
-                audioBlob={audioBlob}
-                setAudioBlob={setAudioBlob}
+                audioBlob={props.audioBlob}
+                setAudioBlob={props.setAudioBlob}
                 audioChunks={audioChunks}
                 setAudioChunks={setAudioChunks}
                 audio={props.audio}
@@ -39,6 +42,8 @@ const AudioRecorder: FC<Props> = (props) => {
                 setIsDone={setIsDone}
                 isRecording={props.isRecording}
                 setIsRecording={props.setIsRecording}
+                file={props.file}
+                setFile={props.setFile}
               />
             </div>
           )}
@@ -46,8 +51,8 @@ const AudioRecorder: FC<Props> = (props) => {
           {isDone && (
             <div className="">
               <PlayControl
-                audioBlob={audioBlob}
-                setAudioBlob={setAudioBlob}
+                audioBlob={props.audioBlob}
+                setAudioBlob={props.setAudioBlob}
                 audioChunks={audioChunks}
                 setAudioChunks={setAudioChunks}
                 audio={props.audio}

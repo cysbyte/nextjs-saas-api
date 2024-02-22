@@ -1,4 +1,5 @@
 
+import { convertWebmToMp3 } from "@/lib/util";
 import { redirect, useRouter } from "next/navigation";
 import React, {
   Dispatch,
@@ -16,12 +17,14 @@ type Props = {
   setIsDone: Dispatch<SetStateAction<boolean>>;
   audio: string;
   setAudio: Dispatch<SetStateAction<string>>;
-  audioBlob: Blob | undefined;
-  setAudioBlob: Dispatch<SetStateAction<Blob | undefined>>;
+  audioBlob: Blob;
+  setAudioBlob: Dispatch<SetStateAction<Blob>>;
   audioChunks: any;
   setAudioChunks: Dispatch<SetStateAction<any>>;
   isRecording: boolean | null;
   setIsRecording: Dispatch<React.SetStateAction<boolean | null>> | null;
+  file: string | Blob | File;
+  setFile:  Dispatch<React.SetStateAction<string | Blob | File>>
 };
 
 const RecordControl: FC<Props> = (props) => {
@@ -38,6 +41,7 @@ const RecordControl: FC<Props> = (props) => {
   const router = useRouter();
 
   const startRecording = async () => {
+
     if ("MediaRecorder" in window) {
       try {
         const streamData: any = await navigator.mediaDevices
@@ -90,14 +94,18 @@ const RecordControl: FC<Props> = (props) => {
     setElapsedTime(0);
     //stops the recording instance
     mediaRecorder.current.stop();
-    mediaRecorder.current.onstop = () => {
+    mediaRecorder.current.onstop = async () => {
       //creates a blob file from the audiochunks data
       const audioBlob = new Blob(props.audioChunks, { type: MIMETYPE });
       props.setAudioBlob(audioBlob);
-      //creates a playable URL from the blob file.
+      // creates a playable URL from the blob file.
       const audioUrl = URL.createObjectURL(audioBlob);
-      console.log(audioUrl);
-      props.setAudio(audioUrl);
+      // console.log(audioUrl);
+      // props.setAudio(audioUrl);
+
+      const file = await convertWebmToMp3(audioUrl)
+      props.setFile(file);
+
       props.setAudioChunks([]);
     };
   };

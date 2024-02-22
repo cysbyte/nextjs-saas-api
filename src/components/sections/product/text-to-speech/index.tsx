@@ -2,7 +2,7 @@
 
 import AudioRecorder from "@/components/shared/AudioRecorder";
 import PricingPlanButton from "@/components/shared/PricingPlanButton";
-import React, { useState } from "react";
+import React, { useState, Dispatch } from "react";
 import AddVoiceForm from "./AddVoiceForm";
 
 import { exec, spawn, fork } from 'child_process';
@@ -22,6 +22,8 @@ import { exec, spawn, fork } from 'child_process';
 
 const Case = () => {
   const [audio, setAudio] = useState('');
+  const [audioBlob, setAudioBlob] = useState(new Blob());
+  const [file, setFile] = useState<Blob | File | string>(new Blob());
 
   return (
     
@@ -57,6 +59,10 @@ const Case = () => {
                 hasDownload={true}
                 isRecording={null}
                 setIsRecording={null}
+                audioBlob={audioBlob}
+                setAudioBlob={setAudioBlob}
+                file={file}
+                setFile={setFile}
               />
             </div>
           </div>
