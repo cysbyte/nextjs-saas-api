@@ -89,6 +89,7 @@ export const uploadAudio = async (formData: FormData)=> {
 export const cloneAudio = async (fileId: string, voiceId: string | null = '') => {
     const url = `https://api.minimax.chat/v1/voice_clone?GroupId=${group_id}`;
 
+    console.log('voiceId', voiceId)
     try {
         const result = await fetch(url, {
           method: "POST",
@@ -98,7 +99,7 @@ export const cloneAudio = async (fileId: string, voiceId: string | null = '') =>
         },
             body: JSON.stringify({
                 "file_id": fileId,
-                "voice_id": voiceId
+                "voice_id": voiceId?.trim()
           }),
         });
 

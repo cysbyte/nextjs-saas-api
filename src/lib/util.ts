@@ -41,18 +41,22 @@ export async function convertWebmToMp3(blobUrl: string) {
     wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, "application/wasm"),
   });
 
-  await ffmpeg.writeFile("input.webm", await fetchFile(blobUrl));
-  await ffmpeg.exec(["-i", "input.webm", "output.mp3"]);
-  const data = await ffmpeg.readFile("output.mp3");
+  try {
+    await ffmpeg.writeFile("input.webm", await fetchFile(blobUrl));
+    await ffmpeg.exec(["-i", "input.webm", "output.mp3"]);
+    const data = await ffmpeg.readFile("output.mp3");
 
-  const suggestedName = "microphone-recording.mp3";
-  const handle = await window.showSaveFilePicker({ suggestedName });
-  const writable = await handle.createWritable();
-  //@ts-ignore
-  await writable.write(data.buffer);
-  await writable.close();
-  return handle.getFile();
-  
+    const suggestedName = "microphone-recording.mp3";
+    const handle = await window.showSaveFilePicker({ suggestedName });
+    const writable = await handle.createWritable();
+    //@ts-ignore
+    await writable.write(data.buffer);
+    await writable.close();
+    return handle.getFile();
+  } catch (error) {
+    return '';
+    console.log(error)
+  }
   // @ts-ignore
   // const url = URL.createObjectURL(new Blob([data.buffer], { type: 'audio/mp3' }));
   // const fileName = uuidv4() + '.mp3';
