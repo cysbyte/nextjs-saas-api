@@ -28,6 +28,8 @@ const Case = () => {
     };
   
   const uploadVoiceHandler = async (formData: FormData) => {
+
+    if (file || file === '') return;
     formData.set('file', file);
     console.log(formData.get('file'))
     try {

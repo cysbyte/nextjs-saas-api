@@ -58,7 +58,10 @@ const AudioRecorder: FC<Props> = (props) => {
                 audio={props.audio}
                 setAudio={props.setAudio}
                 isDone={isDone}
-                setIsDone={setIsDone} />
+                setIsDone={setIsDone}
+                file={props.file}
+                setFile={props.setFile}
+              />
             </div>
           )}
         </div>

@@ -26,7 +26,7 @@ const MostAffordable = () => {
             <br />
             AI voice generator
           </h1>
-          <p className="mt-6 text-lg text-slate-600 max-w-xl leading-[30px]">
+          <p className="mt-6 text-lg px-5 md:px-0 text-left text-slate-600 max-w-xl leading-[30px]">
             Our proprietary AI enables us to deliver state-of-the-art quality at
             a cost 10x lower than other Generative AI competitors.
           </p>
@@ -34,7 +34,7 @@ const MostAffordable = () => {
         <div className="flex flex-col lg:flex-row items-center lg:items-start h-auto mt-12 md:mt-24 text-center md:text-start">
           <div className="lg:flex-1 my-12 md:my-24 ">
             <h4 className="text-14 font-semibold text-lg mt-4">Videos</h4>
-            <p className="mt-6 text-lg text-slate-600 max-w-xl leading-[30px]">
+            <p className="mt-6 text-lg px-5 md:px-0 text-left text-slate-600 max-w-xl leading-[30px]">
               For content creators and short story writers alike, our AI voice
               generator enables you to craft engaging audio narratives.
             </p>

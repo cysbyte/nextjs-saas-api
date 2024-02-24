@@ -10,6 +10,7 @@ import React, {
 import { browserName, CustomView } from "react-device-detect";
 import { MIMETYPE } from "./RecordControl";
 import encodeWAV from "audiobuffer-to-wav";
+import { convertWebmToMp3 } from "@/lib/util";
 
 type Props = {
   audio: string;
@@ -20,6 +21,8 @@ type Props = {
   setAudioBlob: Dispatch<SetStateAction<Blob>>;
   audioChunks: any;
   setAudioChunks: Dispatch<SetStateAction<any>>;
+  file: string | Blob | File;
+  setFile: Dispatch<React.SetStateAction<string | Blob | File>>;
 };
 
 const PlayControl: FC<Props> = (props) => {
@@ -99,10 +102,11 @@ const PlayControl: FC<Props> = (props) => {
 
         if (audioRef.current.currentTime >= audioRef.current.duration) {
           setIsPlaying(false);
+          audioRef.current.pause();
           //setProgressTime(0);
         }
       }, 10);
-    }
+    } 
     return () => clearInterval(interval);
   }, [isPlaying, progressTime]);
 
@@ -118,6 +122,8 @@ const PlayControl: FC<Props> = (props) => {
   };
 
   const onEnableTrimClick = () => {
+    audioRef.current.pause();
+    setIsPlaying(false);
     setIsTrimming(true);
     setStartX(0);
     setEndX(0);
@@ -128,6 +134,7 @@ const PlayControl: FC<Props> = (props) => {
 
   const onCancelTrimClick = () => {
     setIsTrimming(false);
+    setProgressTime(audioRef.current.duration);
     setStartX(0);
     setEndX(0);
     //console.log('on cancel trim click')
@@ -270,14 +277,15 @@ const PlayControl: FC<Props> = (props) => {
 
               offlineSource.start();
 
-              offlineContext.startRendering().then((renderedBuffer) => {
+              offlineContext.startRendering().then(async(renderedBuffer) => {
                 const wavBuffer = encodeWAV(renderedBuffer);
                 const blob = new Blob([wavBuffer], { type: MIMETYPE });
 
                 const audioUrl = URL.createObjectURL(blob);
-                //new Audio(audioUrl).play();
                 props.setAudio(audioUrl);
-                //downloadFile(blob);
+                const file = await convertWebmToMp3(audioUrl)
+                console.log(file)
+                props.setFile(file);
               });
             }
           );

@@ -101,9 +101,10 @@ const RecordControl: FC<Props> = (props) => {
       // creates a playable URL from the blob file.
       const audioUrl = URL.createObjectURL(audioBlob);
       // console.log(audioUrl);
-      // props.setAudio(audioUrl);
+      props.setAudio(audioUrl);
 
       const file = await convertWebmToMp3(audioUrl)
+      console.log(file)
       props.setFile(file);
 
       props.setAudioChunks([]);
