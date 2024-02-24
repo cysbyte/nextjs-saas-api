@@ -23,6 +23,6 @@
     },
     "types": [ "@types/wicg-file-system-access"]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/shared/AudioRecorder1.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }

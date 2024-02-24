@@ -11,17 +11,37 @@ datasource db {
   relationMode = "prisma"
 }
 
+
+model User {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  username    String
+  email       String    @unique
+  password    String
+  role        Role      @default(USER)
+  permissions String[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  textToSpeech        textToSpeech[]
+}
+
 model textToSpeech {
   id          String    @id @default(auto()) @map("_id") @db.ObjectId
   voiceId     String
   voiceName   String
   description String?
-  //authorId    String    @db.ObjectId
-  //author      User?     @relation(fields: [authorId], references: [id])
+  authorId    String    @db.ObjectId
+  author      User?     @relation(fields: [authorId], references: [id])
   text        String
   deleted      Boolean   @default(false)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   //comments    Comment[]
 }
+
+enum Role {
+  ADMIN
+  EDITOR
+  USER
+}
+
 

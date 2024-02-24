@@ -1,10 +1,21 @@
+'use client'
+import { signIn } from "next-auth/react";
 import Link from "next/link";
 import React from "react"; //]
 
 const Case = () => {
+
+  const handleClick = () => {
+    signIn('google', {
+      callbackUrl: '/'
+     });
+  }
+
   return (
-    <section className="flex flex-col justify-center items-center">
-      <div className="flex w-fit bg-white group cursor-pointer px-20 py-2 mt-24 rounded-md justify-center items-center">
+    <section className="flex flex-col justify-center items-center h-screen">
+      <button
+        onClick={handleClick}
+        className="flex w-fit bg-white group cursor-pointer px-20 py-2 -mt-20 rounded-md justify-center items-center">
         <svg
           width="24"
           height="24"
@@ -42,7 +53,7 @@ const Case = () => {
           </g>
         </svg>
         <p className=" ml-2">Sign up with Google</p>
-      </div>
+      </button>
       <div className="flex w-fit bg-white group cursor-pointer px-20 py-2 mt-6 rounded-md justify-center items-center">
         <svg
           width="24"

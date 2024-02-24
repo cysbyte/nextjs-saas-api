@@ -3,8 +3,13 @@ import Link from "next/link";
 import React from "react";
 import Wrapper from "@/components/shared/Wrapper";
 import logo from "public/logo.png";
+import { getServerSession } from "next-auth";
+import { authConfig } from "@/lib/auth";
 
-const Header = () => {
+const Header = async () => {
+
+  const session = await getServerSession(authConfig);
+
   return (
     <header className="h-auto z-20 sticky inset-0 backdrop-blur-md py-0 bg-white bg-opacity-90">
       <Wrapper>
@@ -79,7 +84,7 @@ const Header = () => {
             </ul>
           </div>
 
-          <ul className="flex h-full items-center duration-300 gap-x-4 sm:gap-x-8 text-16">
+          {!session && <ul className="flex h-full items-center duration-300 gap-x-4 sm:gap-x-8 text-16">
             <Link
               className="hover:text-teal-700 duration-300"
               href='/signin'
@@ -94,39 +99,18 @@ const Header = () => {
               <li >Sign up</li>
             </Link>
           </ul>
+          }
+          {
+            session &&
+            <div className="flex justify-center items-center gap-x-2">
+                <h3>{session.user?.name?.split(' ')[0]}</h3>
+                <img className=" w-[35px] h-[35px] rounded-full"
+                  src={session.user?.image?.toString()} alt="avatar" />
+              </div>
+          }
         </div>
       </Wrapper>
     </header>
-    // <nav className="max-w-5xl m-auto w-full px-4">
-    //   <div className="flex items-center gap-8 justify-between py-4">
-    //     <Link
-    //       href={"/"}
-    //       className="text-2xl font-semibold text-black hover:opacity-90"
-    //     >
-    //       Logo
-    //     </Link>
-    //     <div className="flex items-center gap-4">
-    //       <Link
-    //         href="/#features"
-    //         className="font-medium text-sm text-black hover:opacity-90"
-    //       >
-    //         Features
-    //       </Link>
-    //       <Link
-    //         href="/#pricing"
-    //         className="font-medium text-sm text-black hover:opacity-90"
-    //       >
-    //         Pricing
-    //       </Link>
-    //       <Link
-    //         href="/dashboard"
-    //         className="font-medium text-sm text-white bg-black px-4 py-2 rounded-lg hover:opacity-90"
-    //       >
-    //         Dashboard
-    //       </Link>
-    //     </div>
-    //   </div>
-    // </nav>
   );
 };
 
