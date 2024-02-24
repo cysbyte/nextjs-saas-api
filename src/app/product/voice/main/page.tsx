@@ -10,7 +10,7 @@ const Voice = async () => {
   return (
       <main className='flex flex-row'>
       <ProductSideBar productName='Voice' />
-      {/* @ts-expect-error Async Server Component */}
+
       <Case />
     </main>
   )

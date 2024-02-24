@@ -5,7 +5,7 @@ import React from 'react'
 const page = () => {
   return (
     <main className='h-full bg-auth bg-cover' >
-      {/* @ts-expect-error Async Server Component */}
+
           <Header/>
           <Case/>
     </main>

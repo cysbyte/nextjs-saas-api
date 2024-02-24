@@ -9,7 +9,7 @@ const APIAccess = async () => {
   return (
     <main className="flex flex-row">
       <ProductSideBar productName="APIAccess" />
-      {/* @ts-expect-error Async Server Component */}
+
       <Case />
     </main>
   );
