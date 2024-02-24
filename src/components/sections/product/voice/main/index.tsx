@@ -4,10 +4,13 @@ import AddVoiceBox from "./AddVoiceBox";
 import MyCreatedBox from "./MyCreatedBox";
 import VoiceItemBox from "./VoiceItemBox";
 import { PrismaClient } from "@prisma/client";
+import { loginIsRequiredServer } from "@/lib/auth";
 
 const prisma = new PrismaClient();
 
-const Case = () => {
+const Case = async () => {
+
+  await loginIsRequiredServer();
   // const voices = await prisma.textToSpeech.findMany({});
   // console.log(voices)
 

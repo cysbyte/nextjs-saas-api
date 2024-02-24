@@ -1,6 +1,8 @@
+import { loginIsRequiredServer } from "@/lib/auth";
 import React from "react";
 
-const Case = () => {
+const Case = async () => {
+
   return (
     <section className="flex-[5] h-full w-full overflow-auto">
       <div className="max-w-3xl mt-10 ml-10">

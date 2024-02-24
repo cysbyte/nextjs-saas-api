@@ -5,11 +5,14 @@ import AudioRecorder from "@/components/shared/AudioRecorder";
 import GenerateButton from "@/components/shared/GenerateButton";
 import PricingPlanButton from "@/components/shared/PricingPlanButton";
 import Dialog from "@/components/shared/RecordModal";
+import { loginIsRequiredClient } from "@/lib/auth";
 import { convertWebmToMp3 } from "@/lib/util";
 import Link from "next/link";
 import React, { useState, useTransition } from "react";
 
 const Case = () => {
+
+  loginIsRequiredClient
 
   const [audio, setAudio] = useState('');
   const [audioBlob, setAudioBlob] = useState<Blob>(new Blob());

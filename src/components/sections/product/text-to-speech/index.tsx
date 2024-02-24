@@ -5,22 +5,8 @@ import PricingPlanButton from "@/components/shared/PricingPlanButton";
 import React, { useState, Dispatch } from "react";
 import AddVoiceForm from "./AddVoiceForm";
 
-import { exec, spawn, fork } from 'child_process';
-
-// const child = spawn("touch", ["translate2.txt"]);
-// child.stdout.on("data", (data) => {
-// 	console.log(`stdout: ${data}`);
-// });
-
-// child.stderr.on("data", (data) => {
-// 	console.error(`stderr: ${data}`);
-// });
-
-// child.on("close", (code) => {
-// 	console.log(`child process exited with code ${code}`);
-// });
-
 const Case = () => {
+
   const [audio, setAudio] = useState('');
   const [audioBlob, setAudioBlob] = useState(new Blob());
   const [file, setFile] = useState<Blob | File | string>(new Blob());
