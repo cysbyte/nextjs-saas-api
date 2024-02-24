@@ -1,6 +1,5 @@
 "use client";
 import GoogleAuthButton from "@/components/shared/GoogleAuthButton";
-import { signIn } from "next-auth/react";
 import Link from "next/link";
 import React from "react"; //]
 

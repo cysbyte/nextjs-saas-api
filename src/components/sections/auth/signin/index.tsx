@@ -5,8 +5,6 @@ import React from "react";
 
 const Case = () => {
 
-
-
   return (
     <section className="flex flex-col justify-center items-center h-screen">
       <div className="-mt-20">
