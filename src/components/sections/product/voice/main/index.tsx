@@ -5,14 +5,30 @@ import MyCreatedBox from "./MyCreatedBox";
 import VoiceItemBox from "./VoiceItemBox";
 import { PrismaClient } from "@prisma/client";
 import { loginIsRequiredServer } from "@/lib/auth";
+import { getServerSession } from "next-auth";
 
 const prisma = new PrismaClient();
 
 const Case = async () => {
 
   await loginIsRequiredServer();
-  // const voices = await prisma.textToSpeech.findMany({});
-  // console.log(voices)
+
+  const session = await getServerSession();
+  const user = await prisma.user.findFirst({
+    where: {
+      email: session?.user?.email?.toString(),
+    },
+  });
+  // @ts-ignore
+  const voices = await prisma.TextToSpeech.findMany({
+    // include: {
+    //   author: true
+    // }
+    where: {
+      authorId: user?.id,
+    },
+  });
+  console.log(voices)
 
   const voiceItemBoxList=[
     { id: 0, box: <VoiceItemBox /> },
@@ -42,12 +58,19 @@ const Case = async () => {
           <Link href="/product/voice/add">
             <AddVoiceBox />
           </Link>
-          <MyCreatedBox/>
-          <MyCreatedBox/>
-          <MyCreatedBox/>
-          <MyCreatedBox/>
-          <MyCreatedBox/>
-          <MyCreatedBox />
+          {voices.map((item: any, index:number) => {
+            return <div key={index}>
+              <MyCreatedBox
+                order={item.order}
+                voiceName={item.voiceName}
+                description={item.description}
+                id={item.id}
+              />
+            </div>
+            
+          })}
+          
+
           <VoiceItemBox/>
           <VoiceItemBox/>
           <VoiceItemBox/>

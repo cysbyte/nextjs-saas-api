@@ -2,12 +2,17 @@ import Image from "next/image";
 import React from "react";
 import logo from "public/logo.png";
 import Link from "next/link";
+import { getServerSession } from "next-auth";
+import { authConfig } from "@/lib/auth";
 
 interface Props{
   productName: string;
 }
 
-const ProductSideBar = ({productName}: Props) => {
+const ProductSideBar = async ({ productName }: Props) => {
+
+  const session = await getServerSession(authConfig);
+
   return (
     <div className="flex flex-col justify-between h-screen flex-[1] border-r sticky top-0">
       <div className="mt-6 mx-3">
@@ -246,7 +251,7 @@ const ProductSideBar = ({productName}: Props) => {
               fill="#0F172A"
             />
           </svg>
-          <p className="ml-2 font-semibold text-black text-[13px]">Username</p>
+          <p className="ml-2 font-semibold text-black text-[13px]">{session?.user?.name?.split(' ')[0]}</p>
         </div>
       </div>
     </div>

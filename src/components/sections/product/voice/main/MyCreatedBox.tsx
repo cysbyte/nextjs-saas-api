@@ -1,7 +1,14 @@
 import Link from "next/link";
 import React, { FC } from "react";
 
-const MyCreatedBox: FC = () => {
+type Props = {
+  id: string,
+  voiceName: string,
+  order: number,
+  description: string,
+}
+
+const MyCreatedBox: FC<Props> = (props) => {
   return (
     <div>
       <div className="border rounded-md bg-white shadow-xl basis-4/12 w-full md:w-[360px] h-auto justify-start px-6 py-6 flex flex-col hover:bg-gray-100 hover:scale-[1.02] active:scale-100 duration-300">
@@ -73,55 +80,23 @@ const MyCreatedBox: FC = () => {
                 />
               </svg>
 
-              <h4 className="ml-2 font-normal text-base text-black">
-                My Created
+              <h4 className="ml-2 font-normal text-base text-black truncate ..">
+                {props.voiceName}
               </h4>
             </div>
             <div className="border-[2px] rounded-md px-1 py-1 text-sm text-slate-400">
-              ID001
+              {'ID'+props.order.toString().padStart(3, '0')}
             </div>
           </div>
 
-          <p className="text-[13px] mx-auto mt-2 text-start px-2 text-slate-400">
-            No description
+          <p className="text-[13px] mx-auto mt-2 text-start px-2 text-slate-400 truncate ..">
+            {props.description}
           </p>
+          <input hidden value={props.id}/>
         </div>
 
         <div className="flex justify-between mt-6 w-full gap-x-3">
-          <Link href="/product/text-to-speech" className="btn-border flex-1">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M8 1.33325C7.46957 1.33325 6.96086 1.54397 6.58579 1.91904C6.21071 2.29411 6 2.80282 6 3.33325V7.99992C6 8.53035 6.21071 9.03906 6.58579 9.41413C6.96086 9.78921 7.46957 9.99992 8 9.99992C8.53043 9.99992 9.03914 9.78921 9.41421 9.41413C9.78929 9.03906 10 8.53035 10 7.99992V3.33325C10 2.80282 9.78929 2.29411 9.41421 1.91904C9.03914 1.54397 8.53043 1.33325 8 1.33325Z"
-                  stroke="#0F172A"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-                <path
-                  d="M12.6667 6.66675V8.00008C12.6667 9.23776 12.175 10.4247 11.2998 11.2999C10.4247 12.1751 9.23769 12.6667 8.00001 12.6667C6.76233 12.6667 5.57535 12.1751 4.70018 11.2999C3.82501 10.4247 3.33334 9.23776 3.33334 8.00008V6.66675"
-                  stroke="#0F172A"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-                <path
-                  d="M8 12.6667V14.6667"
-                  stroke="#0F172A"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-
-              <p className="ml-1">Use</p>
-          </Link>
-          <button className="btn-border flex-1">
+          <Link href={`/product/text-to-speech/${props.id}`} className="btn-border flex-1">
             <svg
               width="16"
               height="16"
@@ -152,32 +127,63 @@ const MyCreatedBox: FC = () => {
               />
             </svg>
 
+            <p className="ml-1">Use</p>
+          </Link>
+          <button className="btn-border flex-1">
+            <svg
+              width="17"
+              height="16"
+              viewBox="0 0 17 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g clip-path="url(#clip0_1543_464)">
+                <path
+                  d="M11.8333 2.00004C12.0084 1.82494 12.2163 1.68605 12.4451 1.59129C12.6739 1.49653 12.9191 1.44775 13.1667 1.44775C13.4143 1.44775 13.6595 1.49653 13.8883 1.59129C14.117 1.68605 14.3249 1.82494 14.5 2.00004C14.6751 2.17513 14.814 2.383 14.9088 2.61178C15.0035 2.84055 15.0523 3.08575 15.0523 3.33337C15.0523 3.58099 15.0035 3.82619 14.9088 4.05497C14.814 4.28374 14.6751 4.49161 14.5 4.66671L5.50001 13.6667L1.83334 14.6667L2.83334 11L11.8333 2.00004Z"
+                  stroke="#0F172A"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_1543_464">
+                  <rect
+                    width="16"
+                    height="16"
+                    fill="white"
+                    transform="translate(0.5)"
+                  />
+                </clipPath>
+              </defs>
+            </svg>
+
             <p className="ml-1">Edit</p>
           </button>
           <button className="btn-border flex-1">
             <svg
-              width="16"
+              width="17"
               height="16"
-              viewBox="0 0 16 16"
+              viewBox="0 0 17 16"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M8 1.33325C7.46957 1.33325 6.96086 1.54397 6.58579 1.91904C6.21071 2.29411 6 2.80282 6 3.33325V7.99992C6 8.53035 6.21071 9.03906 6.58579 9.41413C6.96086 9.78921 7.46957 9.99992 8 9.99992C8.53043 9.99992 9.03914 9.78921 9.41421 9.41413C9.78929 9.03906 10 8.53035 10 7.99992V3.33325C10 2.80282 9.78929 2.29411 9.41421 1.91904C9.03914 1.54397 8.53043 1.33325 8 1.33325Z"
+                d="M2.5 4H14.5"
                 stroke="#0F172A"
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
               />
               <path
-                d="M12.6667 6.66675V8.00008C12.6667 9.23776 12.175 10.4247 11.2998 11.2999C10.4247 12.1751 9.23769 12.6667 8.00001 12.6667C6.76233 12.6667 5.57535 12.1751 4.70018 11.2999C3.82501 10.4247 3.33334 9.23776 3.33334 8.00008V6.66675"
+                d="M13.1667 4V13.3333C13.1667 14 12.5 14.6667 11.8333 14.6667H5.16668C4.50001 14.6667 3.83334 14 3.83334 13.3333V4"
                 stroke="#0F172A"
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
               />
               <path
-                d="M8 12.6667V14.6667"
+                d="M5.83334 3.99992V2.66659C5.83334 1.99992 6.50001 1.33325 7.16668 1.33325H9.83334C10.5 1.33325 11.1667 1.99992 11.1667 2.66659V3.99992"
                 stroke="#0F172A"
                 stroke-width="2"
                 stroke-linecap="round"

@@ -53,6 +53,7 @@ export const authConfig = {
 };
 
 export async function loginIsRequiredServer() {
-  const session = await getServerSession(authConfig);
+    const session = await getServerSession(authConfig);
+    
   if (!session) return redirect("/signin");
 }

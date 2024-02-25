@@ -1,7 +1,6 @@
 "use client";
 
 import AudioRecorder from "@/components/shared/AudioRecorder";
-import PricingPlanButton from "@/components/shared/PricingPlanButton";
 import React, { useState, Dispatch } from "react";
 import AddVoiceForm from "./AddVoiceForm";
 
