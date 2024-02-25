@@ -6,8 +6,7 @@ import VoiceItemBox from "./VoiceItemBox";
 import { PrismaClient } from "@prisma/client";
 import { loginIsRequiredServer } from "@/lib/auth";
 import { getServerSession } from "next-auth";
-
-const prisma = new PrismaClient();
+import prisma from "@/lib/prismadb";
 
 const Case = async () => {
 

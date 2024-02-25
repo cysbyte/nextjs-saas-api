@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import favicon from "./favicon.ico";
 import { NextAuthProvider } from "./providers";
 import { getServerSession } from "next-auth";
+import prisma from "@/lib/prismadb";
 
 const inter = Inter({ subsets: ["latin"] });
 
