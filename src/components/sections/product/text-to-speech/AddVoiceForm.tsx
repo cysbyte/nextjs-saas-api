@@ -18,9 +18,9 @@ const AddVoiceForm:FC<Props> = (props) => {
   const addVoiceHandler = async (formData: FormData) => {
 
     try {
-      const { file_name } = await addTextToSpeech(formData);
-      if (file_name) {
-        props.setAudio('https://saas-minimax.s3.ap-northeast-1.amazonaws.com/' + file_name);
+      const mp3_url = await addTextToSpeech(formData);
+      if (mp3_url) {
+        props.setAudio(mp3_url);
       }
     } catch (error) {
       console.log(error)

@@ -16,6 +16,19 @@ export const addTextToSpeech = async (formData: FormData) => {
   const voiceName = formData.get("voiceName") as string;
   const description = formData.get("description") as string;
   const text = formData.get("text") as string;
+
+  const response = await fetch(`http://54.95.52.19/text-to-speech`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      voice_id: voiceId,
+      text: text,
+    }),
+  });
+  const {file_name} = await response.json();
+  const mp3_url = 'https://saas-minimax.s3.ap-northeast-1.amazonaws.com/' + file_name;
   
   const session = await getServerSession();
   const user = await prisma.user.findFirst({
@@ -32,6 +45,7 @@ export const addTextToSpeech = async (formData: FormData) => {
       voiceName,
       description: description ? description : '',
       text,
+      mp3_url,
       order: count + 1,
       author: {
         connect: {
@@ -40,22 +54,9 @@ export const addTextToSpeech = async (formData: FormData) => {
       },
     },
   });
-  console.log(new_voice)
-  return {file_name: ''}
+  //console.log(new_voice)
+  return mp3_url;
 
-  // const response = await fetch(`http://54.95.52.19/text-to-speech`, {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify({
-  //     voice_id: voiceId,
-  //     text: text,
-  //   }),
-  // });
-  // const result = await response.json();
-  // console.log(result);
-  // return result;
 
   // const translatedTextPromise = new Promise((resolve, reject) => {
   //     const pyprog = spawn('python3', ["text-to-speech.py", voiceId, text]);

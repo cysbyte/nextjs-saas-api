@@ -28,6 +28,7 @@ model TextToSpeech {
   authorId    String    @db.ObjectId
   author      User     @relation(fields: [authorId], references: [id])
   text        String
+  mp3_url     String
   deleted      Boolean   @default(false)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
