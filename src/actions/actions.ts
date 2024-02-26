@@ -1,6 +1,6 @@
 "use server";
 import { PrismaClient } from "@prisma/client";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { runPythonScript } from "@/lib/util";
 import prisma from "@/lib/prismadb";
@@ -72,6 +72,16 @@ export const addTextToSpeech = async (formData: FormData) => {
   // return src;
 };
 
+export const deleteTextToSpeech = async (formData: FormData) => {
+  const id = formData.get('id');
+  console.log(id)
+  await prisma.TextToSpeech.delete({
+    where: {
+      id: id?.toString()
+    }
+  })
+}
+
 export const uploadAudio = async (formData: FormData) => {
   // const file: File | Blob | null = formData.get('file') as unknown as File | Blob
   // if (!file) {
@@ -132,3 +142,8 @@ export const cloneAudio = async (
 
   return { success: true };
 };
+
+
+export default async function action() {
+  revalidateTag("profile");
+}

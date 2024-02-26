@@ -161,7 +161,7 @@ const MyCreatedBox: FC<Props> = (props) => {
 
             <p className="ml-1">Edit</p>
           </Link>
-          <button className="btn-border flex-1">
+          <Link href={`/product/voice/delete?modal=true&id=${props.id}`} className="btn-border flex-1">
             <svg
               width="17"
               height="16"
@@ -193,7 +193,7 @@ const MyCreatedBox: FC<Props> = (props) => {
             </svg>
 
             <p className="ml-1">Delete</p>
-          </button>
+          </Link>
         </div>
       </div>
     </div>
