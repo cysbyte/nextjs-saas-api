@@ -9,6 +9,7 @@ import prisma from '@/lib/prismadb'
 const TextToSpeech = async ({params}:{params: {id: string}}) => {
 
     //console.log('params', params)
+    //@ts-ignore
     const voice = await prisma.TextToSpeech.findFirst({
         where: {
             id:params.id
