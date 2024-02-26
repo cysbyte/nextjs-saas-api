@@ -1,14 +1,22 @@
 "use client";
 
 import AudioRecorder from "@/components/shared/AudioRecorder";
-import React, { useState, Dispatch } from "react";
+import PricingPlanButton from "@/components/shared/PricingPlanButton";
+import React, { useState, Dispatch, useEffect } from "react";
 import AddVoiceForm from "./AddVoiceForm";
 
-const Case = () => {
+const Case = ({voice}:any) => {
 
   const [audio, setAudio] = useState('');
   const [audioBlob, setAudioBlob] = useState(new Blob());
   const [file, setFile] = useState<Blob | File | string>(new Blob());
+  //console.log('index', voice)
+
+  useEffect(() => {
+    if (voice) {
+      setAudio(voice.mp3_url);
+    }
+  });
 
   return (
     
@@ -26,7 +34,7 @@ const Case = () => {
           <h2 className=" font-semibold">Settings</h2>
 
           <div className="w-full border-b pb-5">
-            <AddVoiceForm audio={audio} setAudio={setAudio} />
+            <AddVoiceForm audio={audio} setAudio={setAudio} voice={voice} />
           </div>
 
           <div className="mb-6">

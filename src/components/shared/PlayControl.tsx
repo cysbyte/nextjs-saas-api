@@ -97,12 +97,12 @@ const PlayControl: FC<Props> = (props) => {
   useEffect(() => {
     if (isPlaying) {
       interval = setInterval(() => {
-        setProgressTime(audioRef.current.currentTime);
-        setDuration(audioRef.current.duration);
+        setProgressTime(audioRef?.current?.currentTime);
+        setDuration(audioRef?.current?.duration);
 
-        if (audioRef.current.currentTime >= audioRef.current.duration) {
+        if (audioRef?.current?.currentTime >= audioRef?.current?.duration) {
           setIsPlaying(false);
-          audioRef.current.pause();
+          audioRef?.current?.pause();
           //setProgressTime(0);
         }
       }, 10);

@@ -3,15 +3,21 @@
 import { addTextToSpeech } from "@/actions/actions";
 import GenerateButton from "@/components/shared/GenerateButton";
 import PricingPlanButton from "@/components/shared/PricingPlanButton";
+import { useSearchParams } from "next/navigation";
 import { PythonShell } from 'python-shell';
+import prisma from "@/lib/prismadb";
 import React, { Dispatch, FC, RefObject, SetStateAction, useRef, useState } from "react";
+import { revalidatePath } from "next/cache";
 
 type Props = {
   audio: string;
   setAudio: Dispatch<React.SetStateAction<string>>;
+  voice: any;
 }
 
-const AddVoiceForm:FC<Props> = (props) => {
+const AddVoiceForm: FC<Props> = (props) => {
+
+  console.log('addvoiceform', props.voice)
 
   const ref = useRef<HTMLFormElement>(null);
   
@@ -22,6 +28,7 @@ const AddVoiceForm:FC<Props> = (props) => {
       if (mp3_url) {
         props.setAudio(mp3_url);
       }
+      revalidatePath('/product/voice/main')
     } catch (error) {
       console.log(error)
     }
@@ -41,6 +48,7 @@ const AddVoiceForm:FC<Props> = (props) => {
             id="voiceId"
             name="voiceId"
             type="text"
+            defaultValue={props.voice?props.voice.voiceId:''}
             placeholder="Enter voice ID"
           />
         </div>
@@ -54,6 +62,7 @@ const AddVoiceForm:FC<Props> = (props) => {
             id="voiceName"
             name="voiceName"
             type="text"
+            defaultValue={props.voice?props.voice.voiceName:''}
             placeholder="Apple"
           />
         </div>
@@ -70,6 +79,7 @@ const AddVoiceForm:FC<Props> = (props) => {
             id="description"
             name="description"
             rows={2}
+            defaultValue={props.voice?props.voice.description:''}
             placeholder="Enter description here..."
           />
         </div>
@@ -85,6 +95,7 @@ const AddVoiceForm:FC<Props> = (props) => {
             className="input-border focus:outline-none focus:shadow-outline"
             id="text"
             name="text"
+            defaultValue={props.voice?props.voice.text:''}
             rows={8}
             placeholder="Type or paste text here..."
           />

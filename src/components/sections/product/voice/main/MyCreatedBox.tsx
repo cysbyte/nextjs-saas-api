@@ -89,7 +89,7 @@ const MyCreatedBox: FC<Props> = (props) => {
             </div>
           </div>
 
-          <p className="text-[13px] mx-auto mt-2 text-start px-2 text-slate-400 truncate ..">
+          <p className="text-[13px] mx-auto mt-2 text-start px-2 text-slate-400 line-clamp-1">
             {props.description}
           </p>
           <input hidden value={props.id}/>
@@ -129,7 +129,8 @@ const MyCreatedBox: FC<Props> = (props) => {
 
             <p className="ml-1">Use</p>
           </Link>
-          <button className="btn-border flex-1">
+          
+          <Link href={`/product/text-to-speech/${props.id}`} className="btn-border flex-1">
             <svg
               width="17"
               height="16"
@@ -159,7 +160,7 @@ const MyCreatedBox: FC<Props> = (props) => {
             </svg>
 
             <p className="ml-1">Edit</p>
-          </button>
+          </Link>
           <button className="btn-border flex-1">
             <svg
               width="17"
