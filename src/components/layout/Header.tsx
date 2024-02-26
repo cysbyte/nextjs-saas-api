@@ -63,7 +63,7 @@ const Header = async () => {
                     Text to Speech
                   </Link>
 
-                  <Link href='/product/voice/main'  className="my-2 block border-b border-gray-100 py-2 font-normal text-black hover:bg-gray-100 rounded-md md:mx-2">
+                  <Link href='/product/voice/main/0'  className="my-2 block border-b border-gray-100 py-2 font-normal text-black hover:bg-gray-100 rounded-md md:mx-2">
                     Voice Clone
                   </Link>
                   <a className="my-2 block border-b border-gray-100 py-2 font-normal text-black hover:bg-gray-100 rounded-md md:mx-2">

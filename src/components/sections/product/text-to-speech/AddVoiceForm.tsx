@@ -39,7 +39,7 @@ const AddVoiceForm: FC<Props> = (props) => {
       if (mp3_url) {
         props.setAudio(mp3_url);
       }
-      revalidatePath('/product/voice/main')
+      revalidatePath('/product/voice/main/0')
     } catch (error) {
       console.log(error)
     }
