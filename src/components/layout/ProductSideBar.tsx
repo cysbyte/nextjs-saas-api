@@ -135,7 +135,7 @@ const ProductSideBar = async ({ productName }: Props) => {
               </defs>
             </svg>
 
-            <Link href='/product/voice/main' className="ml-2 w-full h-full">Voice</Link>
+            <Link href='/product/voice/main/0' className="ml-2 w-full h-full">Voice</Link>
           </div>
         </div>
 

@@ -1,8 +1,6 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 import { useRef, useEffect, useState } from "react";
-import AudioRecorder from "./AudioRecorder";
-import DeleteVoice from "./DeleteVoice";
 
 type Props = {
   title: string;
@@ -10,13 +8,13 @@ type Props = {
   onOk: () => void;
 };
 
-export default function DeleteModal() {
+export default function DeleteModal(props:Props) {
   const searchParams = useSearchParams();
   const dialogRef = useRef<null | HTMLDialogElement>(null);
   const modal = searchParams?.get("modal");
   const id = searchParams?.get("id");
-    console.log(id);
-    console.log(modal)
+  console.log(id);
+  console.log(modal);
 
   useEffect(() => {
     if (modal === "true") {
@@ -26,15 +24,15 @@ export default function DeleteModal() {
     }
   }, [modal]);
 
-  // const closeDialog = () => {
-  //   dialogRef.current?.close();
-  //   onClose();
-  // };
+  const closeDialog = () => {
+    dialogRef.current?.close();
+    props.onClose();
+  };
 
-  // const clickOk = () => {
-  //   onOk();
-  //   closeDialog();
-  // };
+  const clickOk = () => {
+    props.onOk();
+    closeDialog();
+  };
 
   const dialog: JSX.Element | null =
     modal === "true" ? (
@@ -43,7 +41,30 @@ export default function DeleteModal() {
         className="fixed w-[520px] top-50 left-50 -translate-x-50 -translate-y-50 z-10 rounded-xl backdrop:bg-gray-800/80 overflow-hidden"
       >
         <div className="w-full">
-          <DeleteVoice id={id} />
+          <div className="border rounded-md bg-white shadow-xl w-full h-auto justify-start flex flex-col">
+            <div className="mx-8">
+              <h3 className=" text-xl font-semibold mt-4">Delete Voice</h3>
+              <p className="text-sm text-slate-600 mt-4">
+                Are you sure want to delete the voice?
+              </p>
+              <div className="w-full flex justify-end my-6">
+                <div className="flex gap-x-3">
+                  <button
+                    onClick={closeDialog}
+                    className="btn-border flex-1 w-[100px]"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={clickOk}
+                    className="btn-border flex-1 bg-indigo-600 text-white"
+                  >
+                    Continue
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </dialog>
     ) : null;

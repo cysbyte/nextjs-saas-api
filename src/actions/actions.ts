@@ -72,9 +72,7 @@ export const addTextToSpeech = async (formData: FormData) => {
   // return src;
 };
 
-export const deleteTextToSpeech = async (formData: FormData) => {
-  const id = formData.get('id');
-  // console.log(id)
+export const deleteTextToSpeech = async (id: string) => {
   //@ts-ignore
   await prisma.TextToSpeech.delete({
     where: {

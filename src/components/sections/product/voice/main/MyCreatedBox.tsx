@@ -161,7 +161,7 @@ const MyCreatedBox: FC<Props> = (props) => {
 
             <p className="ml-1">Edit</p>
           </Link>
-          <Link href={`/product/voice/delete?modal=true&id=${props.id}`} className="btn-border flex-1">
+          <Link href={`/product/voice/main/${props.id}?modal=true`} className="btn-border flex-1">
             <svg
               width="17"
               height="16"

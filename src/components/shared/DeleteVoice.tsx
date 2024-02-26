@@ -3,13 +3,15 @@ import React, { FC } from "react";
 import prisma from "@/lib/prismadb";
 import { deleteTextToSpeech } from "@/actions/actions";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 type Props = {
   id: string | null;
 };
 
 const DeleteVoice: FC<Props> = (props) => {
+
+    const router = useRouter();
 
   const deleteVoiceHandler = async (formData: FormData) => {
     try {
@@ -23,7 +25,7 @@ const DeleteVoice: FC<Props> = (props) => {
   };
     
     const handleCancel = () => {
-        redirect('/product/voice/main');
+        router.back();
     }
 
   return (
