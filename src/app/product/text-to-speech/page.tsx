@@ -12,6 +12,7 @@ const TextToSpeech = async () => {
   const session = await getServerSession();
   console.log(session?.user?.email?.toString())
   // console.log(session)
+  //@ts-ignore
   const user = await prisma.User.findFirst({
     where: {
       email: session?.user?.email?.toString(),
