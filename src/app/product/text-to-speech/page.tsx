@@ -5,6 +5,7 @@ import React from "react";
 import Case from "@/components/sections/product/text-to-speech";
 import { loginIsRequiredServer } from "@/lib/auth";
 import { getServerSession } from "next-auth";
+import prisma from "@/lib/prismadb";
 
 const TextToSpeech = async () => {
   await loginIsRequiredServer();

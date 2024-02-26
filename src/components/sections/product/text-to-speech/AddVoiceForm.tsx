@@ -127,7 +127,7 @@ const AddVoiceForm: FC<Props> = (props) => {
 
 
             <div className="invisible absolute z-50 pt-4 flex w-[765px] flex-col bg-white py-1 px-4 rounded-md text-gray-800 shadow-xl group-hover:visible">
-              {props.voiceNames.length > 0 && props.voiceNames.map((item:any, index:number) => (
+              {props.voiceNames && props.voiceNames.length > 0 && props.voiceNames.map((item:any, index:number) => (
                 <div key={index}><VoiceNameOption
                   voiceName={item.voiceName}
                   mp3_url={item.mp3_url}
