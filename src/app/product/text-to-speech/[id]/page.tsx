@@ -8,7 +8,8 @@ import prisma from '@/lib/prismadb'
 
 const TextToSpeech = async ({params}:{params: {id: string}}) => {
 
-    //console.log('params', params)
+    await loginIsRequiredServer();
+
     //@ts-ignore
     const voice = await prisma.TextToSpeech.findFirst({
         where: {
@@ -18,7 +19,16 @@ const TextToSpeech = async ({params}:{params: {id: string}}) => {
     )
     console.log(voice)
 
-  await loginIsRequiredServer();
+    //@ts-ignore
+    const voiceNames = await prisma.TextToSpeech.findUnique({
+        where: {
+            id: params.id
+        },
+        select: {
+            voiceName: true
+        }
+    })
+    console.log('voiceNames', voiceNames)
 
   return (
       <main className='flex flex-row'>

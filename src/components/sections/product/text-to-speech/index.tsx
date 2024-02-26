@@ -5,7 +5,7 @@ import PricingPlanButton from "@/components/shared/PricingPlanButton";
 import React, { useState, Dispatch, useEffect } from "react";
 import AddVoiceForm from "./AddVoiceForm";
 
-const Case = ({voice}:any) => {
+const Case = ({voice, voiceNames}:any) => {
 
   const [audio, setAudio] = useState('');
   const [audioBlob, setAudioBlob] = useState(new Blob());
@@ -34,7 +34,7 @@ const Case = ({voice}:any) => {
           <h2 className=" font-semibold">Settings</h2>
 
           <div className="w-full border-b pb-5">
-            <AddVoiceForm audio={audio} setAudio={setAudio} voice={voice} />
+            <AddVoiceForm audio={audio} setAudio={setAudio} voice={voice} voiceNames={voiceNames} />
           </div>
 
           <div className="mb-6">
