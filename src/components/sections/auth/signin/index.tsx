@@ -23,7 +23,7 @@ const Case = () => {
             fill="#333333"
           />
         </svg>
-        <p className=" ml-2">Sign in with Google</p>
+        <p className=" ml-2">Sign in with Apple</p>
       </div>
       <p className="mt-8"> <span className="text-slate-600 "> Don’t have an account? </span><span className="ml-1 underline"><Link href=''>Create an account</Link></span></p>
     </section>

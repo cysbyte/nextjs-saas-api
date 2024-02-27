@@ -23,7 +23,7 @@ const Case = () => {
             fill="#333333"
           />
         </svg>
-        <p className=" ml-2">Sign up with Google</p>
+        <p className=" ml-2">Sign up with Apple</p>
       </div>
       <p className="mt-8 max-w-[78%] md:max-w-full text-center">
         <span className="text-slate-600 ">
