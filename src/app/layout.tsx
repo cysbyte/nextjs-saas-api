@@ -7,6 +7,7 @@ import favicon from "./favicon.ico";
 import { NextAuthProvider } from "./providers";
 import { getServerSession } from "next-auth";
 import prisma from "@/lib/prismadb";
+import { authConfig } from "@/lib/auth";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +21,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession();
+  const session = await getServerSession(authConfig);
   // console.log(session)
   if (session && session.user) {
     const user = await prisma.user.findFirst({

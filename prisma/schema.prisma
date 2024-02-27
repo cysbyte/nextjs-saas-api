@@ -11,25 +11,27 @@ datasource db {
 }
 
 model User {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  username    String
-  email       String    @unique
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  textToSpeech        TextToSpeech[]
+  id               String         @id @default(auto()) @map("_id") @db.ObjectId
+  username         String
+  email            String         @unique
+  stripeCustomerId String?
+  apiKey  String?
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  textToSpeech     TextToSpeech[]
 }
 
 model TextToSpeech {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
   voiceId     String
   voiceName   String
   description String
-  order       Int       @default(0)
-  authorId    String    @db.ObjectId
+  order       Int      @default(0)
+  authorId    String   @db.ObjectId
   author      User     @relation(fields: [authorId], references: [id])
   text        String
   mp3_url     String
-  deleted      Boolean   @default(false)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  deleted     Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

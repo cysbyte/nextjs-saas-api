@@ -46,6 +46,7 @@ const PlayControl: FC<Props> = (props) => {
   const togglePlayPause = () => {
     //setIsPlaying((prev) => !prev);
     if (!props.audio) return;
+    
     if (!isPlaying) {
       setIsPlaying(true);
       audioRef.current.play();
@@ -102,6 +103,7 @@ const PlayControl: FC<Props> = (props) => {
 
         if (audioRef?.current?.currentTime >= audioRef?.current?.duration) {
           setIsPlaying(false);
+          audioRef.current.currentTime = 0;
           audioRef?.current?.pause();
           //setProgressTime(0);
         }

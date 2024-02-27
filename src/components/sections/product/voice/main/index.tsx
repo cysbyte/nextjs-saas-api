@@ -4,7 +4,7 @@ import AddVoiceBox from "./AddVoiceBox";
 import MyCreatedBox from "./MyCreatedBox";
 import VoiceItemBox from "./VoiceItemBox";
 import { PrismaClient } from "@prisma/client";
-import { loginIsRequiredServer } from "@/lib/auth";
+import { authConfig, loginIsRequiredServer } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import prisma from "@/lib/prismadb";
 
@@ -12,7 +12,8 @@ const Case = async () => {
 
   await loginIsRequiredServer();
 
-  const session = await getServerSession();
+  const session = await getServerSession(authConfig);
+  if (!session) return;
   const user = await prisma.user.findFirst({
     where: {
       email: session?.user?.email?.toString(),

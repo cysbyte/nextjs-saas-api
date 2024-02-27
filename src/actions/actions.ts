@@ -6,6 +6,7 @@ import { runPythonScript } from "@/lib/util";
 import prisma from "@/lib/prismadb";
 import { exec, spawn } from "child_process";
 import { getServerSession } from "next-auth";
+import { authConfig } from "@/lib/auth";
 
 const group_id = "1697534675713802";
 const api_key =
@@ -30,7 +31,8 @@ export const addTextToSpeech = async (formData: FormData) => {
   const {file_name} = await response.json();
   const mp3_url = 'https://saas-minimax.s3.ap-northeast-1.amazonaws.com/' + file_name;
   
-  const session = await getServerSession();
+  const session = await getServerSession(authConfig);
+  if (!session) return;
   const user = await prisma.user.findFirst({
     where: {
       email: session?.user?.email?.toString(),

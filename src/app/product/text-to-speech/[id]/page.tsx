@@ -5,10 +5,12 @@ import React from 'react'
 import Case from '@/components/sections/product/text-to-speech'
 import { loginIsRequiredServer } from '@/lib/auth'
 import prisma from '@/lib/prismadb'
+import { createCustomerIfNull } from '@/lib/stripe'
 
 const TextToSpeech = async ({params}:{params: {id: string}}) => {
 
     await loginIsRequiredServer();
+    //await createCustomerIfNull();
 
     //@ts-ignore
     const voice = await prisma.TextToSpeech.findFirst({
@@ -19,16 +21,16 @@ const TextToSpeech = async ({params}:{params: {id: string}}) => {
     )
     console.log(voice)
 
-    //@ts-ignore
-    const voiceNames = await prisma.TextToSpeech.findUnique({
-        where: {
-            id: params.id
-        },
-        select: {
-            voiceName: true
-        }
-    })
-    console.log('voiceNames', voiceNames)
+    // //@ts-ignore
+    // const voiceNames = await prisma.TextToSpeech.findUnique({
+    //     where: {
+    //         id: params.id
+    //     },
+    //     select: {
+    //         voiceName: true
+    //     }
+    // })
+    // console.log('voiceNames', voiceNames)
 
   return (
       <main className='flex flex-row'>
