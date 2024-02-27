@@ -79,7 +79,7 @@ const Case = () => {
         </div>
         <div>
           
-         <form className="bg-white max-w-3xl"
+         <form className="bg-white max-w-3xl border-b pb-4"
             action={uploadVoiceHandler}>
             <div className="pb-2">
               <h4 className="text-base font-semibold mt-2 mb-4">Reference Audio</h4>
@@ -243,10 +243,10 @@ const Case = () => {
             </div>
           </form>
 
-          <form className="bg-white w-full max-w-3xl">
+          <div className="bg-white w-full max-w-3xl">
             <div className="pb-2">
             <div className="mb-6">
-            <h2 className="mt-3 font-semibold">Clone Voice</h2>
+            <h2 className="mt-4 font-semibold">Clone Voice</h2>
             <p className="text-[13px] mt-2 text-slate-400">
               *You can click the generate button again to get a different voice.
             </p>
@@ -265,59 +265,10 @@ const Case = () => {
               />
             </div>
 
-            <div>
-            <div className="mt-3 w-full">
-                <label
-                  className="block text-black text-sm mb-2 font-semibold"
-                  htmlFor="voiceId"
-                >
-                  Voice Names
-                </label>
-                <input
-                  className="appearance-none border rounded-md w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline placeholder:text-sm placeholder:pl-2"
-                  id="voiceId"
-                  type="text"
-                  placeholder="Apple"
-                />
-              </div>
-
-              <div className="mt-3 w-full">
-                <label
-                  className="block text-black text-sm mb-2 font-semibold"
-                  htmlFor="voiceId"
-                >
-                  Voice Description
-                </label>
-                <textarea
-                  className="appearance-none border rounded-md w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline placeholder:text-sm placeholder:pl-2"
-                  id="voiceId"
-                  rows={2}
-                  placeholder="Enter description here..."
-                />
-              </div>
-            <div className="flex justify-start items-start mt-5">
-              <input
-                className="mt-1 mr-2"
-                type="checkbox"
-                id="agree"
-                name=""
-                value="true"
-              />
-              <label htmlFor="agree" className="text-[12px] text-slate-400">
-                {" "}
-                I confirm that I possess all the necessary rights and
-                permissions to upload and replicate these voice samples.
-                Furthermore, I assure that I will not utilize the content
-                created by the platform for any unlawful, deceitful, or damaging
-                activities. I also reaffirm my commitment to adhere to the Terms
-                of Service and Privacy Policy of useHifi.
-              </label>
-              </div>
-            </div>
             <div className="w-full my-4">
               <PricingPlanButton text="Save Voice" isScale={false} />
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </aside>
