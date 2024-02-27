@@ -245,7 +245,12 @@ const Case = () => {
 
           <form className="bg-white w-full max-w-3xl">
             <div className="pb-2">
-              <h4 className="text-base font-semibold">Reference Audio</h4>
+            <div className="mb-6">
+            <h2 className="mt-3 font-semibold">Clone Voice</h2>
+            <p className="text-[13px] mt-2 text-slate-400">
+              *You can click the generate button again to get a different voice.
+            </p>
+          </div>
               <AudioRecorder
                 audio={audio}
                 setAudio={setAudio}
