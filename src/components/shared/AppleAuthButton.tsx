@@ -14,7 +14,7 @@ const AppleAuthButton = () => {
     <div>
       <button
         onClick={handleClick}
-        className="flex w-full bg-white group cursor-pointer px-20 py-2 rounded-md justify-center items-center"
+        className="flex w-full bg-white group cursor-pointer py-2 rounded-md justify-center items-center"
       >
         <svg
           width="24"
