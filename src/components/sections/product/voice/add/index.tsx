@@ -60,9 +60,9 @@ const Case = () => {
             engaging speech across various languages.
           </p>
         </div>
-        <div className="py-2">
+        <div className="py-3">
           <h1 className="text-2xl font-semibold">Add Voice</h1>
-          <div className="ml-0 text-md text-slate-600 leading-[30px]">
+          <div className="ml-0 mt-3 text-md text-slate-600 leading-[30px]">
             The file upload requirements are as follows:
             <ul className="list-disc list-inside">
             <li>
@@ -82,8 +82,8 @@ const Case = () => {
          <form className="bg-white max-w-3xl"
             action={uploadVoiceHandler}>
             <div className="pb-2">
-              <h4 className="text-base font-semibold">Reference Audio</h4>
-              {!isRecording && <div className="rounded-md border-[2px] w-full p-20">
+              <h4 className="text-base font-semibold mt-2 mb-4">Reference Audio</h4>
+              {!isRecording && <div className="mt-3 rounded-md border-[2px] w-full p-20">
                 
                 {file && !isRecording && <h4 className="font-base text-center mx-auto">{getFileName()}</h4>}
                 {file && isRecording && <h4 className="font-base text-center mx-auto">{audio}</h4>}
@@ -171,7 +171,7 @@ const Case = () => {
                 </div>
               </div>
               }
-              {isRecording && <div className="max-w-3xl">
+              {isRecording && <div className="mt-3 max-w-3xl">
                 <AudioRecorder
                   audio={audio}
                   setAudio={setAudio}
