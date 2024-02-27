@@ -1,5 +1,5 @@
-import AppleAuthButton from "@/components/shared/AppleAuthButton";
-import GoogleAuthButton from "@/components/shared/GoogleAuthButton";
+import AppleAuthButton from "@/components/sections/auth/AppleAuthButton";
+import GoogleAuthButton from "@/components/sections/auth/GoogleAuthButton";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import React from "react"; 

@@ -31,7 +31,7 @@ const VoiceNameOption = (props: Props) => {
 
   return (
     <div onClick={handleClick}
-      className="flex justify-start items-center hover:bg-slate-200 w-full my-1">
+      className="flex justify-start items-center hover:bg-slate-200 rounded-sm w-full my-1">
       <div className="" onClick={handlePlay}>
         {!isPlaying && (
           <div>

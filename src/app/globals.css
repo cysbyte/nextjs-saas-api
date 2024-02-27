@@ -17,7 +17,7 @@ body {
     }
     
     .input-border{
-      @apply appearance-none border rounded-md w-full py-2 text-gray-700 leading-tight placeholder:text-sm placeholder:pl-0 px-4
+      @apply appearance-none border rounded-md w-full py-2 text-gray-700 leading-tight placeholder:text-sm placeholder:pl-0 px-3
     }
 
   }

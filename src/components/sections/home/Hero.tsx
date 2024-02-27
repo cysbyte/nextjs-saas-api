@@ -13,7 +13,7 @@ const Hero = () => {
             <h1 className="mx-auto max-w-fit text-4xl sm:text-5xl font-bold mt-4 lg:leading-[60px]">
               AI Voice Generator
             </h1>
-            <p className="mx-auto px-5 md:px-0 text-left md:text-center mt-6 text-lg text-slate-600 max-w-2xl leading-[30px] md:leading-[35px]">
+            <p className="mx-auto px-5 md:px-0 text-center mt-6 text-lg text-slate-600 max-w-2xl leading-[30px] md:leading-[35px]">
               Use our AI voice generator to transform text into speech online
               within a few clicks. Instantly produce natural-sounding AI voices,
               ideal for video creators, developers, and businesses. <br />
