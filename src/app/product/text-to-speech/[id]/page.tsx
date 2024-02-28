@@ -10,7 +10,7 @@ import { createCustomerIfNull } from '@/lib/stripe'
 const TextToSpeech = async ({params}:{params: {id: string}}) => {
 
     await loginIsRequiredServer();
-    //await createCustomerIfNull();
+    await createCustomerIfNull();
 
     //@ts-ignore
     const voice = await prisma.TextToSpeech.findFirst({

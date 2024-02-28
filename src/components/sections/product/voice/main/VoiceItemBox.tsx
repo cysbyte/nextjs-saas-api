@@ -4,8 +4,8 @@ import React, { FC } from "react";
 const VoiceItemBox: FC = () => {
   return (
     <div>
-      <div className="border rounded-md bg-gray-100 shadow-xl basis-4/12 w-full md:w-[360px] h-auto justify-start px-6 py-6 flex flex-col hover:bg-gray-100 hover:scale-[1.02] active:scale-100 duration-300">
-        <div className="my-4 mx-auto w-full">
+      <div className="border rounded-md bg-gray-100 shadow-xl basis-4/12 w-full md:h-[200px] md:w-[360px] h-auto px-4 flex flex-col justify-center items-center hover:bg-gray-100 hover:scale-[1.02] active:scale-100 duration-300">
+        <div className="mx-auto w-full">
           <div className="flex items-center justify-between px-2">
             <div className="flex">
               <h4 className="font-normal text-base text-black">Voice Name</h4>
@@ -19,7 +19,7 @@ const VoiceItemBox: FC = () => {
             No description
           </p>
         </div>
-        <div className="flex justify-between mt-6 w-full gap-x-3">
+        <div className="flex justify-between mt-6 w-full gap-x-5">
         
           <div className="flex-1">
             <Link href='/product/voice/record'>
