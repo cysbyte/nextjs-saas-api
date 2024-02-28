@@ -65,7 +65,7 @@ const AddVoiceForm: FC<Props> = (props) => {
           </label>
           <input
             ref={voiceIdInputRef}
-            className="input-border"
+            className="input-border focus:outline-none focus:shadow-outline"
             id="voiceId"
             name="voiceId"
             type="text"
@@ -88,7 +88,7 @@ const AddVoiceForm: FC<Props> = (props) => {
                 (<h3>{props.voiceNames[0].voiceName}</h3>) :
                   (<input
                     ref={voiceNameInputRef}
-                  className="input-border"
+                  className="input-border focus:outline-none focus:shadow-outline"
                   id="voiceName"
                   name="voiceName"
                     type="text"
