@@ -3,6 +3,7 @@ import React, { FC } from "react";
 
 type Props = {
   id: string,
+  voiceId: string,
   voiceName: string,
   order: number,
   description: string,
@@ -92,11 +93,11 @@ const MyCreatedBox: FC<Props> = (props) => {
           <p className="text-[13px] mx-auto mt-2 text-start px-2 text-slate-400 line-clamp-1">
             {props.description}
           </p>
-          <input hidden value={props.id}/>
+          <input hidden value={props.voiceId}/>
         </div>
 
         <div className="flex justify-between mt-6 w-full gap-x-3">
-          <Link href={`/product/text-to-speech/${props.id}`} className="btn-border flex-1">
+          <Link href={`/product/text-to-speech/voiceId/${props.voiceId}`} className="btn-border flex-1">
             <svg
               width="16"
               height="16"

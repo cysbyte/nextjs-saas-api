@@ -7,19 +7,23 @@ import { loginIsRequiredServer } from '@/lib/auth'
 import prisma from '@/lib/prismadb'
 import { createCustomerIfNull } from '@/lib/stripe'
 
-const TextToSpeech = async ({params}:{params: {id: string}}) => {
+const TextToSpeech = async ({ params }: {
+    params: {
+        voiceId: string
+    }
+}) => {
 
     await loginIsRequiredServer();
-    await createCustomerIfNull();
+    //await createCustomerIfNull();
 
     //@ts-ignore
-    const voice = await prisma.TextToSpeech.findFirst({
-        where: {
-            id:params.id
-        }
-    }
-    )
-    console.log(voice)
+    // const customVoiceId = await prisma.customVoiceId.findFirst({
+    //     where: {
+    //         id:params.voiceId
+    //     }
+    // }
+    // )
+    // console.log(customVoiceId)
 
     // //@ts-ignore
     // const voiceNames = await prisma.TextToSpeech.findUnique({
@@ -35,7 +39,7 @@ const TextToSpeech = async ({params}:{params: {id: string}}) => {
   return (
       <main className='flex flex-row'>
           <ProductSideBar productName='TextToSpeech'/>
-          <Case voice={voice} />
+          <Case voiceId={params.voiceId} />
     </main>
   )
 }

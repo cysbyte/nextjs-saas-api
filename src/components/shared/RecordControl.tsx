@@ -25,6 +25,7 @@ type Props = {
   setIsRecording: Dispatch<React.SetStateAction<boolean | null>> | null;
   file: string | Blob | File;
   setFile:  Dispatch<React.SetStateAction<string | Blob | File>>
+  
 };
 
 const RecordControl: FC<Props> = (props) => {

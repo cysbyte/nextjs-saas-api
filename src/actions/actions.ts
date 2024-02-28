@@ -12,7 +12,7 @@ const group_id = "1697534675713802";
 const api_key =
   "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJHcm91cE5hbWUiOiJoZWV5byIsIlVzZXJOYW1lIjoiaGVleW8iLCJBY2NvdW50IjoiIiwiU3ViamVjdElEIjoiMTY5NzUzNDY3NTQ4MDI3MyIsIlBob25lIjoiIiwiR3JvdXBJRCI6IjE2OTc1MzQ2NzU3MTM4MDIiLCJQYWdlTmFtZSI6IiIsIk1haWwiOiJkZXZAaGVleW8ubGlmZSIsIkNyZWF0ZVRpbWUiOiIyMDI0LTAyLTExIDEwOjQ3OjA4IiwiaXNzIjoibWluaW1heCJ9.rlxFHGoLAgMgx4wgsNHoxhOL2k37PEQpsr_RxKh0pZgEAL_VuPI5bIo10l97PcV9SvkX5XxBL2koS9Jt1HMp-Ig2y8NSWo0dTyddV0QZ02KtRvsdGmpEGZGpkKJY9_Cp0j35CSvdf1OEGvF3TWusThAyvNtaCJk4Ti1yD_OrBt977PWKdFfmQ4xWjTPjTZY-i6FvCMOJbqn47CeVWBgJkqy9-cdaajciI4dq9n4ZATcgxGtVDKloO98eZiVQhMP3eM8HDp8N1LU7uERmQSRHXHrCuwoGyRg99Q3l2LeOGUfI9v2xUdtqD2ld9-1Y-PVJyMrY--tERstauCFwDxwKxw";
 
-export const addTextToSpeech = async (formData: FormData) => {
+export const generateTextToSpeech = async (formData: FormData) => {
   const voiceId = formData.get("voiceId") as string;
   const voiceName = formData.get("voiceName") as string;
   const description = formData.get("description") as string;
@@ -38,6 +38,18 @@ export const addTextToSpeech = async (formData: FormData) => {
       email: session?.user?.email?.toString(),
     },
   });
+
+  await prisma.user.update({
+    where: {
+      id: user?.id,
+    },
+    data: {
+      currentVoiceId: voiceId,
+      currentVoiceName: voiceName,
+      currentDescription: description,
+      currentText: text,
+    }
+  })
 
   const count = await prisma.textToSpeech.count();
   // @ts-ignore
@@ -74,13 +86,93 @@ export const addTextToSpeech = async (formData: FormData) => {
   // return src;
 };
 
-export const deleteTextToSpeech = async (id: string) => {
+export const getText = async () => {
+  const session = await getServerSession(authConfig);
+  if (!session) return '';
   //@ts-ignore
-  await prisma.TextToSpeech.delete({
+  const user = await prisma.User.findFirst({
+    where: {
+      email: session.user?.email,
+    },
+    select: {
+      email: true,
+      currentText: true
+    }
+  });
+  return user.currentText;
+}
+
+export const getUserFromDB = async () => {
+  const session = await getServerSession(authConfig);
+  if (!session) return '';
+  //@ts-ignore
+  const user = await prisma.User.findFirst({
+    where: {
+      email: session.user?.email,
+    },
+  });
+  return user;
+}
+
+export const deleteCustomVoiceId = async (id: string) => {
+  //@ts-ignore
+  await prisma.customVoiceId.delete({
     where: {
       id: id?.toString()
     }
   })
+}
+
+export const mp3ToText = async (formData: FormData) => {
+
+  const url = 'http://www.localhost:8000/mp3-to-text'
+
+  try {
+    const result = await fetch(url, {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await result.json();
+
+    //console.log("data", data);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+
+  return { success: true };
+};
+
+export const saveCustomVoiceId = async (formData: FormData) => {
+
+  const voiceId = formData.get("voiceId") as string;
+  const voiceName = formData.get("voiceName") as string;
+  const description = formData.get("description") as string;
+
+  const session = await getServerSession(authConfig);
+  if (!session) return;
+  const user = await prisma.user.findFirst({
+    where: {
+      email: session?.user?.email?.toString(),
+    },
+  });
+
+  const count = await prisma.customVoiceId.count();
+  // @ts-ignore
+  const new_custom_voice = await prisma.customVoiceId.create({
+    data: {
+      voiceId,
+      voiceName,
+      description: description ? description : '',
+      order: count + 1,
+      author: {
+        connect: {
+          id: user?.id
+        },
+      },
+    },
+  });
 }
 
 export const uploadAudio = async (formData: FormData) => {

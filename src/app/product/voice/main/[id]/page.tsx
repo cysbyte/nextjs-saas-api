@@ -1,4 +1,4 @@
-import { deleteTextToSpeech } from "@/actions/actions";
+import { deleteCustomVoiceId } from "@/actions/actions";
 import ProductSideBar from "@/components/layout/ProductSideBar";
 import Case from "@/components/sections/product/voice/main";
 import DeleteModal from "@/components/shared/DeleteModal";
@@ -22,7 +22,7 @@ const Voice = async ({params}:{params: {id: string}}) => {
     'use server'
     console.log("Ok was clicked");
     console.log(params.id)
-    await deleteTextToSpeech(params.id);
+    await deleteCustomVoiceId(params.id);
     revalidatePath("/product/voice/main/0");
     redirect("/product/voice/main/0");
   }

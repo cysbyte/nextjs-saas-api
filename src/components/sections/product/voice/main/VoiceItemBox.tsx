@@ -1,28 +1,36 @@
 import Link from "next/link";
 import React, { FC } from "react";
 
-const VoiceItemBox: FC = () => {
+type Props = {
+  id: string,
+  voiceId: string,
+  voiceName: string,
+  order: number,
+  description: string,
+}
+
+const VoiceItemBox: FC<Props> = (props) => {
   return (
     <div>
       <div className="border rounded-md bg-gray-100 shadow-xl basis-4/12 w-full md:h-[200px] md:w-[360px] h-auto px-4 flex flex-col justify-center items-center hover:bg-gray-100 hover:scale-[1.02] active:scale-100 duration-300">
         <div className="mx-auto w-full">
           <div className="flex items-center justify-between px-2">
             <div className="flex">
-              <h4 className="font-normal text-base text-black">Voice Name</h4>
+              <h4 className="font-normal text-base text-black">{props.voiceName}</h4>
             </div>
             <div className="border-[2px] rounded-md px-1 py-1 text-sm text-slate-400">
-              ID001
+              {props.id}
             </div>
           </div>
 
           <p className="text-[13px] mx-auto mt-2 text-start px-2 text-slate-400">
-            No description
+            {props.description}
           </p>
         </div>
         <div className="flex justify-between mt-6 w-full gap-x-5">
         
           <div className="flex-1">
-            <Link href='/product/voice/record'>
+            <Link href={`/product/text-to-speech/voiceId/${props.voiceId}`}>
             <div className="btn-border">
               <svg
                 width="16"

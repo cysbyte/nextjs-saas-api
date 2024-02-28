@@ -16,6 +16,7 @@ type Props = {
   setAudioBlob: Dispatch<React.SetStateAction<Blob>>;
   file: string | Blob | File;
   setFile: Dispatch<React.SetStateAction<string | Blob | File>>;
+  downloadTitle?: string;
 }
 const AudioRecorder: FC<Props> = (props) => {
   //const [audio, setAudio] = useState<string>("");
@@ -68,7 +69,7 @@ const AudioRecorder: FC<Props> = (props) => {
       </div>
       {props.hasDownload && <Link href={props.audio} target="_blank" download>
         <div className="my-5">
-          <PricingPlanButton text="Download" isScale={false} />
+          <PricingPlanButton text={props.downloadTitle ? props.downloadTitle : "Download"} isScale={false} />
         </div>
       </Link>
       }

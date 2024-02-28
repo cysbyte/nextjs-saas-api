@@ -7,6 +7,7 @@ import { PrismaClient } from "@prisma/client";
 import { authConfig, loginIsRequiredServer } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import prisma from "@/lib/prismadb";
+import { systemVoices } from "@/lib/systemVocieIds";
 
 const Case = async () => {
 
@@ -20,7 +21,7 @@ const Case = async () => {
     },
   });
   // @ts-ignore
-  const voices = await prisma.TextToSpeech.findMany({
+  const customVoices = await prisma.customVoiceId.findMany({
     // include: {
     //   author: true
     // }
@@ -28,20 +29,7 @@ const Case = async () => {
       authorId: user?.id,
     },
   });
-  console.log(voices)
-
-  const voiceItemBoxList=[
-    { id: 0, box: <VoiceItemBox /> },
-    { id: 1, box: <VoiceItemBox /> },
-    { id: 2, box: <VoiceItemBox /> },
-    { id: 3, box: <VoiceItemBox /> },
-    { id: 4, box: <VoiceItemBox /> },
-    { id: 5, box: <VoiceItemBox /> },
-    { id: 6, box: <VoiceItemBox /> },
-    { id: 7, box: <VoiceItemBox /> },
-    { id: 8, box: <VoiceItemBox /> },
-    { id: 9, box: <VoiceItemBox /> },
-  ];
+  // console.log(customVoices)
 
   return (
     <aside className="flex-[5] w-full h-auto overflow-auto">
@@ -58,36 +46,31 @@ const Case = async () => {
           <Link href="/product/voice/add">
             <AddVoiceBox />
           </Link>
-          {voices.map((item: any, index:number) => {
+          {customVoices.map((item: any, index:number) => {
             return <div key={index}>
               <MyCreatedBox
                 order={item.order}
                 voiceName={item.voiceName}
                 description={item.description}
                 id={item.id}
+                voiceId={item.voiceId}
               />
             </div>
             
           })}
           
+          {systemVoices.map((item: any, index: number) => {
+            return <div key={index}>
+            <VoiceItemBox
+                order={index}
+                voiceId={item.voiceId}
+               voiceName={item.voiceId}
+               description='No description'
+               id={index.toString()}
+              />
+              </div>
+          })}
 
-          <VoiceItemBox/>
-          <VoiceItemBox/>
-          <VoiceItemBox/>
-          <VoiceItemBox/>
-          <VoiceItemBox/>
-          <VoiceItemBox/>
-          <VoiceItemBox/>
-          <VoiceItemBox/>
-          <VoiceItemBox/>
-          <VoiceItemBox/>
-
-          {/* {myCreatedBoxList.map((item, index) => (
-            <div key={item.id}>{item.box}</div>
-          ))}
-          {voiceItemBoxList.map((item, index) => (
-            <div key={item.id}>{item.box}</div>
-          ))} */}
         </div>
       </div>
     </aside>

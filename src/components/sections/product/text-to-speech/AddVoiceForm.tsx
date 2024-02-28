@@ -1,19 +1,15 @@
 "use client";
 
-import { addTextToSpeech } from "@/actions/actions";
+import { generateTextToSpeech, getUserFromDB } from "@/actions/actions";
 import GenerateButton from "@/components/shared/GenerateButton";
-import PricingPlanButton from "@/components/shared/PricingPlanButton";
-import { useSearchParams } from "next/navigation";
-import { PythonShell } from 'python-shell';
-import prisma from "@/lib/prismadb";
-import React, { Dispatch, FC, RefObject, SetStateAction, useRef, useState } from "react";
 import { revalidatePath } from "next/cache";
+import React, { Dispatch, FC, useRef, useState } from "react";
 import VoiceNameOption from "./VoiceNameItem";
 
 type Props = {
   audio: string;
   setAudio: Dispatch<React.SetStateAction<string>>;
-  voice: any;
+  voiceId: string;
   voiceNames: any;
 }
 
@@ -35,18 +31,18 @@ const AddVoiceForm: FC<Props> = (props) => {
   const addVoiceHandler = async (formData: FormData) => {
 
     try {
-      const mp3_url = await addTextToSpeech(formData);
+      const mp3_url = await generateTextToSpeech(formData);
       if (mp3_url) {
         props.setAudio(mp3_url);
       }
       revalidatePath('/product/voice/main/0')
+      revalidatePath('/product/text-to-speech')
     } catch (error) {
       console.log(error)
     }
     
     //ref?.current?.reset();
   }
-  
 
   return (
     <form ref={ref} action={addVoiceHandler} className="bg-white w-full">
@@ -60,7 +56,7 @@ const AddVoiceForm: FC<Props> = (props) => {
             id="voiceId"
             name="voiceId"
             type="text"
-            defaultValue={props.voice?props.voice.voiceId:''}
+            defaultValue={props.voiceId}
             placeholder="Enter voice ID"
           />
         </div>
@@ -83,7 +79,7 @@ const AddVoiceForm: FC<Props> = (props) => {
                   name="voiceName"
                     type="text"
                     autoComplete='off'
-                    defaultValue={props.voice ? props.voice.voiceName : ''}
+                    //defaultValue={props.voice ? props.voice.voiceName : ''}
                   placeholder="Enter voice Name"
                 />)
               }
@@ -126,8 +122,8 @@ const AddVoiceForm: FC<Props> = (props) => {
               </div>
 
 
-            <div className="invisible absolute z-50 pt-4 flex w-[765px] flex-col bg-white py-1 px-4 rounded-md text-gray-800 shadow-xl group-hover:visible">
-              {props.voiceNames && props.voiceNames.length > 0 && props.voiceNames.map((item:any, index:number) => (
+            {false && props.voiceNames && props.voiceNames.length > 0 && <div className="invisible absolute z-50 pt-4 flex w-[765px] flex-col bg-white py-1 px-4 rounded-md text-gray-800 shadow-xl group-hover:visible">
+              {props.voiceNames && props.voiceNames.length > 0 && props.voiceNames.map((item: any, index: number) => (
                 <div key={index}><VoiceNameOption
                   voiceName={item.voiceName}
                   mp3_url={item.mp3_url}
@@ -139,8 +135,9 @@ const AddVoiceForm: FC<Props> = (props) => {
                   
  
             </div>
+            }
             </div>
-
+          
         </div>
 
         <div className="mt-3 w-full">
@@ -155,7 +152,7 @@ const AddVoiceForm: FC<Props> = (props) => {
             id="description"
             name="description"
             rows={2}
-            defaultValue={props.voice?props.voice.description:''}
+            //defaultValue={props.voice?props.voice.description:''}
             placeholder="Enter description here..."
           />
         </div>
@@ -171,7 +168,7 @@ const AddVoiceForm: FC<Props> = (props) => {
             className="input-border focus:outline-none focus:shadow-outline"
             id="text"
             name="text"
-            defaultValue={props.voice?props.voice.text:''}
+            //defaultValue={props.voice?props.voice.text:''}
             rows={8}
             placeholder="Type or paste text here..."
             onChange={handleTextareaInput}
