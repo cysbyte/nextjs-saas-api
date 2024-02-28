@@ -82,7 +82,7 @@ const MyCreatedBox: FC<Props> = (props) => {
               </svg>
 
               <h4 className="ml-2 font-normal text-base text-black truncate ..">
-                {props.voiceName}
+                {props.voiceName?props.voiceName:'Unnamed'}
               </h4>
             </div>
             <div className="border-[2px] rounded-md px-1 py-1 text-sm text-slate-400">
@@ -91,7 +91,7 @@ const MyCreatedBox: FC<Props> = (props) => {
           </div>
 
           <p className="text-[13px] mx-auto mt-2 text-start px-2 text-slate-400 line-clamp-1">
-            {props.description}
+            {props.description?props.description:'No description'}
           </p>
           <input hidden value={props.voiceId}/>
         </div>

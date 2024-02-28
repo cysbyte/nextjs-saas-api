@@ -3,8 +3,10 @@
 import React, { useRef, useState } from "react";
 
 type Props = {
+  voiceId: string,
   voiceName: string,
   mp3_url: string,
+  voiceIdInputRef: any,
   voiceNameInputRef: any,
 }
 
@@ -14,8 +16,8 @@ const VoiceNameOption = (props: Props) => {
 
   const audioRef = useRef<any>();
 
-  const handlePlay=()=> {
-
+  const handlePlay = (e:any) => {
+    e.stopPropagation();
     if (isPlaying) {
       setIsPlaying(false);
       audioRef.current.pause();
@@ -27,6 +29,7 @@ const VoiceNameOption = (props: Props) => {
 
   const handleClick = () => {
     props.voiceNameInputRef.current.defaultValue = props.voiceName;
+    props.voiceIdInputRef.current.defaultValue = props.voiceId;
   }
 
   return (
@@ -85,7 +88,7 @@ const VoiceNameOption = (props: Props) => {
         )}
       </div>
       <audio ref={audioRef} src={props.mp3_url} className="hidden"/>
-      <h3 className="my-2 ml-3">{props.voiceName}</h3>
+      <h3 className="my-2 ml-3">{props.voiceName?props.voiceName: 'Unnamed'}</h3>
     </div>
   );
 };

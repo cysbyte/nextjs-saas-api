@@ -30,6 +30,7 @@ const TextToSpeech = async () => {
       authorId: user?.id.toString()
     },
     select: {
+      voiceId: true,
       voiceName: true,
       mp3_url: true,
     }

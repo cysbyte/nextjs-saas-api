@@ -19,7 +19,7 @@ const VoiceItemBox: FC<Props> = (props) => {
               <h4 className="font-normal text-base text-black">{props.voiceName}</h4>
             </div>
             <div className="border-[2px] rounded-md px-1 py-1 text-sm text-slate-400">
-              {props.id}
+            {'ID'+props.id.toString().padStart(3, '0')}
             </div>
           </div>
 
