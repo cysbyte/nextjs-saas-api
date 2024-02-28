@@ -63,7 +63,8 @@ const Case = () => {
       // if (file_name) {
       //   props.setAudio('https://saas-minimax.s3.ap-northeast-1.amazonaws.com/' + file_name);
       // }
-    } catch (error) {
+    } catch (error:any) {
+      alert(error)
       console.log(error);
     }
 

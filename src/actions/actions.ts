@@ -184,25 +184,21 @@ export const uploadAudio = async (formData: FormData) => {
   const url = `https://api.minimax.chat/v1/files/upload?GroupId=${group_id}`;
   formData.set("purpose", "voice_clone");
 
-  try {
-    const result = await fetch(url, {
-      method: "POST",
-      headers: {
-        authority: "api.minimax.chat",
-        authorization: `Bearer ${api_key}`,
-      },
-      body: formData,
-    });
+  const result = await fetch(url, {
+    method: "POST",
+    headers: {
+      authority: "api.minimax.chat",
+      authorization: `Bearer ${api_key}`,
+    },
+    body: formData,
+  });
 
-    const data = await result.json();
-
-    console.log("data", data);
-    return data;
-  } catch (error) {
-    console.error(error);
+  const data = await result.json();
+  if (data.base_resp.status_code !== 0) {
+    throw new Error(data.base_resp.status_msg);
   }
-
-  return { success: true };
+  console.log("data", data);
+  return data;
 };
 
 export const cloneAudio = async (
@@ -212,7 +208,7 @@ export const cloneAudio = async (
   const url = `https://api.minimax.chat/v1/voice_clone?GroupId=${group_id}`;
 
   console.log("voiceId", voiceId);
-  try {
+
     const result = await fetch(url, {
       method: "POST",
       headers: {
@@ -226,14 +222,13 @@ export const cloneAudio = async (
     });
 
     const data = await result.json();
-
     console.log("data", data);
-    return data;
-  } catch (error) {
-    console.error(error);
-  }
+    if (data.base_resp.status_code !== 0) {
+      throw new Error(data.base_resp.status_msg);
+    }
 
-  return { success: true };
+    return data;
+
 };
 
 
