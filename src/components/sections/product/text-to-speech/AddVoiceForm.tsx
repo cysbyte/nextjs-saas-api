@@ -101,28 +101,28 @@ const AddVoiceForm: FC<Props> = (props) => {
               
               <div className="absolute right-5 top-0 flex h-full items-center justify-center">
                   <div className="relative ml-1 flex py-3 items-center justify-center w-fit">
+                  {!isMenuShowing && <svg
+                    width="13"
+                    height="12"
+                    viewBox="0 0 13 12"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M3.5 4.5L6.5 7.5L9.5 4.5"
+                      stroke="#111827"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  }
+                  {isMenuShowing &&
                     <svg
                       width="13"
                       height="12"
                       viewBox="0 0 13 12"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
-                      className="absolute group-hover:invisible"
-                    >
-                      <path
-                        d="M3.5 4.5L6.5 7.5L9.5 4.5"
-                        stroke="#111827"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-                    <svg
-                      width="13"
-                      height="12"
-                      viewBox="0 0 13 12"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="absolute invisible group-hover:visible"
                     >
                       <path
                         d="M9.5 7.5L6.5 4.5L3.5 7.5"
@@ -131,6 +131,7 @@ const AddVoiceForm: FC<Props> = (props) => {
                         stroke-linejoin="round"
                       />
                     </svg>
+                  }
                   </div>
                 </div>
               </div>
