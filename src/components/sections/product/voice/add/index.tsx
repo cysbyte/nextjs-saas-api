@@ -48,6 +48,7 @@ const Case = () => {
       // console.log('start generate=====')
 
       if (true) {
+        console.log(customVoiceId)
         formData.set("voiceId", customVoiceId);
 
         console.log('saveCustomVoiceId')

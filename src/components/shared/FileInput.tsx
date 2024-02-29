@@ -1,5 +1,5 @@
 import { cloneAudio, uploadAudio } from "@/actions/actions";
-import React, { FC, useRef } from "react";
+import React, { FC, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 type Props = {
@@ -14,9 +14,10 @@ type Props = {
 }
 
 const FileInput:FC<Props> = (props) => {
-  const fileInput: any = useRef(); /* create a ref*/
+    const fileInput: any = useRef(); /* create a ref*/
+    const [value, setValue] = useState('');
 
-  const handleSubmit = async (event: any) => {
+    const handleSubmit = async (event: any) => {
     event.preventDefault();
       /* get current files using ref */
       try {
@@ -31,6 +32,7 @@ const FileInput:FC<Props> = (props) => {
           result = await cloneAudio(fileId, customVoiceId);
           props.setCustomVoiceId(customVoiceId);
           props.setIsUploading(false);
+          //setValue('')
       } catch (error) {
           props.setIsUploading(false)
           console.log(error)
