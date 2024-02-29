@@ -37,7 +37,8 @@ const Case = () => {
   const uploadVoiceHandler = async (formData: FormData) => {
     console.log(file);
     if (!file || file === "") return;
-    formData.set("file", file);
+    console.log(isRecording)
+    if(isRecording) formData.set("file", file);
 
     try {
       let result = await uploadAudio(formData);
@@ -130,7 +131,8 @@ const Case = () => {
                       Drop file here or record audio
                     </h4>
                   )}
-                  <div className="w-[20%] mx-auto flex gap-x-3 justify-center mt-4">
+                  <div onClick={()=>setIsRecording(false)}
+                    className="w-[20%] mx-auto flex gap-x-3 justify-center mt-4">
                     <label htmlFor="file">
                       <div className="btn-border">
                         <svg
