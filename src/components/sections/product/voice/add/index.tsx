@@ -56,15 +56,15 @@ const Case = () => {
         if (mp3_url) {
           setAudio(mp3_url);
         }
-        revalidatePath("/product/voice/main/0");
-        revalidatePath("/product/text-to-speech");
+        //revalidatePath("/product/voice/main/0");
+        //revalidatePath("/product/text-to-speech");
       }
 
       // if (file_name) {
       //   props.setAudio('https://saas-minimax.s3.ap-northeast-1.amazonaws.com/' + file_name);
       // }
     } catch (error:any) {
-      alert(error)
+      //alert(error)
       console.log(error);
     }
 

@@ -27,7 +27,8 @@ const VoiceNameOption = (props: Props) => {
   }
   }
 
-  const handleClick = () => {
+  const handleClick = (e: any) => {
+    e.stopPropagation();
     props.voiceNameInputRef.current.defaultValue = props.voiceName;
     props.voiceIdInputRef.current.defaultValue = props.voiceId;
   }
