@@ -27,6 +27,7 @@ export const generateTextToSpeech = async (formData: FormData) => {
       voice_id: voiceId,
       text: text,
     }),
+    signal: AbortSignal.timeout(20000) 
   });
   const {file_name} = await response.json();
   const mp3_url = 'https://saas-minimax.s3.ap-northeast-1.amazonaws.com/' + file_name;
@@ -191,6 +192,7 @@ export const uploadAudio = async (formData: FormData) => {
       authorization: `Bearer ${api_key}`,
     },
     body: formData,
+    signal: AbortSignal.timeout(15000) 
   });
 
   const data = await result.json();
@@ -219,6 +221,7 @@ export const cloneAudio = async (
         file_id: fileId,
         voice_id: voiceId?.trim(),
       }),
+      signal: AbortSignal.timeout(15000) 
     });
 
     const data = await result.json();
