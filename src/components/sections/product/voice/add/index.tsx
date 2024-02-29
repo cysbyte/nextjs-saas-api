@@ -13,27 +13,25 @@ import AudioRecorder from "@/components/shared/AudioRecorder";
 import GenerateButton from "@/components/shared/GenerateButton";
 import PricingPlanButton from "@/components/shared/PricingPlanButton";
 import { v4 as uuidv4 } from "uuid";
-import React, { useState, useTransition } from "react";
+import React, { useRef, useState, useTransition } from "react";
 import { revalidatePath } from "next/cache";
 import { getServerSession } from "next-auth";
 import { authConfig } from "@/lib/auth";
+import FileInput from "@/components/shared/FileInput";
 
 const Case = () => {
   const [audio, setAudio] = useState("");
   const [audioBlob, setAudioBlob] = useState<Blob>(new Blob());
   const [isRecording, setIsRecording] = useState<boolean | null>(false);
+  const [customVoiceId, setCustomVoiceId] = useState('');
+  const [fileName, setFileName] = useState('');
+  const [isUploading, setIsUploading] = useState(false);
 
   const [file, setFile] = useState<Blob | File | string>("");
+  const fileInputRef = useRef<any>();
   const [status, setStatus] = useState<
     "initial" | "uploading" | "success" | "fail"
   >("initial");
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setStatus("initial");
-      setFile(e.target.files[0]);
-    }
-  };
 
   const uploadVoiceHandler = async (formData: FormData) => {
     console.log(file);
@@ -42,13 +40,13 @@ const Case = () => {
     if(isRecording) formData.set("file", file);
 
     try {
-      let result = await uploadAudio(formData);
-      const fileId = result.file.file_id;
-      const customVoiceId = "Voice_id_" + uuidv4();
-      result = await cloneAudio(fileId, customVoiceId);
-      console.log('start generate=====')
+      // let result = await uploadAudio(formData);
+      // const fileId = result.file.file_id;
+      // const customVoiceId = "Voice_id_" + uuidv4();
+      // result = await cloneAudio(fileId, customVoiceId);
+      // console.log('start generate=====')
 
-      if (result.base_resp.status_code === 0) {
+      if (true) {
         formData.set("voiceId", customVoiceId);
 
         console.log('saveCustomVoiceId')
@@ -75,11 +73,6 @@ const Case = () => {
     }
 
     //ref?.current?.reset();
-  };
-
-  const getFileName = () => {
-    //@ts-ignore
-    return file.name;
   };
 
   return (
@@ -125,7 +118,7 @@ const Case = () => {
                 <div className="mt-3 rounded-md border-[2px] w-full p-20">
                   {file && !isRecording && (
                     <h4 className="font-base text-center mx-auto">
-                      {getFileName()}
+                      {isUploading?'File is uploading...':fileName}
                     </h4>
                   )}
                   {file && isRecording && (
@@ -172,12 +165,23 @@ const Case = () => {
 
                         <p className="ml-2">Upload</p>
                       </div>
-                      <input
+                      {/* <input
+                        ref={fileInputRef}
                         type="file"
                         id="file"
                         name="file"
                         className="hidden"
                         onChange={handleFileChange}
+                      /> */}
+                      <FileInput
+                        customVoiceId={customVoiceId}
+                        setCustomVoiceId={setCustomVoiceId}
+                        fileName={fileName}
+                        setFileName={setFileName}
+                        file={file}
+                        setFile={setFile}
+                        isUploading={isUploading}
+                        setIsUploading={setIsUploading}
                       />
                     </label>
 

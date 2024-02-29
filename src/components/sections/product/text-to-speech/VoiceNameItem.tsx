@@ -8,6 +8,8 @@ type Props = {
   mp3_url: string,
   voiceIdInputRef: any,
   voiceNameInputRef: any,
+  isMenuShowing: boolean,
+  setIsMenuShowing: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
 const VoiceNameOption = (props: Props) => {
@@ -29,6 +31,7 @@ const VoiceNameOption = (props: Props) => {
 
   const handleClick = (e: any) => {
     e.stopPropagation();
+    props.setIsMenuShowing(false);
     props.voiceNameInputRef.current.defaultValue = props.voiceName;
     props.voiceIdInputRef.current.defaultValue = props.voiceId;
   }

@@ -10,6 +10,7 @@ const Case = ({voiceId, voiceNames}:any) => {
   const [audio, setAudio] = useState('');
   const [audioBlob, setAudioBlob] = useState(new Blob());
   const [file, setFile] = useState<Blob | File | string>(new Blob());
+  const [isMenuShowing, setIsMenuShowing] = useState(false);
   //console.log('index', voice)
 
   // useEffect(() => {
@@ -20,7 +21,9 @@ const Case = ({voiceId, voiceNames}:any) => {
 
   return (
     
-    <section className="flex-[5] h-full w-full overflow-auto">
+    <section
+      onClick={()=>setIsMenuShowing(false)}
+      className="flex-[5] h-full w-full overflow-auto">
       <div className="max-w-3xl mt-14 mb-10 ml-10">
         <div className="border-b py-2">
           <h1 className="text-4xl font-semibold">Text to Speech</h1>
@@ -34,7 +37,14 @@ const Case = ({voiceId, voiceNames}:any) => {
           <h2 className=" font-semibold">Settings</h2>
 
           <div className="w-full border-b pb-5">
-            <AddVoiceForm audio={audio} setAudio={setAudio} voiceId={voiceId} voiceNames={voiceNames} />
+            <AddVoiceForm
+              audio={audio}
+              setAudio={setAudio}
+              voiceId={voiceId}
+              voiceNames={voiceNames}
+              isMenuShowing={isMenuShowing}
+              setIsMenuShowing={setIsMenuShowing}
+            />
           </div>
 
           <div className="mb-6">

@@ -9,6 +9,8 @@ import VoiceNameOption from "./VoiceNameItem";
 type Props = {
   audio: string;
   setAudio: Dispatch<React.SetStateAction<string>>;
+  isMenuShowing: boolean;
+  setIsMenuShowing: Dispatch<React.SetStateAction<boolean>>;
   voiceId: string;
   voiceNames: any;
 }
@@ -23,7 +25,6 @@ const AddVoiceForm: FC<Props> = (props) => {
   const voiceNameInputRef = useRef<any>();
   const voiceIdInputRef = useRef<any>();
   const [tokenCount, setTokenCount] = useState(0);
-  const [isMenuShowing, setIsMenuShowing] = useState(false);
 
   const handleTextareaInput = (e: any) => {
     console.log(e.target.value)
@@ -46,12 +47,13 @@ const AddVoiceForm: FC<Props> = (props) => {
     //ref?.current?.reset();
   }
 
-  const handleShowingMenu=()=> {
+  const handleShowingMenu = (e:any) => {
+    e.stopPropagation();
     console.log('click')
-    if (isMenuShowing) {
-      setIsMenuShowing(false)
+    if (props.isMenuShowing) {
+      props.setIsMenuShowing(false)
     } else {
-      setIsMenuShowing(true);
+      props.setIsMenuShowing(true);
     }
 
   }
@@ -101,7 +103,7 @@ const AddVoiceForm: FC<Props> = (props) => {
               
               <div className="absolute right-5 top-0 flex h-full items-center justify-center">
                   <div className="relative ml-1 flex py-3 items-center justify-center w-fit">
-                  {!isMenuShowing && <svg
+                  {!props.isMenuShowing && <svg
                     width="13"
                     height="12"
                     viewBox="0 0 13 12"
@@ -116,7 +118,7 @@ const AddVoiceForm: FC<Props> = (props) => {
                     />
                   </svg>
                   }
-                  {isMenuShowing &&
+                  {props.isMenuShowing &&
                     <svg
                       width="13"
                       height="12"
@@ -137,7 +139,7 @@ const AddVoiceForm: FC<Props> = (props) => {
               </div>
 
 
-            {isMenuShowing && props.voiceNames && props.voiceNames.length > 0 && <div className="absolute z-50 pt-4 flex w-[765px] flex-col bg-white py-1 px-4 rounded-md text-gray-800 shadow-xl">
+            {props.isMenuShowing && props.voiceNames && props.voiceNames.length > 0 && <div className="absolute z-50 pt-4 flex w-[765px] flex-col bg-white py-1 px-4 rounded-md text-gray-800 shadow-xl">
               {props.voiceNames && props.voiceNames.length > 0 && props.voiceNames.map((item: any, index: number) => (
                 <div key={index}><VoiceNameOption
                   voiceName={item.voiceName}
@@ -145,6 +147,8 @@ const AddVoiceForm: FC<Props> = (props) => {
                   mp3_url={item.mp3_url}
                   voiceIdInputRef={voiceIdInputRef}
                   voiceNameInputRef={voiceNameInputRef}
+                  isMenuShowing={props.isMenuShowing}
+                  setIsMenuShowing={props.setIsMenuShowing}
                 />
                 </div>
                 
