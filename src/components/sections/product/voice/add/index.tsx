@@ -70,7 +70,7 @@ const Case = () => {
       //   props.setAudio('https://saas-minimax.s3.ap-northeast-1.amazonaws.com/' + file_name);
       // }
     } catch (error:any) {
-      //alert(error)
+      alert(error)
       console.log(error);
     }
 

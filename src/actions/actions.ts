@@ -18,7 +18,7 @@ export const generateTextToSpeech = async (formData: FormData) => {
   const description = formData.get("description") as string;
   const text = formData.get("text") as string;
 
-  const response = await fetch(`http://54.95.52.19/text-to-speech`, {
+  const response = await fetch(`http://saas-api-lb-1226519020.ap-northeast-1.elb.amazonaws.com/api/text-to-speech`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
