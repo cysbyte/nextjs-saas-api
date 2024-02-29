@@ -230,8 +230,3 @@ export const cloneAudio = async (
     return data;
 
 };
-
-
-export default async function action() {
-  revalidateTag("profile");
-}
