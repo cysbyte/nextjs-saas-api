@@ -36,7 +36,7 @@ const AddVoiceForm: FC<Props> = (props) => {
   const addVoiceHandler = async (formData: FormData) => {
 
     try {
-      const mp3_url = await generateTextToSpeech(formData);
+      const mp3_url = await generateTextToSpeech(formData, false);
       if (mp3_url) {
         props.setAudio(mp3_url);
         props.setIsGenerated(true);

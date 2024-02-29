@@ -58,7 +58,7 @@ const Case = () => {
         //console.log(text);
         formData.set('text', user?.currentText as string);
         console.log('generateTextToSpeech')
-        const mp3_url = await generateTextToSpeech(formData);
+        const mp3_url = await generateTextToSpeech(formData, true);
         if (mp3_url) {
           setIsGenerated(true);
           setAudio(mp3_url);
