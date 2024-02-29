@@ -175,6 +175,7 @@ export const saveCustomVoiceId = async (formData: FormData) => {
       },
     },
   });
+  return user;
 }
 
 export const uploadAudio = async (formData: FormData) => {

@@ -52,11 +52,11 @@ const Case = () => {
         formData.set("voiceId", customVoiceId);
 
         console.log('saveCustomVoiceId')
-        await saveCustomVoiceId(formData);
+        const user = await saveCustomVoiceId(formData);
         console.log('getText')
-        const text = await getText();
-        console.log(text);
-        formData.set('text', text);
+        // const text = await getText();
+        //console.log(text);
+        formData.set('text', user?.currentText as string);
         console.log('generateTextToSpeech')
         const mp3_url = await generateTextToSpeech(formData);
         if (mp3_url) {
