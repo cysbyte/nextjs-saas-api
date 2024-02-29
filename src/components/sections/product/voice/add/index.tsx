@@ -7,6 +7,7 @@ import {
   saveCustomVoiceId,
   generateTextToSpeech,
   getText,
+  deleteUploadedAudio,
 } from "@/actions/actions";
 import AudioRecorder from "@/components/shared/AudioRecorder";
 import GenerateButton from "@/components/shared/GenerateButton";
@@ -46,6 +47,7 @@ const Case = () => {
       const customVoiceId = "Voice_id_" + uuidv4();
       result = await cloneAudio(fileId, customVoiceId);
       console.log('start generate=====')
+
       if (result.base_resp.status_code === 0) {
         formData.set("voiceId", customVoiceId);
 

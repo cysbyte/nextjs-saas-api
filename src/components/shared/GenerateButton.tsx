@@ -4,11 +4,12 @@ import PricingPlanButton from './PricingPlanButton'
 
 
 const GenerateButton = () => {
-    const { pending } = useFormStatus();
+    //const { pending } = useFormStatus();
   return (
     <div className="w-full mt-4">
           <PricingPlanButton
-              text={pending?"Generating Speech...":"Generate"}
+              //text={pending?"Generating Speech...":"Generate"}
+        text='Generate'
               isScale={false} />
       </div>
   )

@@ -233,3 +233,31 @@ export const cloneAudio = async (
     return data;
 
 };
+
+export const deleteUploadedAudio = async (
+  fileId: string,
+) => {
+  const url = `https://api.minimax.chat/v1/files/delete?GroupId=${group_id}`;
+
+    const result = await fetch(url, {
+      method: "POST",
+      headers: {
+        'authority': 'api.minimax.chat',
+        "content-type": "application/json",
+        "authorization": `Bearer ${api_key}`,
+        "purpose": "voice_clone",
+      },
+      body: JSON.stringify({
+        file_id: fileId,
+      }),
+    });
+
+    const data = await result.json();
+    console.log("data", data);
+    if (data.base_resp.status_code !== 0) {
+      throw new Error(data.base_resp.status_msg);
+    }
+
+    return data;
+
+};
