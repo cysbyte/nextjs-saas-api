@@ -26,6 +26,7 @@ const Case = () => {
   const [customVoiceId, setCustomVoiceId] = useState('');
   const [fileName, setFileName] = useState('');
   const [isUploading, setIsUploading] = useState(false);
+  const [isGenerated, setIsGenerated] = useState(false);
 
   const [file, setFile] = useState<Blob | File | string>("");
   const fileInputRef = useRef<any>();
@@ -58,15 +59,13 @@ const Case = () => {
         console.log('generateTextToSpeech')
         const mp3_url = await generateTextToSpeech(formData);
         if (mp3_url) {
+          setIsGenerated(true);
           setAudio(mp3_url);
         }
         //revalidatePath("/product/voice/main/0");
         //revalidatePath("/product/text-to-speech");
       }
 
-      // if (file_name) {
-      //   props.setAudio('https://saas-minimax.s3.ap-northeast-1.amazonaws.com/' + file_name);
-      // }
     } catch (error:any) {
       alert(error)
       console.log(error);
@@ -116,23 +115,20 @@ const Case = () => {
               </h4>
               {!isRecording && (
                 <div className="mt-3 rounded-md border-[2px] w-full p-20">
-                  {file && !isRecording && (
+                  {file && (
                     <h4 className="font-base text-center mx-auto">
                       {isUploading?'File is uploading...':fileName}
                     </h4>
-                  )}
-                  {file && isRecording && (
-                    <h4 className="font-base text-center mx-auto">{audio}</h4>
                   )}
                   {!file && (
                     <h4 className="font-semibold text-center mx-auto">
                       Drop file here or record audio
                     </h4>
                   )}
-                  <div onClick={()=>setIsRecording(false)}
-                    className="w-[20%] mx-auto flex gap-x-3 justify-center mt-4">
+                  <div className="w-[20%] mx-auto flex gap-x-3 justify-center mt-4">
                     <label htmlFor="file">
-                      <div className="btn-border">
+                    <div className="btn-border"
+                      onClick={() => setIsRecording(false)}>
                         <svg
                           width="16"
                           height="16"
@@ -187,7 +183,11 @@ const Case = () => {
 
                     <div
                       className="btn-border"
-                      onClick={() => setIsRecording(true)}
+                      onClick={() => {
+                        console.log(isRecording)
+                        setFile('')
+                        setIsRecording(true)
+                      }}
                     >
                       <svg
                         width="16"
@@ -237,6 +237,8 @@ const Case = () => {
                     setAudioBlob={setAudioBlob}
                     file={file}
                     setFile={setFile}
+                    customVoiceId={customVoiceId}
+                    setCustomVoiceId={setCustomVoiceId}
                   />
                 </div>
               )}
@@ -298,7 +300,7 @@ const Case = () => {
             </div>
           </form>
 
-          <div className="bg-white w-full max-w-3xl">
+          {isGenerated && <div className="bg-white w-full max-w-3xl">
             <div className="pb-2">
               <div className="mb-6">
                 <h2 className="mt-4 font-semibold">Clone Voice</h2>
@@ -319,10 +321,13 @@ const Case = () => {
                 file={file}
                 setFile={setFile}
                 downloadTitle='Save Voice'
+                customVoiceId={customVoiceId}
+                setCustomVoiceId={setCustomVoiceId}
               />
             </div>
 
           </div>
+          }
         </div>
       </div>
     </aside>

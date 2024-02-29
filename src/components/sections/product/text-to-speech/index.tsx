@@ -11,6 +11,7 @@ const Case = ({voiceId, voiceNames}:any) => {
   const [audioBlob, setAudioBlob] = useState(new Blob());
   const [file, setFile] = useState<Blob | File | string>(new Blob());
   const [isMenuShowing, setIsMenuShowing] = useState(false);
+  const [isGenerated, setIsGenerated] = useState(false);
   //console.log('index', voice)
 
   // useEffect(() => {
@@ -36,7 +37,7 @@ const Case = ({voiceId, voiceNames}:any) => {
         <div className="mt-4">
           <h2 className=" font-semibold">Settings</h2>
 
-          <div className="w-full border-b pb-5">
+          <div className="w-full pb-5">
             <AddVoiceForm
               audio={audio}
               setAudio={setAudio}
@@ -44,31 +45,36 @@ const Case = ({voiceId, voiceNames}:any) => {
               voiceNames={voiceNames}
               isMenuShowing={isMenuShowing}
               setIsMenuShowing={setIsMenuShowing}
+              isGenerated={isGenerated}
+              setIsGenerated={setIsGenerated}
             />
           </div>
 
-          <div className="mb-6">
-            <h2 className="mt-3 font-semibold">Voice Audio</h2>
-            <p className="text-[13px] mt-2 text-slate-400">
-              *You can click the generate button again to get a different voice.
-            </p>
-          </div>
-          <div className="mt-4">
-            <div>
-              <AudioRecorder
-                audio={audio}
-                setAudio={setAudio}
-                isDone={true}
-                hasDownload={true}
-                isRecording={null}
-                setIsRecording={null}
-                audioBlob={audioBlob}
-                setAudioBlob={setAudioBlob}
-                file={file}
-                setFile={setFile}
-              />
+          {isGenerated && <div className="border-t w-full">
+            <div className="mb-6">
+              <h2 className="mt-3 font-semibold">Voice Audio</h2>
+              <p className="text-[13px] mt-2 text-slate-400">
+                *You can click the generate button again to get a different voice.
+              </p>
+            </div>
+            <div className="mt-4">
+              <div>
+                <AudioRecorder
+                  audio={audio}
+                  setAudio={setAudio}
+                  isDone={true}
+                  hasDownload={true}
+                  isRecording={null}
+                  setIsRecording={null}
+                  audioBlob={audioBlob}
+                  setAudioBlob={setAudioBlob}
+                  file={file}
+                  setFile={setFile}
+                />
+              </div>
             </div>
           </div>
+          }
         </div>
       </div>
     </section>

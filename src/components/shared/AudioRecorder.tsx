@@ -1,4 +1,5 @@
 "use client";
+import { setupDevBundler } from "next/dist/server/lib/router-utils/setup-dev-bundler";
 import Link from "next/link";
 import React, { Dispatch, FC, useEffect, useRef, useState } from "react";
 import PlayControl from "./PlayControl";
@@ -17,6 +18,8 @@ type Props = {
   file: string | Blob | File;
   setFile: Dispatch<React.SetStateAction<string | Blob | File>>;
   downloadTitle?: string;
+  customVoiceId?: string;
+  setCustomVoiceId?: Dispatch<React.SetStateAction<string>> | undefined;
 }
 const AudioRecorder: FC<Props> = (props) => {
   //const [audio, setAudio] = useState<string>("");
@@ -24,6 +27,7 @@ const AudioRecorder: FC<Props> = (props) => {
   const [audioChunks, setAudioChunks] = useState<any>([]);
 
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [uploadStatus, setUploadStatus] = useState<string>('');
 
   return (
     <div className="w-full">
@@ -45,6 +49,10 @@ const AudioRecorder: FC<Props> = (props) => {
                 setIsRecording={props.setIsRecording}
                 file={props.file}
                 setFile={props.setFile}
+                customVoiceId={props.customVoiceId||''}
+                setCustomVoiceId={props.setCustomVoiceId}
+                uploadStatus={uploadStatus}
+                setUploadStatus={setUploadStatus}
               />
             </div>
           )}
@@ -62,6 +70,10 @@ const AudioRecorder: FC<Props> = (props) => {
                 setIsDone={setIsDone}
                 file={props.file}
                 setFile={props.setFile}
+                customVoiceId={props.customVoiceId||''}
+                setCustomVoiceId={props.setCustomVoiceId}
+                uploadStatus={uploadStatus}
+                setUploadStatus={setUploadStatus}
               />
             </div>
           )}

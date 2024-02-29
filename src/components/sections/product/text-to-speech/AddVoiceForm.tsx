@@ -11,6 +11,8 @@ type Props = {
   setAudio: Dispatch<React.SetStateAction<string>>;
   isMenuShowing: boolean;
   setIsMenuShowing: Dispatch<React.SetStateAction<boolean>>;
+  isGenerated: boolean;
+  setIsGenerated: Dispatch<React.SetStateAction<boolean>>;
   voiceId: string;
   voiceNames: any;
 }
@@ -37,6 +39,7 @@ const AddVoiceForm: FC<Props> = (props) => {
       const mp3_url = await generateTextToSpeech(formData);
       if (mp3_url) {
         props.setAudio(mp3_url);
+        props.setIsGenerated(true);
       }
       //revalidatePath('/product/voice/main/0')
       //revalidatePath('/product/text-to-speech')
@@ -139,7 +142,8 @@ const AddVoiceForm: FC<Props> = (props) => {
               </div>
 
 
-            {props.isMenuShowing && props.voiceNames && props.voiceNames.length > 0 && <div className="absolute z-50 pt-4 flex w-[765px] flex-col bg-white py-1 px-4 rounded-md text-gray-800 shadow-xl">
+            {props.isMenuShowing && props.voiceNames && props.voiceNames.length > 0
+              && <div className="absolute z-50 pt-4 flex w-[765px] max-h-[300px] overflow-auto flex-col bg-white py-1 px-4 rounded-md text-gray-800 shadow-xl">
               {props.voiceNames && props.voiceNames.length > 0 && props.voiceNames.map((item: any, index: number) => (
                 <div key={index}><VoiceNameOption
                   voiceName={item.voiceName}
@@ -152,8 +156,7 @@ const AddVoiceForm: FC<Props> = (props) => {
                 />
                 </div>
                 
-              ))}
-                  
+              ))}             
  
             </div>
             }

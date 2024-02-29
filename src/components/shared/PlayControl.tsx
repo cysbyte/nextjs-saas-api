@@ -1,3 +1,5 @@
+'use client';
+
 import { copyFileSync } from "fs";
 import React, {
   Dispatch,
@@ -11,6 +13,8 @@ import { browserName, CustomView } from "react-device-detect";
 import { MIMETYPE } from "./RecordControl";
 import encodeWAV from "audiobuffer-to-wav";
 import { convertWebmToMp3 } from "@/lib/util";
+import { v4 as uuidv4 } from "uuid";
+import { cloneAudio, uploadAudio } from "@/actions/actions";
 
 type Props = {
   audio: string;
@@ -23,6 +27,10 @@ type Props = {
   setAudioChunks: Dispatch<SetStateAction<any>>;
   file: string | Blob | File;
   setFile: Dispatch<React.SetStateAction<string | Blob | File>>;
+  customVoiceId: string;
+  setCustomVoiceId: Dispatch<React.SetStateAction<string>> | undefined;
+  uploadStatus: string;
+  setUploadStatus: Dispatch<React.SetStateAction<string>>;
 };
 
 const PlayControl: FC<Props> = (props) => {
@@ -286,8 +294,29 @@ const PlayControl: FC<Props> = (props) => {
                 const audioUrl = URL.createObjectURL(blob);
                 props.setAudio(audioUrl);
                 const file = await convertWebmToMp3(audioUrl)
-                console.log(file)
+                console.log('file-----', file)
                 props.setFile(file);
+
+                try {
+                  props.setUploadStatus('File is uploading...');
+                  const formData = new FormData();
+                  formData.set('file', file)
+                  console.log('uploading');
+                  let result = await uploadAudio(formData);
+                  const fileId = result.file.file_id;
+                  const customVoiceId = "Voice_id_" + uuidv4();
+                  console.log('customVoiceId')
+                  result = await cloneAudio(fileId, customVoiceId);
+                  if (props.setCustomVoiceId) {
+                    props.setCustomVoiceId(customVoiceId);
+                  }
+                  props.setUploadStatus('File is uploaded');
+                } catch (error) {
+                  props.setUploadStatus('Failed to upload file');
+                  console.log(error)
+                  alert(error)
+                }
+
               });
             }
           );
@@ -307,7 +336,7 @@ const PlayControl: FC<Props> = (props) => {
       <div className="flex flex-col">
         <div className="w-full h-auto relative">
           <h2 className="text-base text-center font-bold whitespace-pre-line leading-8 text-black py-5">
-            Audio
+            {props.uploadStatus}
           </h2>
           {isTrimming && (
             <div className="absolute h-fit flex top-5 right-7 gap-x-3">

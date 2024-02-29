@@ -148,6 +148,7 @@ export const mp3ToText = async (formData: FormData) => {
 export const saveCustomVoiceId = async (formData: FormData) => {
 
   const voiceId = formData.get("voiceId") as string;
+  if (voiceId || voiceId === '') return;
   const voiceName = formData.get("voiceName") as string;
   const description = formData.get("description") as string;
 

@@ -1,6 +1,10 @@
 
+'use client';
+
 import { convertWebmToMp3 } from "@/lib/util";
 import { redirect, useRouter } from "next/navigation";
+import { v4 as uuidv4 } from "uuid";
+import { cloneAudio, uploadAudio } from "@/actions/actions";
 import React, {
   Dispatch,
   FC,
@@ -25,7 +29,10 @@ type Props = {
   setIsRecording: Dispatch<React.SetStateAction<boolean | null>> | null;
   file: string | Blob | File;
   setFile:  Dispatch<React.SetStateAction<string | Blob | File>>
-  
+  customVoiceId: string;
+  setCustomVoiceId: Dispatch<React.SetStateAction<string>> | undefined;
+  uploadStatus: string;
+  setUploadStatus: Dispatch<React.SetStateAction<string>>;
 };
 
 const RecordControl: FC<Props> = (props) => {
@@ -107,6 +114,26 @@ const RecordControl: FC<Props> = (props) => {
       const file = await convertWebmToMp3(audioUrl)
       console.log(file)
       props.setFile(file);
+
+      try {
+        props.setUploadStatus('File is uploading...');
+        const formData = new FormData();
+        formData.set('file', file)
+        console.log('uploading');
+        let result = await uploadAudio(formData);
+        const fileId = result.file.file_id;
+        const customVoiceId = "Voice_id_" + uuidv4();
+        console.log('customVoiceId')
+        result = await cloneAudio(fileId, customVoiceId);
+        if (props.setCustomVoiceId) {
+          props.setCustomVoiceId(customVoiceId);
+        }
+        props.setUploadStatus('File is uploaded');
+      } catch (error) {
+        props.setUploadStatus('Failed to upload file');
+        console.log(error)
+        alert(error)
+      }
 
       props.setAudioChunks([]);
     };
