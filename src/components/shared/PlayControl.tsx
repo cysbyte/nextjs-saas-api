@@ -13,14 +13,14 @@ import { browserName, CustomView } from "react-device-detect";
 import { MIMETYPE } from "./RecordControl";
 import encodeWAV from "audiobuffer-to-wav";
 import { convertWebmToMp3 } from "@/lib/util";
-import { v4 as uuidv4 } from "uuid";
-import { cloneAudio, uploadAudio } from "@/actions/actions";
 
 type Props = {
   audio: string;
   setAudio: React.Dispatch<React.SetStateAction<string>>;
   isDone: boolean;
   setIsDone: React.Dispatch<React.SetStateAction<boolean>>;
+  isRecording: boolean;
+  setIsRecording: React.Dispatch<React.SetStateAction<boolean>>;
   audioBlob: Blob;
   setAudioBlob: Dispatch<SetStateAction<Blob>>;
   audioChunks: any;
@@ -141,6 +141,12 @@ const PlayControl: FC<Props> = (props) => {
     setProgressTime(audioRef.current.duration);
     //console.log('on enable trim click')
   };
+
+  const onDropClick = () => {
+    audioRef.current.pause();
+    props.setIsRecording(false)
+    props.setIsDone(false)
+  }
 
   const onCancelTrimClick = () => {
     setIsTrimming(false);
@@ -297,25 +303,25 @@ const PlayControl: FC<Props> = (props) => {
                 console.log('file-----', file)
                 props.setFile(file);
 
-                try {
-                  props.setUploadStatus('File is uploading...');
-                  const formData = new FormData();
-                  formData.set('file', file)
-                  console.log('uploading');
-                  let result = await uploadAudio(formData);
-                  const fileId = result.file.file_id;
-                  const customVoiceId = "Voice_id_" + uuidv4();
-                  console.log('customVoiceId')
-                  result = await cloneAudio(fileId, customVoiceId);
-                  if (props.setCustomVoiceId) {
-                    props.setCustomVoiceId(customVoiceId);
-                  }
-                  props.setUploadStatus('File is uploaded');
-                } catch (error) {
-                  props.setUploadStatus('Failed to upload file');
-                  console.log(error)
-                  alert(error)
-                }
+                // try {
+                //   props.setUploadStatus('File is uploading...');
+                //   const formData = new FormData();
+                //   formData.set('file', file)
+                //   console.log('uploading');
+                //   let result = await uploadAudio(formData);
+                //   const fileId = result.file.file_id;
+                //   const customVoiceId = "Voice_id_" + uuidv4();
+                //   console.log('customVoiceId')
+                //   result = await cloneAudio(fileId, customVoiceId);
+                //   if (props.setCustomVoiceId) {
+                //     props.setCustomVoiceId(customVoiceId);
+                //   }
+                //   props.setUploadStatus('File is uploaded');
+                // } catch (error) {
+                //   props.setUploadStatus('Failed to upload file');
+                //   console.log(error)
+                //   alert(error)
+                // }
 
               });
             }
@@ -341,12 +347,14 @@ const PlayControl: FC<Props> = (props) => {
           {isTrimming && (
             <div className="absolute h-fit flex top-5 right-7 gap-x-3">
               <button
+                type="button"
                 className="btn-border w-[70px] text-sm"
                 onClick={onTrimClick}
               >
                 Trim
               </button>
               <button
+                type="button"
                 onClick={onCancelTrimClick}
                 className="btn-border w-[70px] text-sm"
               >
@@ -2535,7 +2543,7 @@ const PlayControl: FC<Props> = (props) => {
         </div>
 
         <div className="flex flex-1 items-center justify-center gap-x-3">
-          <button onClick={skipBackward}>
+          <button type="button" onClick={skipBackward}>
             <svg
               width="24"
               height="24"
@@ -2561,7 +2569,7 @@ const PlayControl: FC<Props> = (props) => {
               />
             </svg>
           </button>
-          <button className="" onClick={togglePlayPause}>
+          <button type="button" className="" onClick={togglePlayPause}>
             {isPlaying && (
               <svg
                 width="44"
@@ -2708,7 +2716,7 @@ const PlayControl: FC<Props> = (props) => {
             )}
           </button>
 
-          <button onClick={skipForward}>
+          <button type="button" onClick={skipForward}>
             <svg
               width="24"
               height="24"
@@ -2737,7 +2745,7 @@ const PlayControl: FC<Props> = (props) => {
         </div>
 
         <div className="flex flex-1 items-center justify-end gap-x-3">
-          <button onClick={()=>props.setIsDone(false)}>
+          <button type="button" onClick={onDropClick}>
             <svg
               width="24"
               height="24"

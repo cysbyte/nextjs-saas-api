@@ -25,8 +25,8 @@ type Props = {
   setAudioBlob: Dispatch<SetStateAction<Blob>>;
   audioChunks: any;
   setAudioChunks: Dispatch<SetStateAction<any>>;
-  isRecording: boolean | null;
-  setIsRecording: Dispatch<React.SetStateAction<boolean | null>> | null;
+  isRecording: boolean;
+  setIsRecording: Dispatch<React.SetStateAction<boolean>> ;
   file: string | Blob | File;
   setFile:  Dispatch<React.SetStateAction<string | Blob | File>>
   customVoiceId: string;
@@ -115,25 +115,25 @@ const RecordControl: FC<Props> = (props) => {
       console.log(file)
       props.setFile(file);
 
-      try {
-        props.setUploadStatus('File is uploading...');
-        const formData = new FormData();
-        formData.set('file', file)
-        console.log('uploading');
-        let result = await uploadAudio(formData);
-        const fileId = result.file.file_id;
-        const customVoiceId = "Voice_id_" + uuidv4();
-        console.log('customVoiceId')
-        result = await cloneAudio(fileId, customVoiceId);
-        if (props.setCustomVoiceId) {
-          props.setCustomVoiceId(customVoiceId);
-        }
-        props.setUploadStatus('File is uploaded');
-      } catch (error) {
-        props.setUploadStatus('Failed to upload file');
-        console.log(error)
-        alert(error)
-      }
+      // try {
+      //   props.setUploadStatus('File is uploading...');
+      //   const formData = new FormData();
+      //   formData.set('file', file)
+      //   console.log('uploading');
+      //   let result = await uploadAudio(formData);
+      //   const fileId = result.file.file_id;
+      //   const customVoiceId = "Voice_id_" + uuidv4();
+      //   console.log('customVoiceId')
+      //   result = await cloneAudio(fileId, customVoiceId);
+      //   if (props.setCustomVoiceId) {
+      //     props.setCustomVoiceId(customVoiceId);
+      //   }
+      //   props.setUploadStatus('File is uploaded');
+      // } catch (error) {
+      //   props.setUploadStatus('Failed to upload file');
+      //   console.log(error)
+      //   alert(error)
+      // }
 
       props.setAudioChunks([]);
     };
@@ -1408,6 +1408,7 @@ const RecordControl: FC<Props> = (props) => {
         <div className="flex gap-x-4">
           {recordingStatus !== "inactive" ? (
             <button
+              type="button"
               className="btn-border flex justify-center items-center flex-1"
               onClick={handleDone}
             >
@@ -1440,7 +1441,8 @@ const RecordControl: FC<Props> = (props) => {
               <p className="ml-2 text-sm">Done</p>
             </button>
           ) : (
-            <button
+              <button
+              type="button"
               className="btn-border flex justify-center items-center flex-1"
               onClick={startRecording}
             >
@@ -1475,7 +1477,8 @@ const RecordControl: FC<Props> = (props) => {
 
           {recordingStatus !== "inactive" &&
             (recordingStatus === "pause" ? (
-              <button
+            <button
+            type="button"
                 className="btn-border flex justify-center items-center flex-1"
                 onClick={resumeRecording}
               >
@@ -1499,6 +1502,7 @@ const RecordControl: FC<Props> = (props) => {
               </button>
             ) : (
               <button
+              type="button"
                 className="btn-border flex justify-center items-center flex-1"
                 onClick={pauseRecording}
               >
@@ -1535,6 +1539,7 @@ const RecordControl: FC<Props> = (props) => {
             ))}
 
           <button
+            type="button"
             className="btn-border flex justify-center items-center flex-1"
             onClick={handleCancel}
           >

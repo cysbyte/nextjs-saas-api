@@ -12,6 +12,8 @@ const Case = ({voiceId, voiceNames}:any) => {
   const [file, setFile] = useState<Blob | File | string>(new Blob());
   const [isMenuShowing, setIsMenuShowing] = useState(false);
   const [isGenerated, setIsGenerated] = useState(false);
+  const [isRecording, setIsRecording] = useState(false)
+  const [isDone, setIsDone] = useState(true);
   //console.log('index', voice)
 
   // useEffect(() => {
@@ -62,10 +64,11 @@ const Case = ({voiceId, voiceNames}:any) => {
                 <AudioRecorder
                   audio={audio}
                   setAudio={setAudio}
-                  isDone={true}
+                  isDone={isDone}
+                  setIsDone={setIsDone}
                   hasDownload={true}
-                  isRecording={null}
-                  setIsRecording={null}
+                  isRecording={isRecording}
+                  setIsRecording={setIsRecording}
                   audioBlob={audioBlob}
                   setAudioBlob={setAudioBlob}
                   file={file}

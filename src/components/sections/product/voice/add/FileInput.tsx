@@ -1,14 +1,20 @@
-import { cloneAudio, uploadAudio } from "@/actions/actions";
+'use client'
+
 import React, { FC, useRef, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 
 type Props = {
+  audio: string;
+  setAudio: React.Dispatch<React.SetStateAction<string>>;
     customVoiceId: string;
     setCustomVoiceId: React.Dispatch<React.SetStateAction<string>>;
     fileName: string;
     setFileName: React.Dispatch<React.SetStateAction<string>>;
     isUploading: boolean;
     setIsUploading: React.Dispatch<React.SetStateAction<boolean>>;
+    isFileSelected: boolean;
+    setIsFileSelected: React.Dispatch<React.SetStateAction<boolean>>;
+    isRecording: boolean;
+    setIsRecording: React.Dispatch<React.SetStateAction<boolean>>;
     file: string | Blob | File;
     setFile: React.Dispatch<React.SetStateAction<string | Blob | File>>;
 }
@@ -21,17 +27,23 @@ const FileInput:FC<Props> = (props) => {
     event.preventDefault();
       /* get current files using ref */
       try {
-          props.setIsUploading(true);
-          props.setFile(fileInput.current.files[0])
-          props.setFileName(fileInput.current.files[0].name);
-          const formData = new FormData();
-          formData.set('file', fileInput.current.files[0])
-          let result = await uploadAudio(formData);
-          const fileId = result.file.file_id;
-          const customVoiceId = "Voice_id_" + uuidv4();
-          result = await cloneAudio(fileId, customVoiceId);
-          props.setCustomVoiceId(customVoiceId);
-          props.setIsUploading(false);
+          // props.setIsUploading(true);
+        const file = fileInput.current.files[0];
+          props.setFile(file)
+        props.setFileName(file.name);
+        props.setIsRecording(true);
+        props.setIsFileSelected(true);
+        const audioUrl = URL.createObjectURL(file);
+        props.setAudio(audioUrl)
+        props.setIsRecording(false);
+          // const formData = new FormData();
+          // formData.set('file', fileInput.current.files[0])
+          // let result = await uploadAudio(formData);
+          // const fileId = result.file.file_id;
+          // const customVoiceId = "Voice_id_" + uuidv4();
+          // result = await cloneAudio(fileId, customVoiceId);
+          // props.setCustomVoiceId(customVoiceId);
+          // props.setIsUploading(false);
           //setValue('')
       } catch (error) {
           props.setIsUploading(false)

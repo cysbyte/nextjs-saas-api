@@ -33,7 +33,7 @@ const Case = async () => {
 
   return (
     <aside className="flex-[5] w-full h-auto overflow-auto">
-      <div className="max-w-full mt-14 ml-10">
+      <div className="w-[1100px] mt-14 ml-10">
         <div className="border-b py-4">
           <h1 className="text-4xl font-semibold">Voice Clone</h1>
           <p className="mt-3 text-base text-slate-600 leading-[30px]">

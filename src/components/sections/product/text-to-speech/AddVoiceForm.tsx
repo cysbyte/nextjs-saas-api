@@ -23,7 +23,6 @@ const AddVoiceForm: FC<Props> = (props) => {
   // console.log('voiceNames----', props.voiceNames) 
 
   const ref = useRef<HTMLFormElement>(null);
-  const [selectedVoiceName, setSelectedVoiceName] = useState(null);
   const voiceNameInputRef = useRef<any>();
   const voiceIdInputRef = useRef<any>();
   const [tokenCount, setTokenCount] = useState(0);
@@ -41,8 +40,8 @@ const AddVoiceForm: FC<Props> = (props) => {
         props.setAudio(mp3_url);
         props.setIsGenerated(true);
       }
-      //revalidatePath('/product/voice/main/0')
-      //revalidatePath('/product/text-to-speech')
+      revalidatePath('/product/voice/main/0')
+      revalidatePath('/product/text-to-speech')
     } catch (error) {
       console.log(error)
     }
@@ -89,8 +88,7 @@ const AddVoiceForm: FC<Props> = (props) => {
             className="cursor-pointer hover:text-teal-700 w-full">
             <div className="group relative flex gap-x-2 items-center justify-between w-full">
               <div className="w-full">
-                {props.voiceNames > 0 ?
-                (<h3>{props.voiceNames[0].voiceName}</h3>) :
+                {
                   (<input
                     ref={voiceNameInputRef}
                   className="input-border focus:outline-none focus:shadow-outline"
@@ -143,7 +141,7 @@ const AddVoiceForm: FC<Props> = (props) => {
 
 
             {props.isMenuShowing && props.voiceNames && props.voiceNames.length > 0
-              && <div className="absolute z-50 pt-4 flex w-[765px] max-h-[300px] overflow-auto flex-col bg-white py-1 px-4 rounded-md text-gray-800 shadow-xl">
+              && <div className="absolute z-50 pt-4 flex w-[769px] max-h-[300px] overflow-auto flex-col bg-white py-1 px-4 rounded-md text-gray-800 shadow-xl">
               {props.voiceNames && props.voiceNames.length > 0 && props.voiceNames.map((item: any, index: number) => (
                 <div key={index}><VoiceNameOption
                   voiceName={item.voiceName}

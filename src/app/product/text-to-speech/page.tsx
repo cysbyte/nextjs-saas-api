@@ -15,7 +15,7 @@ const TextToSpeech = async () => {
   console.log(session?.user?.email?.toString())
   // console.log(session)
   //@ts-ignore
-  const user = await prisma.User.findFirst({
+  const user = await prisma.user.findFirst({
     where: {
       email: session?.user?.email?.toString(),
     },
@@ -24,8 +24,9 @@ const TextToSpeech = async () => {
   console.log('user----', user)
   console.log(user?.id.toString())
 
-  //@ts-ignore
-  const voiceNames = await prisma.TextToSpeech.findMany({
+  const speechCount = await prisma.textToSpeech.count();
+
+  const voiceNames = await prisma.textToSpeech.findMany({
     where: {
       authorId: user?.id.toString()
     },
@@ -41,7 +42,12 @@ const TextToSpeech = async () => {
   return (
     <main className="flex flex-row">
       <ProductSideBar productName="TextToSpeech" />
-      <Case voiceNames={voiceNames} />
+      <Case
+        voiceId=""
+        speechCount={speechCount}
+        voiceNames={voiceNames}
+        user={user}
+      />
     </main>
   );
 };

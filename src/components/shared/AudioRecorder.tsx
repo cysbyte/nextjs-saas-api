@@ -8,11 +8,12 @@ import RecordControl from "./RecordControl";
 
 type Props = {
   isDone: boolean;
+  setIsDone: Dispatch<React.SetStateAction<boolean>>;
   hasDownload: boolean;
   audio: string;
   setAudio: Dispatch<React.SetStateAction<string>>;
-  isRecording: boolean | null;
-  setIsRecording: Dispatch<React.SetStateAction<boolean | null>> | null;
+  isRecording: boolean;
+  setIsRecording: Dispatch<React.SetStateAction<boolean>>;
   audioBlob: Blob;
   setAudioBlob: Dispatch<React.SetStateAction<Blob>>;
   file: string | Blob | File;
@@ -31,7 +32,7 @@ const AudioRecorder: FC<Props> = (props) => {
 
   return (
     <div className="w-full">
-      <div className="border rounded-md bg-white shadow-xl w-full h-auto justify-start flex flex-col">
+      <div className="border rounded-md bg-white shadow-xl w-full h-[250px] justify-start flex flex-col">
 
         <div className="">
           {!isDone && (
@@ -68,6 +69,8 @@ const AudioRecorder: FC<Props> = (props) => {
                 setAudio={props.setAudio}
                 isDone={isDone}
                 setIsDone={setIsDone}
+                isRecording={props.isRecording}
+                setIsRecording={props.setIsRecording}
                 file={props.file}
                 setFile={props.setFile}
                 customVoiceId={props.customVoiceId||''}

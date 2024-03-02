@@ -12,26 +12,33 @@ const group_id = "1697534675713802";
 const api_key =
   "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJHcm91cE5hbWUiOiJoZWV5byIsIlVzZXJOYW1lIjoiaGVleW8iLCJBY2NvdW50IjoiIiwiU3ViamVjdElEIjoiMTY5NzUzNDY3NTQ4MDI3MyIsIlBob25lIjoiIiwiR3JvdXBJRCI6IjE2OTc1MzQ2NzU3MTM4MDIiLCJQYWdlTmFtZSI6IiIsIk1haWwiOiJkZXZAaGVleW8ubGlmZSIsIkNyZWF0ZVRpbWUiOiIyMDI0LTAyLTExIDEwOjQ3OjA4IiwiaXNzIjoibWluaW1heCJ9.rlxFHGoLAgMgx4wgsNHoxhOL2k37PEQpsr_RxKh0pZgEAL_VuPI5bIo10l97PcV9SvkX5XxBL2koS9Jt1HMp-Ig2y8NSWo0dTyddV0QZ02KtRvsdGmpEGZGpkKJY9_Cp0j35CSvdf1OEGvF3TWusThAyvNtaCJk4Ti1yD_OrBt977PWKdFfmQ4xWjTPjTZY-i6FvCMOJbqn47CeVWBgJkqy9-cdaajciI4dq9n4ZATcgxGtVDKloO98eZiVQhMP3eM8HDp8N1LU7uERmQSRHXHrCuwoGyRg99Q3l2LeOGUfI9v2xUdtqD2ld9-1Y-PVJyMrY--tERstauCFwDxwKxw";
 
-export const generateTextToSpeech = async (formData: FormData, forClone: boolean) => {
+export const generateTextToSpeech = async (
+  formData: FormData,
+  forClone: boolean
+) => {
   const voiceId = formData.get("voiceId") as string;
   const voiceName = formData.get("voiceName") as string;
   const description = formData.get("description") as string;
   const text = formData.get("text") as string;
 
-  const response = await fetch(`http://saas-api-lb-1226519020.ap-northeast-1.elb.amazonaws.com/api/text-to-speech`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      voice_id: voiceId,
-      text: text,
-    }),
-    signal: AbortSignal.timeout(30000) 
-  });
-  const {file_name} = await response.json();
-  const mp3_url = 'https://saas-minimax.s3.ap-northeast-1.amazonaws.com/' + file_name;
-  
+  const response = await fetch(
+    `http://saas-api-lb-1226519020.ap-northeast-1.elb.amazonaws.com/api/text-to-speech`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        voice_id: voiceId,
+        text: text,
+      }),
+      signal: AbortSignal.timeout(30000),
+    }
+  );
+  const { file_name } = await response.json();
+  const mp3_url =
+    "https://saas-minimax.s3.ap-northeast-1.amazonaws.com/" + file_name;
+
   const session = await getServerSession(authConfig);
   if (!session) return;
   const user = await prisma.user.findFirst({
@@ -39,7 +46,7 @@ export const generateTextToSpeech = async (formData: FormData, forClone: boolean
       email: session?.user?.email?.toString(),
     },
   });
-  
+
   if (forClone) {
     return mp3_url;
   }
@@ -53,8 +60,8 @@ export const generateTextToSpeech = async (formData: FormData, forClone: boolean
       currentVoiceName: voiceName,
       currentDescription: description,
       currentText: text,
-    }
-  })
+    },
+  });
 
   const count = await prisma.textToSpeech.count();
   // @ts-ignore
@@ -62,7 +69,7 @@ export const generateTextToSpeech = async (formData: FormData, forClone: boolean
     data: {
       voiceId,
       voiceName,
-      description: description ? description : '',
+      description: description ? description : "",
       text,
       mp3_url,
       order: count + 1,
@@ -75,7 +82,6 @@ export const generateTextToSpeech = async (formData: FormData, forClone: boolean
   });
   //console.log(new_voice)
   return mp3_url;
-
 
   // const translatedTextPromise = new Promise((resolve, reject) => {
   //     const pyprog = spawn('python3', ["text-to-speech.py", voiceId, text]);
@@ -93,7 +99,7 @@ export const generateTextToSpeech = async (formData: FormData, forClone: boolean
 
 export const getText = async () => {
   const session = await getServerSession(authConfig);
-  if (!session) return '';
+  if (!session) return "";
   //@ts-ignore
   const user = await prisma.User.findFirst({
     where: {
@@ -101,15 +107,15 @@ export const getText = async () => {
     },
     select: {
       email: true,
-      currentText: true
-    }
+      currentText: true,
+    },
   });
   return user.currentText;
-}
+};
 
 export const getUserFromDB = async () => {
   const session = await getServerSession(authConfig);
-  if (!session) return '';
+  if (!session) return "";
   //@ts-ignore
   const user = await prisma.User.findFirst({
     where: {
@@ -117,20 +123,19 @@ export const getUserFromDB = async () => {
     },
   });
   return user;
-}
+};
 
 export const deleteCustomVoiceId = async (id: string) => {
   //@ts-ignore
   await prisma.customVoiceId.delete({
     where: {
-      id: id?.toString()
-    }
-  })
-}
+      id: id?.toString(),
+    },
+  });
+};
 
 export const mp3ToText = async (formData: FormData) => {
-
-  const url = 'http://www.localhost:8000/mp3-to-text'
+  const url = "http://www.localhost:8000/mp3-to-text";
 
   try {
     const result = await fetch(url, {
@@ -150,9 +155,8 @@ export const mp3ToText = async (formData: FormData) => {
 };
 
 export const saveCustomVoiceId = async (formData: FormData) => {
-
   const voiceId = formData.get("voiceId") as string;
-  if (!voiceId || voiceId === '') return;
+  if (!voiceId || voiceId === "") return;
   const voiceName = formData.get("voiceName") as string;
   const description = formData.get("description") as string;
 
@@ -170,17 +174,17 @@ export const saveCustomVoiceId = async (formData: FormData) => {
     data: {
       voiceId,
       voiceName,
-      description: description ? description : '',
+      description: description ? description : "",
       order: count + 1,
       author: {
         connect: {
-          id: user?.id
+          id: user?.id,
         },
       },
     },
   });
   return user;
-}
+};
 
 export const uploadAudio = async (formData: FormData) => {
   // const file: File | Blob | null = formData.get('file') as unknown as File | Blob
@@ -198,7 +202,7 @@ export const uploadAudio = async (formData: FormData) => {
       authorization: `Bearer ${api_key}`,
     },
     body: formData,
-    signal: AbortSignal.timeout(30000) 
+    signal: AbortSignal.timeout(30000),
   });
 
   const data = await result.json();
@@ -217,53 +221,49 @@ export const cloneAudio = async (
 
   console.log("voiceId", voiceId);
 
-    const result = await fetch(url, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        authorization: `Bearer ${api_key}`,
-      },
-      body: JSON.stringify({
-        file_id: fileId,
-        voice_id: voiceId?.trim(),
-      }),
-      signal: AbortSignal.timeout(30000) 
-    });
+  const result = await fetch(url, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      authorization: `Bearer ${api_key}`,
+    },
+    body: JSON.stringify({
+      file_id: fileId,
+      voice_id: voiceId?.trim(),
+    }),
+    signal: AbortSignal.timeout(30000),
+  });
 
-    const data = await result.json();
-    console.log("data", data);
-    if (data.base_resp.status_code !== 0) {
-      throw new Error(data.base_resp.status_msg);
-    }
+  const data = await result.json();
+  console.log("data", data);
+  if (data.base_resp.status_code !== 0) {
+    throw new Error(data.base_resp.status_msg);
+  }
 
-    return data;
-
+  return data;
 };
 
-export const deleteUploadedAudio = async (
-  fileId: string,
-) => {
+export const deleteUploadedAudio = async (fileId: string) => {
   const url = `https://api.minimax.chat/v1/files/delete?GroupId=${group_id}`;
 
-    const result = await fetch(url, {
-      method: "POST",
-      headers: {
-        'authority': 'api.minimax.chat',
-        "content-type": "application/json",
-        "authorization": `Bearer ${api_key}`,
-        "purpose": "voice_clone",
-      },
-      body: JSON.stringify({
-        file_id: fileId,
-      }),
-    });
+  const result = await fetch(url, {
+    method: "POST",
+    headers: {
+      authority: "api.minimax.chat",
+      "content-type": "application/json",
+      authorization: `Bearer ${api_key}`,
+      purpose: "voice_clone",
+    },
+    body: JSON.stringify({
+      file_id: fileId,
+    }),
+  });
 
-    const data = await result.json();
-    console.log("data", data);
-    if (data.base_resp.status_code !== 0) {
-      throw new Error(data.base_resp.status_msg);
-    }
+  const data = await result.json();
+  console.log("data", data);
+  if (data.base_resp.status_code !== 0) {
+    throw new Error(data.base_resp.status_msg);
+  }
 
-    return data;
-
+  return data;
 };
