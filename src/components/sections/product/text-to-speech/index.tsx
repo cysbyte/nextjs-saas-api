@@ -2,10 +2,34 @@
 
 import AudioRecorder from "@/components/shared/AudioRecorder";
 import PricingPlanButton from "@/components/shared/PricingPlanButton";
-import React, { useState, Dispatch, useEffect } from "react";
+import React, { useState, Dispatch, useEffect, FC } from "react";
 import AddVoiceForm from "./AddVoiceForm";
 
-const Case = ({voiceId, voiceNames}:any) => {
+type Props = {
+  voiceId: string,
+  voiceNames: {
+    voiceId: string;
+    voiceName: string;
+    mp3_url: string;
+  }[],
+  user: {
+    id: string;
+    username: string;
+    email: string;
+    currentVoiceId: string | null;
+    currentVoiceName: string | null;
+    currentDescription: string | null;
+    currentText: string | null;
+    stripeCustomerId: string | null;
+    apiKey: string | null;
+    stripSubscriptionItem: string | null;
+    createdAt: Date;
+    updatedAt: Date;
+  } | null,
+  speechCount: number,
+}
+
+const Case:FC<Props> = (props) => {
 
   const [audio, setAudio] = useState('');
   const [audioBlob, setAudioBlob] = useState(new Blob());
@@ -43,12 +67,14 @@ const Case = ({voiceId, voiceNames}:any) => {
             <AddVoiceForm
               audio={audio}
               setAudio={setAudio}
-              voiceId={voiceId}
-              voiceNames={voiceNames}
+              voiceId={props.voiceId}
+              voiceNames={props.voiceNames}
               isMenuShowing={isMenuShowing}
               setIsMenuShowing={setIsMenuShowing}
               isGenerated={isGenerated}
               setIsGenerated={setIsGenerated}
+              user={props.user}
+              speechCount={props.speechCount}
             />
           </div>
 

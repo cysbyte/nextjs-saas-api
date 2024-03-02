@@ -14,7 +14,26 @@ type Props = {
   isGenerated: boolean;
   setIsGenerated: Dispatch<React.SetStateAction<boolean>>;
   voiceId: string;
-  voiceNames: any;
+  voiceNames: {
+    voiceId: string;
+    voiceName: string;
+    mp3_url: string;
+  }[],
+  user: {
+    id: string;
+    username: string;
+    email: string;
+    currentVoiceId: string | null;
+    currentVoiceName: string | null;
+    currentDescription: string | null;
+    currentText: string | null;
+    stripeCustomerId: string | null;
+    apiKey: string | null;
+    stripSubscriptionItem: string | null;
+    createdAt: Date;
+    updatedAt: Date;
+  } | null,
+  speechCount: number,
 }
 
 const AddVoiceForm: FC<Props> = (props) => {
@@ -35,7 +54,12 @@ const AddVoiceForm: FC<Props> = (props) => {
   const addVoiceHandler = async (formData: FormData) => {
 
     try {
-      const mp3_url = await generateTextToSpeech(formData, false);
+      const mp3_url = await generateTextToSpeech(
+        formData,
+        false,
+        props.user,
+        props.speechCount
+      );
       if (mp3_url) {
         props.setAudio(mp3_url);
         props.setIsGenerated(true);

@@ -14,7 +14,22 @@ const api_key =
 
 export const generateTextToSpeech = async (
   formData: FormData,
-  forClone: boolean
+  forClone: boolean,
+  user: {
+    id: string;
+    username: string;
+    email: string;
+    currentVoiceId: string | null;
+    currentVoiceName: string | null;
+    currentDescription: string | null;
+    currentText: string | null;
+    stripeCustomerId: string | null;
+    apiKey: string | null;
+    stripSubscriptionItem: string | null;
+    createdAt: Date;
+    updatedAt: Date;
+  } | null = null,
+  speechCount: number = 0,
 ) => {
   const voiceId = formData.get("voiceId") as string;
   const voiceName = formData.get("voiceName") as string;
@@ -42,14 +57,6 @@ export const generateTextToSpeech = async (
   if (forClone) {
     return mp3_url;
   }
-  
-  const session = await getServerSession(authConfig);
-  if (!session) return;
-  const user = await prisma.user.findFirst({
-    where: {
-      email: session?.user?.email?.toString(),
-    },
-  });
 
   await prisma.user.update({
     where: {
@@ -63,7 +70,6 @@ export const generateTextToSpeech = async (
     },
   });
 
-  const count = await prisma.textToSpeech.count();
   // @ts-ignore
   const new_voice = await prisma.textToSpeech.create({
     data: {
@@ -72,7 +78,7 @@ export const generateTextToSpeech = async (
       description: description ? description : "",
       text,
       mp3_url,
-      order: count + 1,
+      order: speechCount + 1,
       author: {
         connect: {
           id: user?.id,

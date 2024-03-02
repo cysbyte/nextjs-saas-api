@@ -22,7 +22,6 @@ const TextToSpeech = async () => {
   });
 
   console.log('user----', user)
-  console.log(user?.id.toString())
 
   const speechCount = await prisma.textToSpeech.count();
 
@@ -35,7 +34,6 @@ const TextToSpeech = async () => {
       voiceName: true,
       mp3_url: true,
     }
-
   });
   console.log('voiceNames', voiceNames);
 
