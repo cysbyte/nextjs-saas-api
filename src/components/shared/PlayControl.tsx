@@ -340,9 +340,9 @@ const PlayControl: FC<Props> = (props) => {
   return (
     <>
       <div className="flex flex-col">
-        <div className="w-full h-auto relative">
-          <h2 className="text-base text-center font-bold whitespace-pre-line leading-8 text-black py-5">
-            {props.uploadStatus}
+        <div className="w-full h-[70px] relative">
+          <h2 className="text-base h-full p-5 text-center font-bold whitespace-pre-line leading-8 text-black">
+            Audio
           </h2>
           {isTrimming && (
             <div className="absolute h-fit flex top-5 right-7 gap-x-3">

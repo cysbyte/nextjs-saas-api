@@ -39,6 +39,10 @@ export const generateTextToSpeech = async (
   const mp3_url =
     "https://saas-minimax.s3.ap-northeast-1.amazonaws.com/" + file_name;
 
+  if (forClone) {
+    return mp3_url;
+  }
+  
   const session = await getServerSession(authConfig);
   if (!session) return;
   const user = await prisma.user.findFirst({
@@ -46,10 +50,6 @@ export const generateTextToSpeech = async (
       email: session?.user?.email?.toString(),
     },
   });
-
-  if (forClone) {
-    return mp3_url;
-  }
 
   await prisma.user.update({
     where: {

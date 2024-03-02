@@ -31,7 +31,7 @@ const AudioRecorder: FC<Props> = (props) => {
   const [uploadStatus, setUploadStatus] = useState<string>('');
 
   return (
-    <div className="w-full">
+    <div className="max-w-3xl">
       <div className="border rounded-md bg-white shadow-xl w-full h-[250px] justify-start flex flex-col">
 
         <div className="">

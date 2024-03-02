@@ -16,6 +16,7 @@ import React, {
   useRef,
   useState,
 } from "react";
+import { revalidatePath } from "next/cache";
 
 type Props = {
   audio: string;
@@ -35,56 +36,59 @@ type Props = {
 const AddVoiceForm: FC<Props> = (props) => {
   const [fileName, setFileName] = useState("");
   const [isUploading, setIsUploading] = useState(false);
-    const [isFileSelected, setIsFileSelected] = useState(false);
-    const [isDone, setIsDone] = useState(false);
-    
-    const onRecordClik = () => {
-        console.log(props.isRecording);
-        props.setFile("");
-        props.setIsRecording(true);
-        setIsDone(false);
-    }
+  const [isFileSelected, setIsFileSelected] = useState(false);
+  const [isDone, setIsDone] = useState(false);
 
-    const onUploadClick = () => {
+  const onRecordClik = () => {
+    console.log(props.isRecording);
+    props.setFile("");
+    props.setIsRecording(true);
+    setIsDone(false);
+  };
 
-    }
+  const onUploadClick = () => {};
 
   useEffect(() => {
     if (isFileSelected) {
-        props.setIsRecording(true);
-        setIsDone(true);
+      props.setIsRecording(true);
+      setIsDone(true);
     }
   }, [isFileSelected]);
 
-    const uploadVoiceHandler = async (formData: FormData) => {
-      console.log('-----=========')
+  const uploadVoiceHandler = async (formData: FormData) => {
     console.log(props.file);
     if (!props.file || props.file === "") return;
     console.log(props.isRecording);
     if (props.isRecording) formData.set("file", props.file);
 
-    //try {
+    try {
       let result = await uploadAudio(formData);
       const fileId = result.file.file_id;
       const customVoiceId = "Voice_id_" + uuidv4();
       result = await cloneAudio(fileId, customVoiceId);
-      console.log(props.customVoiceId);
-      formData.set("voiceId", props.customVoiceId);
+      if (result.base_resp.status_code !== 0) {
+        throw new Error(result.base_resp.status_msg);
+      }
+      console.log(customVoiceId);
+      formData.set("voiceId", customVoiceId);
       console.log("saveCustomVoiceId");
       const user = await saveCustomVoiceId(formData);
+      console.log(user);
       formData.set("text", user?.currentText as string);
+      console.log(user?.currentText as string);
       console.log("generateTextToSpeech");
       const mp3_url = await generateTextToSpeech(formData, true);
       if (mp3_url) {
+        console.log(mp3_url);
         props.setAudio(mp3_url);
         props.setIsGenerated(true);
       }
       //   revalidatePath("/product/voice/main/0");
       //   revalidatePath("/product/text-to-speech");
-    // } catch (error: any) {
-    //   alert(error);
-    //   console.log(error);
-    // }
+    } catch (error: any) {
+      alert(error);
+      console.log(error);
+    }
 
     //ref?.current?.reset();
   };
@@ -108,10 +112,7 @@ const AddVoiceForm: FC<Props> = (props) => {
               )}
               <div className="w-[20%] mx-auto flex gap-x-3 justify-center mt-4">
                 <label htmlFor="file">
-                  <div
-                    className="btn-border"
-                    onClick={onUploadClick}
-                  >
+                  <div className="btn-border" onClick={onUploadClick}>
                     <svg
                       width="16"
                       height="16"
@@ -170,10 +171,7 @@ const AddVoiceForm: FC<Props> = (props) => {
                   />
                 </label>
 
-                <div
-                  className="btn-border"
-                  onClick={onRecordClik}
-                >
+                <div className="btn-border" onClick={onRecordClik}>
                   <svg
                     width="16"
                     height="16"
