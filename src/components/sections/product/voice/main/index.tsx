@@ -10,7 +10,6 @@ import prisma from "@/lib/prismadb";
 import { systemVoices } from "@/lib/systemVocieIds";
 
 const Case = async () => {
-
   await loginIsRequiredServer();
 
   const session = await getServerSession(authConfig);
@@ -37,7 +36,8 @@ const Case = async () => {
         <div className="border-b py-4">
           <h1 className="text-4xl font-semibold">Voice Clone</h1>
           <p className="mt-3 text-base text-slate-600 leading-[30px]">
-            Unlock the potential of our advanced technology to produce lifelike,<br/>
+            Unlock the potential of our advanced technology to produce lifelike,
+            <br />
             engaging speech across various languages.
           </p>
         </div>
@@ -46,31 +46,34 @@ const Case = async () => {
           <Link href="/product/voice/add">
             <AddVoiceBox />
           </Link>
-          {customVoices.map((item: any, index:number) => {
-            return <div key={index}>
-              <MyCreatedBox
-                order={item.order}
-                voiceName={item.voiceName}
-                description={item.description}
-                id={item.id}
-                voiceId={item.voiceId}
-              />
-            </div>
-            
-          })}
-          
-          {systemVoices.map((item: any, index: number) => {
-            return <div key={index}>
-            <VoiceItemBox
-                order={index}
-                voiceId={item.voiceId}
-               voiceName={item.voiceId}
-               description='No description'
-               id={index.toString()}
-              />
+          {customVoices.map((item: any, index: number) => {
+            return (
+              <div key={index}>
+                <MyCreatedBox
+                  order={item.order}
+                  voiceName={item.voiceName}
+                  description={item.description}
+                  id={item.id}
+                  voiceId={item.voiceId}
+                />
               </div>
+            );
           })}
 
+          {systemVoices.map((item: any, index: number) => {
+            return (
+              <div key={index}>
+                <VoiceItemBox
+                  order={index}
+                  voiceId={item.voiceId}
+                  voiceName={item.voiceId}
+                  description="No description"
+                  id={index.toString()}
+                  audioUrl={item.audioUrl}
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
     </aside>
