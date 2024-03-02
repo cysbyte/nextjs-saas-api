@@ -44,7 +44,7 @@ const TextToSpeech = async ({
       <Case
         voiceId=""
         speechCount={speechCount}
-        voiceNames={undefined}
+        voiceNames={[]}
         user={user}
       />
     </main>

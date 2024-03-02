@@ -7,7 +7,7 @@ import AddVoiceForm from "./AddVoiceForm";
 
 type Props = {
   voiceId: string,
-  voiceNames?: {
+  voiceNames: {
     voiceId: string;
     voiceName: string;
     mp3_url: string;
