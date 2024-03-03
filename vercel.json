@@ -6,7 +6,7 @@
       "app/product/**/*": {
         "maxDuration": 200
       },
-      "app/actions/**/*": {
+      "app/actions/actions.ts": {
         "maxDuration": 200
       }
     }
