@@ -6,7 +6,12 @@ import { loginIsRequiredServer } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 import { redirect, useSearchParams } from "next/navigation";
 
-const Voice = async ({params}:{params: {id: string}}) => {
+const Voice = async ({ params }: {
+  params:
+  {
+    id: string
+  }
+}) => {
   await loginIsRequiredServer();
 
   // const searchParams = useSearchParams();
@@ -21,15 +26,15 @@ const Voice = async ({params}:{params: {id: string}}) => {
   async function onOk() {
     'use server'
     console.log("Ok was clicked");
-    console.log(params.id)
     await deleteCustomVoiceId(params.id);
+    console.log(params)
     revalidatePath("/product/voice/main/0");
     redirect("/product/voice/main/0");
   }
 
   return (
     <main className="flex flex-row">
-      <DeleteModal title="" onClose={onClose} onOk={onOk} />
+      <DeleteModal title={params.id} onClose={onClose} onOk={onOk} />
 
       <ProductSideBar productName="Voice" />
 

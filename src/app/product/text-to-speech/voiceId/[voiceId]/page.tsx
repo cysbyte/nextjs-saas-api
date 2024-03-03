@@ -41,7 +41,7 @@ const TextToSpeech = async ({
     <main className="flex flex-row">
       <ProductSideBar productName="TextToSpeech" />
       <Case
-        voiceId=""
+        voiceId={params.voiceId}
         voiceNames={[]}
         user={user}
       />

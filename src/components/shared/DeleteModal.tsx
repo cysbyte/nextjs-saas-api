@@ -13,6 +13,7 @@ export default function DeleteModal(props:Props) {
   const dialogRef = useRef<null | HTMLDialogElement>(null);
   const modal = searchParams?.get("modal");
   const id = searchParams?.get("id");
+  const voiceName = searchParams?.get('voiceName') || 'Unnamed';
   console.log(id);
   console.log(modal);
 
@@ -43,7 +44,7 @@ export default function DeleteModal(props:Props) {
         <div className="w-full">
           <div className="border rounded-md bg-white shadow-xl w-full h-auto justify-start flex flex-col">
             <div className="mx-8">
-              <h3 className=" text-xl font-semibold mt-4">Delete Voice</h3>
+              <h3 className=" text-xl font-semibold mt-4 truncate ..">Delete Voice {voiceName}</h3>
               <p className="text-sm text-slate-600 mt-4">
                 Are you sure want to delete the voice?
               </p>

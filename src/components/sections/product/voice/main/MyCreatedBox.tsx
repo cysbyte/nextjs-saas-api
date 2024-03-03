@@ -131,7 +131,7 @@ const MyCreatedBox: FC<Props> = (props) => {
             <p className="ml-1">Use</p>
           </Link>
           
-          <Link href={`/product/text-to-speech/${props.id}`} className="btn-border flex-1">
+          <Link href={`/product/text-to-speech/voiceId/${props.id}`} className="btn-border flex-1">
             <svg
               width="17"
               height="16"
@@ -162,7 +162,7 @@ const MyCreatedBox: FC<Props> = (props) => {
 
             <p className="ml-1">Edit</p>
           </Link>
-          <Link href={`/product/voice/main/${props.id}?modal=true`} className="btn-border flex-1">
+          <Link href={`/product/voice/main/${props.id}?modal=true&voiceName=${props.voiceName}`} className="btn-border flex-1">
             <svg
               width="17"
               height="16"
