@@ -3,6 +3,7 @@ import Case from '@/components/sections/product/voice/add'
 import Dialog from '@/components/shared/RecordModal'
 import { authConfig, loginIsRequiredServer } from '@/lib/auth'
 import { getServerSession } from 'next-auth'
+import prisma from '@/lib/prismadb'
 
 const Voice = async () => {
   await loginIsRequiredServer();
