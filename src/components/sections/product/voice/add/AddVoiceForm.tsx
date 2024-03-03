@@ -74,6 +74,8 @@ const AddVoiceForm: FC<Props> = (props) => {
   }, [isFileSelected]);
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    if (generateStatus === 'Generating') return;
+    
     try {
       event.preventDefault();
 

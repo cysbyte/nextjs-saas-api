@@ -49,7 +49,8 @@ const AddVoiceForm: FC<Props> = (props) => {
   }
   
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
-
+    if (generateStatus === 'Generating') return;
+    
     try {
       // const mp3_url = await generateTextToSpeech(
       //   formData,
