@@ -1,6 +1,6 @@
 "use client";
 
-import { generateTextToSpeech, getUserFromDB } from "@/actions/actions";
+import { generateTextToSpeech, getUserFromDB } from "@/app/actions/actions";
 import GenerateButton from "@/components/shared/GenerateButton";
 import { revalidatePath } from "next/cache";
 import React, { Dispatch, FC, useRef, useState } from "react";

@@ -3,7 +3,7 @@ import {
   generateTextToSpeech,
   saveCustomVoiceId,
   uploadAudio,
-} from "@/actions/actions";
+} from "@/app/actions/actions";
 import AudioRecorder from "@/components/shared/AudioRecorder";
 import FileInput from "@/components/sections/product/voice/add/FileInput";
 import GenerateButton from "@/components/shared/GenerateButton";

@@ -47,7 +47,7 @@ export const generateTextToSpeech = async (
         voice_id: voiceId,
         text: text,
       }),
-      signal: AbortSignal.timeout(30000),
+      signal: AbortSignal.timeout(200000),
     }
   );
   const { file_name } = await response.json();
@@ -208,7 +208,7 @@ export const uploadAudio = async (formData: FormData) => {
       authorization: `Bearer ${api_key}`,
     },
     body: formData,
-    signal: AbortSignal.timeout(30000),
+    signal: AbortSignal.timeout(200000),
   });
 
   const data = await result.json();
@@ -237,7 +237,7 @@ export const cloneAudio = async (
       file_id: fileId,
       voice_id: voiceId?.trim(),
     }),
-    signal: AbortSignal.timeout(30000),
+    signal: AbortSignal.timeout(200000),
   });
 
   const data = await result.json();

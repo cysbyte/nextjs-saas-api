@@ -5,6 +5,9 @@
       },
       "app/product/**/*": {
         "maxDuration": 200
+      },
+      "app/actions/**/*": {
+        "maxDuration": 200
       }
     }
   }

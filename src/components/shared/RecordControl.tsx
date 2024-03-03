@@ -4,7 +4,7 @@
 import { convertWebmToMp3 } from "@/lib/util";
 import { redirect, useRouter } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
-import { cloneAudio, uploadAudio } from "@/actions/actions";
+import { cloneAudio, uploadAudio } from "@/app/actions/actions";
 import React, {
   Dispatch,
   FC,

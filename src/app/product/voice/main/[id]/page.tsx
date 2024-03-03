@@ -1,4 +1,4 @@
-import { deleteCustomVoiceId } from "@/actions/actions";
+import { deleteCustomVoiceId } from "@/app/actions/actions";
 import ProductSideBar from "@/components/layout/ProductSideBar";
 import Case from "@/components/sections/product/voice/main";
 import DeleteModal from "@/components/shared/DeleteModal";
