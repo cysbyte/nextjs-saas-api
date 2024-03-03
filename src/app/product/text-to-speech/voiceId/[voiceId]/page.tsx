@@ -26,7 +26,6 @@ const TextToSpeech = async ({
 
   console.log("user----", user);
 
-  const speechCount = await prisma.textToSpeech.count();
   const voiceNames = await prisma.textToSpeech.findMany({
     where: {
       authorId: user?.id.toString(),
@@ -43,7 +42,6 @@ const TextToSpeech = async ({
       <ProductSideBar productName="TextToSpeech" />
       <Case
         voiceId=""
-        speechCount={speechCount}
         voiceNames={[]}
         user={user}
       />

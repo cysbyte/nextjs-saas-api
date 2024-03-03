@@ -26,7 +26,6 @@ type Props = {
     createdAt: Date;
     updatedAt: Date;
   } | null,
-  speechCount: number,
 }
 
 const Case:FC<Props> = (props) => {
@@ -74,7 +73,6 @@ const Case:FC<Props> = (props) => {
               isGenerated={isGenerated}
               setIsGenerated={setIsGenerated}
               user={props.user}
-              speechCount={props.speechCount}
             />
           </div>
 

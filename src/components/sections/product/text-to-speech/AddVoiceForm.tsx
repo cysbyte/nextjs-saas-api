@@ -1,9 +1,9 @@
 "use client";
 
-import { generateTextToSpeech, getUserFromDB } from "@/app/actions/actions";
-import GenerateButton from "@/components/shared/GenerateButton";
+import { generateTextToSpeech } from "@/app/actions/actions";
+import GenerateButton from "@/components/shared/GenerateButtonOnSubmit";
 import { revalidatePath } from "next/cache";
-import React, { Dispatch, FC, useRef, useState } from "react";
+import React, { Dispatch, FC, FormEvent, useRef, useState } from "react";
 import VoiceNameOption from "./VoiceNameItem";
 
 type Props = {
@@ -33,41 +33,53 @@ type Props = {
     createdAt: Date;
     updatedAt: Date;
   } | null,
-  speechCount: number,
 }
 
 const AddVoiceForm: FC<Props> = (props) => {
-
-  // console.log('addvoiceform', props.voice)
-  // console.log('voiceNames----', props.voiceNames) 
 
   const ref = useRef<HTMLFormElement>(null);
   const voiceNameInputRef = useRef<any>();
   const voiceIdInputRef = useRef<any>();
   const [tokenCount, setTokenCount] = useState(0);
+  const [generateStatus, setGenerateStatus] = useState('Generate');
 
   const handleTextareaInput = (e: any) => {
     console.log(e.target.value)
     setTokenCount(e.target.value.trim().length)
   }
   
-  const addVoiceHandler = async (formData: FormData) => {
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
 
     try {
-      const mp3_url = await generateTextToSpeech(
-        formData,
-        false,
-        props.user,
-        props.speechCount
-      );
+      // const mp3_url = await generateTextToSpeech(
+      //   formData,
+      //   false,
+      //   props.user,
+      //   props.speechCount
+      // );
+      event.preventDefault()
+
+      setGenerateStatus('Generating');
+ 
+      const formData = new FormData(event.currentTarget)
+      formData.set('userId', props.user?.id as string);
+      const response = await fetch('/api/text-to-speech', {
+        method: 'POST',
+        body: formData
+      });
+
+      const { mp3_url } = await response.json()
       if (mp3_url) {
         props.setAudio(mp3_url);
         props.setIsGenerated(true);
         console.log(mp3_url)
       }
+      setGenerateStatus('Generate')
       // revalidatePath('/product/voice/main/0')
       // revalidatePath('/product/text-to-speech')
     } catch (error) {
+      setGenerateStatus('Regenerate')
+      alert(error)
       console.log(error)
     }
     
@@ -86,7 +98,7 @@ const AddVoiceForm: FC<Props> = (props) => {
   }
 
   return (
-    <form ref={ref} action={addVoiceHandler} className="bg-white w-full">
+    <form ref={ref} onSubmit={onSubmit} className="bg-white w-full">
       <div className="pb-3 border-b">
         <div className="mt-3 w-full">
           <label className="block text-black text-sm mb-2" htmlFor="voiceId">
@@ -226,7 +238,7 @@ const AddVoiceForm: FC<Props> = (props) => {
           <p className="text-[12px] text-slate-400">Token remaining 9500</p>
         </div>
       </div>
-      <GenerateButton/>
+      <GenerateButton text={ generateStatus} />
     </form>
   );
 };

@@ -6,7 +6,7 @@ import {
 } from "@/app/actions/actions";
 import AudioRecorder from "@/components/shared/AudioRecorder";
 import FileInput from "@/components/sections/product/voice/add/FileInput";
-import GenerateButton from "@/components/shared/GenerateButton";
+import GenerateButton from "@/components/shared/GenerateButtonServerAction";
 import { v4 as uuidv4 } from "uuid";
 import React, {
   Dispatch,
