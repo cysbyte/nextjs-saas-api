@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import prisma from "@/lib/prismadb";
 
 export const maxDuration = 200;
 export const dynamic = "force-dynamic";
