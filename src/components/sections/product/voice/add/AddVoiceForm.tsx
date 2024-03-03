@@ -1,3 +1,5 @@
+"use client";
+
 import {
   cloneAudio,
   generateTextToSpeech,
@@ -6,11 +8,12 @@ import {
 } from "@/app/actions/actions";
 import AudioRecorder from "@/components/shared/AudioRecorder";
 import FileInput from "@/components/sections/product/voice/add/FileInput";
-import GenerateButton from "@/components/shared/GenerateButtonServerAction";
-import { v4 as uuidv4 } from "uuid";
+import GenerateButton from "@/components/shared/GenerateButtonOnSubmit";
+
 import React, {
   Dispatch,
   FC,
+  FormEvent,
   SetStateAction,
   useEffect,
   useRef,
@@ -31,6 +34,20 @@ type Props = {
   setFile: Dispatch<React.SetStateAction<string | Blob | File>>;
   audioBlob: Blob;
   setAudioBlob: Dispatch<React.SetStateAction<Blob>>;
+  user: {
+    id: string;
+    username: string;
+    email: string;
+    currentVoiceId: string | null;
+    currentVoiceName: string | null;
+    currentDescription: string | null;
+    currentText: string | null;
+    stripeCustomerId: string | null;
+    apiKey: string | null;
+    stripSubscriptionItem: string | null;
+    createdAt: Date;
+    updatedAt: Date;
+  } | null;
 };
 
 const AddVoiceForm: FC<Props> = (props) => {
@@ -38,6 +55,7 @@ const AddVoiceForm: FC<Props> = (props) => {
   const [isUploading, setIsUploading] = useState(false);
   const [isFileSelected, setIsFileSelected] = useState(false);
   const [isDone, setIsDone] = useState(false);
+  const [generateStatus, setGenerateStatus] = useState("Generate");
 
   const onRecordClik = () => {
     console.log(props.isRecording);
@@ -55,37 +73,36 @@ const AddVoiceForm: FC<Props> = (props) => {
     }
   }, [isFileSelected]);
 
-  const uploadVoiceHandler = async (formData: FormData) => {
-    console.log(props.file);
-    if (!props.file || props.file === "") return;
-    console.log(props.isRecording);
-    if (props.isRecording) formData.set("file", props.file);
-
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     try {
-      let result = await uploadAudio(formData);
-      const fileId = result.file.file_id;
-      const customVoiceId = "Voice_id_" + uuidv4();
-      result = await cloneAudio(fileId, customVoiceId);
-      if (result.base_resp.status_code !== 0) {
-        throw new Error(result.base_resp.status_msg);
-      }
-      console.log(customVoiceId);
-      formData.set("voiceId", customVoiceId);
-      console.log("saveCustomVoiceId");
-      const user = await saveCustomVoiceId(formData);
-      console.log(user);
-      formData.set("text", user?.currentText as string);
-      console.log(user?.currentText as string);
-      console.log("generateTextToSpeech");
-      const mp3_url = await generateTextToSpeech(formData, true);
+      event.preventDefault();
+
+      setGenerateStatus("Generating");
+
+      const formData = new FormData(event.currentTarget);
+      formData.set("file", props.file);
+      formData.set('text', props.user?.currentText as string)
+      formData.set("userId", props.user?.id as string);
+      const response = await fetch("/api/clone-voice", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = await response.json();
+      if (result.status !== 200)
+        throw Error(result.message);
+      
+      const mp3_url = result.mp3_url;
       if (mp3_url) {
-        console.log(mp3_url);
         props.setAudio(mp3_url);
         props.setIsGenerated(true);
+        console.log(mp3_url);
       }
-      //   revalidatePath("/product/voice/main/0");
-      //   revalidatePath("/product/text-to-speech");
-    } catch (error: any) {
+      setGenerateStatus("Generate");
+      // revalidatePath('/product/voice/main/0')
+      // revalidatePath('/product/text-to-speech')
+    } catch (error) {
+      setGenerateStatus("Regenerate");
       alert(error);
       console.log(error);
     }
@@ -95,7 +112,7 @@ const AddVoiceForm: FC<Props> = (props) => {
 
   return (
     <>
-      <form className="bg-white pb-4" action={uploadVoiceHandler}>
+      <form className="bg-white pb-4" onSubmit={onSubmit}>
         <div className="pb-2">
           <h4 className="text-base font-semibold mt-2 mb-4">Reference Audio</h4>
           {!props.isRecording && (
@@ -280,7 +297,7 @@ const AddVoiceForm: FC<Props> = (props) => {
           </div>
         </div>
         <div className="w-full my-4">
-          <GenerateButton />
+          <GenerateButton text={generateStatus} />
         </div>
       </form>
     </>

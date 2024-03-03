@@ -7,14 +7,12 @@ export const dynamic = "force-dynamic";
 export async function POST(req: NextRequest, res: NextResponse) {
   const formData = await req.formData();
 
-  console.log("routes ==== ", formData);
   const voiceId = formData.get("voiceId") as string;
   const voiceName = formData.get("voiceName") as string;
   const description = formData.get("description") as string;
   const text = formData.get("text") as string;
   const userId = formData.get('userId') as string;
 
-  console.log("start----------");
   const response = await fetch(
     `http://saas-api-lb-1226519020.ap-northeast-1.elb.amazonaws.com/api/text-to-speech`,
     {

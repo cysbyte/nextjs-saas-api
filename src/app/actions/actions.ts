@@ -1,4 +1,5 @@
 "use server";
+
 import { PrismaClient } from "@prisma/client";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
@@ -11,25 +12,12 @@ import { authConfig } from "@/lib/auth";
 const group_id = "1697534675713802";
 const api_key =
   "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJHcm91cE5hbWUiOiJoZWV5byIsIlVzZXJOYW1lIjoiaGVleW8iLCJBY2NvdW50IjoiIiwiU3ViamVjdElEIjoiMTY5NzUzNDY3NTQ4MDI3MyIsIlBob25lIjoiIiwiR3JvdXBJRCI6IjE2OTc1MzQ2NzU3MTM4MDIiLCJQYWdlTmFtZSI6IiIsIk1haWwiOiJkZXZAaGVleW8ubGlmZSIsIkNyZWF0ZVRpbWUiOiIyMDI0LTAyLTExIDEwOjQ3OjA4IiwiaXNzIjoibWluaW1heCJ9.rlxFHGoLAgMgx4wgsNHoxhOL2k37PEQpsr_RxKh0pZgEAL_VuPI5bIo10l97PcV9SvkX5XxBL2koS9Jt1HMp-Ig2y8NSWo0dTyddV0QZ02KtRvsdGmpEGZGpkKJY9_Cp0j35CSvdf1OEGvF3TWusThAyvNtaCJk4Ti1yD_OrBt977PWKdFfmQ4xWjTPjTZY-i6FvCMOJbqn47CeVWBgJkqy9-cdaajciI4dq9n4ZATcgxGtVDKloO98eZiVQhMP3eM8HDp8N1LU7uERmQSRHXHrCuwoGyRg99Q3l2LeOGUfI9v2xUdtqD2ld9-1Y-PVJyMrY--tERstauCFwDxwKxw";
-
+const maxDuration = 299;
+  
 export const generateTextToSpeech = async (
   formData: FormData,
   forClone: boolean,
-  user: {
-    id: string;
-    username: string;
-    email: string;
-    currentVoiceId: string | null;
-    currentVoiceName: string | null;
-    currentDescription: string | null;
-    currentText: string | null;
-    stripeCustomerId: string | null;
-    apiKey: string | null;
-    stripSubscriptionItem: string | null;
-    createdAt: Date;
-    updatedAt: Date;
-  } | null = null,
-  speechCount: number = 0,
+  userId: string,
 ) => {
   const voiceId = formData.get("voiceId") as string;
   const voiceName = formData.get("voiceName") as string;
@@ -47,7 +35,7 @@ export const generateTextToSpeech = async (
         voice_id: voiceId,
         text: text,
       }),
-      signal: AbortSignal.timeout(200000),
+      signal: AbortSignal.timeout(maxDuration),
     }
   );
   const { file_name } = await response.json();
@@ -55,12 +43,12 @@ export const generateTextToSpeech = async (
     "https://saas-minimax.s3.ap-northeast-1.amazonaws.com/" + file_name;
 
   if (forClone) {
-    return mp3_url;
+    return { mp3_url };
   }
 
   await prisma.user.update({
     where: {
-      id: user?.id,
+      id: userId,
     },
     data: {
       currentVoiceId: voiceId,
@@ -70,7 +58,8 @@ export const generateTextToSpeech = async (
     },
   });
 
-  // @ts-ignore
+  const speechCount = await prisma.textToSpeech.count();
+
   const new_voice = await prisma.textToSpeech.create({
     data: {
       voiceId,
@@ -81,13 +70,13 @@ export const generateTextToSpeech = async (
       order: speechCount + 1,
       author: {
         connect: {
-          id: user?.id,
+          id: userId,
         },
       },
     },
   });
   //console.log(new_voice)
-  return mp3_url;
+  return { mp3_url };
 
   // const translatedTextPromise = new Promise((resolve, reject) => {
   //     const pyprog = spawn('python3', ["text-to-speech.py", voiceId, text]);
@@ -106,33 +95,31 @@ export const generateTextToSpeech = async (
 export const getText = async () => {
   const session = await getServerSession(authConfig);
   if (!session) return "";
-  //@ts-ignore
-  const user = await prisma.User.findFirst({
+  const user = await prisma.user.findFirst({
     where: {
-      email: session.user?.email,
+      email: session.user?.email as string,
     },
     select: {
       email: true,
       currentText: true,
     },
   });
-  return user.currentText;
+  return user?.currentText;
 };
 
 export const getUserFromDB = async () => {
   const session = await getServerSession(authConfig);
   if (!session) return "";
-  //@ts-ignore
-  const user = await prisma.User.findFirst({
+
+  const user = await prisma.user.findFirst({
     where: {
-      email: session.user?.email,
+      email: session.user?.email as string,
     },
   });
   return user;
 };
 
 export const deleteCustomVoiceId = async (id: string) => {
-  //@ts-ignore
   await prisma.customVoiceId.delete({
     where: {
       id: id?.toString(),
@@ -208,7 +195,7 @@ export const uploadAudio = async (formData: FormData) => {
       authorization: `Bearer ${api_key}`,
     },
     body: formData,
-    signal: AbortSignal.timeout(200000),
+    signal: AbortSignal.timeout(maxDuration),
   });
 
   const data = await result.json();
@@ -237,7 +224,7 @@ export const cloneAudio = async (
       file_id: fileId,
       voice_id: voiceId?.trim(),
     }),
-    signal: AbortSignal.timeout(200000),
+    signal: AbortSignal.timeout(maxDuration),
   });
 
   const data = await result.json();

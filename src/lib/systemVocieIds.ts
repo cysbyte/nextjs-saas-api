@@ -20,7 +20,7 @@ export const systemVoices = [
       "https://saas-minimax.s3.ap-northeast-1.amazonaws.com/text-to-speech/4c847fdb-9118-414a-a87e-3ce4636ea8c8.mp3",
   },
 
-  { voiceName: "青年大学生音色", voiceId: "male-qn-daxuesheng", audioUrl: "" },
+  { voiceName: "青年大学生音色", voiceId: "male-qn-daxuesheng", audioUrl: "https://saas-minimax.s3.ap-northeast-1.amazonaws.com/text-to-speech/97fe8272-9c4d-469f-a178-4ac6b6f6173a.mp3" },
 
   { voiceName: "少女音色", voiceId: "female-shaonv", audioUrl: "" },
 

@@ -1,9 +1,26 @@
 'use client'
 import AudioRecorder from "@/components/shared/AudioRecorder";
-import { useState } from "react";
+import { FC, useState } from "react";
 import AddVoiceForm from "./AddVoiceForm";
 
-const Case = () => {
+type Props = {
+  user: {
+    id: string;
+    username: string;
+    email: string;
+    currentVoiceId: string | null;
+    currentVoiceName: string | null;
+    currentDescription: string | null;
+    currentText: string | null;
+    stripeCustomerId: string | null;
+    apiKey: string | null;
+    stripSubscriptionItem: string | null;
+    createdAt: Date;
+    updatedAt: Date;
+} | null
+}
+
+const Case:FC<Props> = (props) => {
   const [isGenerated, setIsGenerated] = useState(false);
   const [audio, setAudio] = useState("");
   const [audioBlob, setAudioBlob] = useState<Blob>(new Blob());
@@ -56,6 +73,7 @@ const Case = () => {
             setFile={setFile}
             audioBlob={audioBlob}
             setAudioBlob={setAudioBlob}
+            user={props.user}
           />
 
           {isGenerated && (
