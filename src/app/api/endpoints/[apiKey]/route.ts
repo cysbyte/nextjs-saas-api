@@ -10,7 +10,7 @@ export async function GET(
         { apiKey: string }
     }) {
     
-    return params.apiKey;
+    return NextResponse.json(params.apiKey);
 
     // if (!params.apiKey) {
     //     return NextResponse.json({

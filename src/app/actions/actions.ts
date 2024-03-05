@@ -3,7 +3,6 @@
 import { PrismaClient } from "@prisma/client";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
-import { runPythonScript } from "@/lib/util";
 import prisma from "@/lib/prismadb";
 import { exec, spawn } from "child_process";
 import { getServerSession } from "next-auth";
