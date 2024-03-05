@@ -27,6 +27,9 @@ const PricingPlanBox: FC<IProps> = ({
 }) => {
 
   const handleSubscription = async () => {
+    if (type === 'free') {
+      redirect('/product/text-to-speech');
+    }
     const checkoutLink = await getCheckoutLink(type);
     if (checkoutLink) {
       redirect(checkoutLink);
