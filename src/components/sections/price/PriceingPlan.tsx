@@ -1,13 +1,15 @@
 import PricingPlanBox from "@/components/sections/price/PriceingPlanBox";
 import QuestionBox from "@/components/shared/QuestionBox";
 import Wrapper from "@/components/shared/Wrapper";
+import { createCheckoutLink, createCustomerIfNull, hasSubscription } from "@/lib/stripe";
 import React from "react";
 
 const priceingPlanData = [
   {
     title: "Free",
+    type: 'free',
     price: "0",
-    start: "Get Started For Free",
+    startLabel: "Get Started For Free",
     description: [
       "Speech Synthesis - No Commercial License",
       "10,000 characters per month",
@@ -23,8 +25,9 @@ const priceingPlanData = [
   },
   {
     title: "Starter",
+    type: 'starter',
     price: "9.9",
-    start: "Start Now",
+    startLabel: "Start Now",
     description: [
       "Everything in Free",
       "Unlimited Voice Clones",
@@ -35,8 +38,9 @@ const priceingPlanData = [
   },
   {
     title: "Creator",
+    type: 'creator',
     price: "79.00",
-    start: "Start Now",
+    startLabel: "Start Now",
     description: [
       "Everything in Starter",
       "Unlimited Voice Clones",
@@ -65,7 +69,8 @@ const questionData = [
   },
 ];
 
-const PriceingPlan = () => {
+const PriceingPlan = async () => {
+  
   return (
     <section className=" bg-[#f9fafb]">
       <Wrapper>
@@ -78,9 +83,10 @@ const PriceingPlan = () => {
           {priceingPlanData.map((item, index) => (
             <PricingPlanBox
               key={index}
+              type={item.type}
               title={item.title}
               price={item.price}
-              start={item.start}
+              startLabel={item.startLabel}
               description={item.description}
             />
           ))}

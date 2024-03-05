@@ -11,6 +11,7 @@ import { authConfig } from "@/lib/auth";
 
 const inter = Inter({ subsets: ["latin"] });
 
+
 export const metadata: Metadata = {
   title: "Minimax AI Voice Generator",
   description: "Minimax AI Voice Generator",

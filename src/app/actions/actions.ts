@@ -8,6 +8,7 @@ import prisma from "@/lib/prismadb";
 import { exec, spawn } from "child_process";
 import { getServerSession } from "next-auth";
 import { authConfig } from "@/lib/auth";
+import { createCheckoutLink, createCustomerIfNull, hasSubscription, priceIds } from "@/lib/stripe";
 
 const group_id = "1697534675713802";
 const api_key =
@@ -92,29 +93,17 @@ export const generateTextToSpeech = async (
   // return src;
 };
 
-export const getText = async () => {
-  const session = await getServerSession(authConfig);
-  if (!session) return "";
-  const user = await prisma.user.findFirst({
-    where: {
-      email: session.user?.email as string,
-    },
-    select: {
-      email: true,
-      currentText: true,
-    },
-  });
-  return user?.currentText;
-};
-
 export const getUserFromDB = async () => {
   const session = await getServerSession(authConfig);
-  if (!session) return "";
+  if (!session) return null;
 
   const user = await prisma.user.findFirst({
     where: {
       email: session.user?.email as string,
     },
+    // cacheStrategy: {
+    //   ttl: 60,
+    // },
   });
   return user;
 };
@@ -146,6 +135,8 @@ export const mp3ToText = async (formData: FormData) => {
 
   return { success: true };
 };
+
+
 
 export const saveCustomVoiceId = async (formData: FormData) => {
   const voiceId = formData.get("voiceId") as string;
@@ -260,3 +251,13 @@ export const deleteUploadedAudio = async (fileId: string) => {
 
   return data;
 };
+
+export const getCheckoutLink = async (type: string) => {
+  const customer = await createCustomerIfNull();
+  const hasSub = await hasSubscription();
+  console.log(hasSub);
+  console.log(customer);
+  const priceId = priceIds.filter((item) => item.type === type)[0].priceId;
+  const checkoutLink = await createCheckoutLink(String(customer), priceId);
+  return checkoutLink
+}

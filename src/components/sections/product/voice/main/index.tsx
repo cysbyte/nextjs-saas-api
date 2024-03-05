@@ -8,17 +8,12 @@ import { authConfig, loginIsRequiredServer } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import prisma from "@/lib/prismadb";
 import { systemVoices } from "@/lib/systemVocieIds";
+import { getUserFromDB } from "@/app/actions/actions";
 
 const Case = async () => {
   await loginIsRequiredServer();
 
-  const session = await getServerSession(authConfig);
-  if (!session) return;
-  const user = await prisma.user.findFirst({
-    where: {
-      email: session?.user?.email?.toString(),
-    },
-  });
+  const user = await getUserFromDB();
   // @ts-ignore
   const customVoices = await prisma.customVoiceId.findMany({
     // include: {

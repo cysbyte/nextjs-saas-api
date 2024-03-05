@@ -193,7 +193,7 @@ const ProductSideBar = async ({ productName }: Props) => {
               />
             </svg>
 
-            <p className="ml-2 w-full h-full">Subscription</p>
+            <Link href='/product/subscription' className="ml-2 w-full h-full">Subscription</Link>
           </div>
         </div>
 

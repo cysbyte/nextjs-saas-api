@@ -1,16 +1,40 @@
+'use client'
+import { getCheckoutLink } from "@/app/actions/actions";
+import {
+  createCheckoutLink,
+  createCustomerIfNull,
+  hasSubscription,
+  priceIds,
+} from "@/lib/stripe";
+import { redirect } from "next/navigation";
 import React, { FC } from "react";
 import PricingPlanButton from "../../shared/PricingPlanButton";
 
 interface IProps {
   title: string;
+  type: string;
   price: string;
-  start: string;
+  startLabel: string;
   description: string[];
 }
 
-const PricingPlanBox: FC<IProps> = ({ title, price, start, description }) => {
+const PricingPlanBox: FC<IProps> = ({
+  title,
+  type,
+  price,
+  startLabel,
+  description,
+}) => {
+
+  const handleSubscription = async () => {
+    const checkoutLink = await getCheckoutLink(type);
+    if (checkoutLink) {
+      redirect(checkoutLink);
+    }
+  };
+
   return (
-    <div>
+    <form action={handleSubscription}>
       <div className="border rounded-md bg-white shadow-xl basis-4/12 w-full md:w-[360px] h-full justify-start px-6 py-6 flex flex-col hover:bg-gray-100 hover:scale-[1.02] active:scale-100 duration-300 hover:border-gray-700">
         <div className="border-b pb-10">
           <h4 className="font-semibold text-lg text-slate-600">{title}</h4>
@@ -18,8 +42,8 @@ const PricingPlanBox: FC<IProps> = ({ title, price, start, description }) => {
             <span className="font-bold text-2xl text-black">${price}</span>
             <span className="text-slate-600 ml-2">/month</span>
           </p>
-          <div className="w-full mt-7">
-            <PricingPlanButton text={'start'} isScale={true} />
+          <div className="w-full mt-7" >
+            <PricingPlanButton text={startLabel} isScale={true} />
           </div>
         </div>
 
@@ -93,7 +117,7 @@ const PricingPlanBox: FC<IProps> = ({ title, price, start, description }) => {
           ))}
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 

@@ -6,22 +6,12 @@ import Case from "@/components/sections/product/text-to-speech";
 import { authConfig, loginIsRequiredServer } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import prisma from "@/lib/prismadb";
+import { getUserFromDB } from "@/app/actions/actions";
 
 const TextToSpeech = async () => {
   await loginIsRequiredServer();
 
-  const session = await getServerSession(authConfig);
-  if (!session) return;
-  console.log(session?.user?.email?.toString())
-  // console.log(session)
-  //@ts-ignore
-  const user = await prisma.user.findFirst({
-    where: {
-      email: session?.user?.email?.toString(),
-    },
-  });
-
-  console.log('user----', user)
+  const user = await getUserFromDB();
 
   const voiceNames = await prisma.textToSpeech.findMany({
     where: {
