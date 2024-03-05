@@ -15,7 +15,7 @@ const Case = async () => {
   loginIsRequiredServer();
   const customer = await createCustomerIfNull();
   const hasSub = await hasSubscription();
-  const checkoutLink = await createCheckoutLink(String(customer), '');
+  const checkoutLink = await createCheckoutLink(String(customer), 'price_1Oodo2KG11P8tDTOPtuuPaoZ');
 
   const user = await getUserFromDB();
 
