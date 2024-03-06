@@ -211,13 +211,13 @@ const PlayControl: FC<Props> = (props) => {
 
   useEffect(() => {
     if (audioRef.current) {
-      let duration = audioRef.current.duration;
+      let duration: number = audioRef.current.duration;
       let start = (startX + 40) / 600;
       let end = (endX + 40) / 600;
 
       console.log('duration', duration);
-      console.log('start', start * duration.toFixed(2));
-      console.log('end', end * duration.toFixed(2));
+      // console.log('start', start * duration.toFixed(2));
+      // console.log('end', end * duration.toFixed(2));
       let _startTime = Number((start * duration).toFixed(2));
       let _endTime = Number((end * duration).toFixed(2));
       if (_startTime < 0) _startTime = 0;
