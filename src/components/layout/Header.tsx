@@ -5,6 +5,7 @@ import Wrapper from "@/components/shared/Wrapper";
 import logo from "public/logo.png";
 import { getServerSession } from "next-auth";
 import { authConfig } from "@/lib/auth";
+import Avatar from "./Avatar";
 
 const Header = async () => {
 
@@ -101,12 +102,7 @@ const Header = async () => {
           </ul>
           }
           {
-            session &&
-            <div className="flex justify-center items-center gap-x-2">
-                <h3>{session.user?.name?.split(' ')[0]}</h3>
-                <img className=" w-[35px] h-[35px] rounded-full"
-                  src={session.user?.image?.toString()} alt="avatar" />
-              </div>
+            session && <Avatar name={session.user?.name} imageUrl={session.user?.image} />          
           }
         </div>
       </Wrapper>
@@ -115,3 +111,4 @@ const Header = async () => {
 };
 
 export default Header;
+

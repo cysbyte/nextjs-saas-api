@@ -142,7 +142,9 @@ const AddVoiceForm: FC<Props> = (props) => {
               
               <div className="absolute right-5 top-0 flex h-full items-center justify-center">
                   <div className="relative ml-1 flex py-3 items-center justify-center w-fit">
-                  {!props.isMenuShowing && <svg
+                  {!props.isMenuShowing
+                    &&
+                    <svg
                     width="13"
                     height="12"
                     viewBox="0 0 13 12"
