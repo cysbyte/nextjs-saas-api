@@ -39,7 +39,7 @@ const RecordControl: FC<Props> = (props) => {
   const mimeType: MediaRecorderOptions = { mimeType: MIMETYPE };
 
   const [permission, setPermission] = useState<boolean>(false);
-  const mediaRecorder = useRef<any>(null);
+  const mediaRecorder = useRef<MediaRecorder>(null!);
   const [recordingStatus, setRecordingStatus] = useState<string>("inactive");
   const [stream, setStream] = useState<any>(null);
   const [elapsedTime, setElapsedTime] = useState<number>(0);
@@ -65,7 +65,7 @@ const RecordControl: FC<Props> = (props) => {
             mediaRecorder.current = media;
             //invokes the start method to start the recording process
             mediaRecorder.current.start();
-            let localAudioChunks: any = [];
+            let localAudioChunks:any = [];
             mediaRecorder.current.ondataavailable = (event: any) => {
               if (typeof event.data === "undefined") return;
               if (event.data.size === 0) return;

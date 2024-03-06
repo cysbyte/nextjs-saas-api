@@ -34,7 +34,7 @@ type Props = {
 };
 
 const PlayControl: FC<Props> = (props) => {
-  const audioRef = useRef<any>(null);
+  const audioRef = useRef<HTMLAudioElement>(null!);
 
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [progressTime, setProgressTime] = useState<number>(0);
@@ -57,10 +57,10 @@ const PlayControl: FC<Props> = (props) => {
     
     if (!isPlaying) {
       setIsPlaying(true);
-      audioRef.current.play();
+      audioRef?.current?.play();
     } else {
       setIsPlaying(false);
-      audioRef.current.pause();
+      audioRef?.current?.pause();
     }
   };
 
@@ -156,7 +156,7 @@ const PlayControl: FC<Props> = (props) => {
     //console.log('on cancel trim click')
   };
 
-  const onMouseDown = (e: any) => {
+  const onMouseDown = (e: React.MouseEvent) => {
     if (!isTrimming) return;
     const { left, top } = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - left;
@@ -166,7 +166,7 @@ const PlayControl: FC<Props> = (props) => {
     //console.log('down',x)
   };
 
-  const onMouseMove = (e: any) => {
+  const onMouseMove = (e: React.MouseEvent) => {
     if (!isTrimming || !enableDrag) return;
     const { left, top } = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - left;

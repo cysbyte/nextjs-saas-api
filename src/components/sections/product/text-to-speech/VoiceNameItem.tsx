@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { Ref, useRef, useState } from "react";
 
 type Props = {
   voiceId: string;
   voiceName: string;
   mp3_url: string;
-  voiceIdInputRef: any;
-  voiceNameInputRef: any;
+  voiceIdInputRef: React.MutableRefObject<HTMLInputElement>;
+  voiceNameInputRef: React.MutableRefObject<HTMLInputElement>;
   isMenuShowing: boolean;
   setIsMenuShowing: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -15,20 +15,20 @@ type Props = {
 const VoiceNameOption = (props: Props) => {
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const audioRef = useRef<any>();
+  const audioRef = useRef<HTMLAudioElement>(null!);
 
-  const handlePlay = (e: any) => {
+  const handlePlay = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (isPlaying) {
       setIsPlaying(false);
-      audioRef.current.pause();
+      audioRef.current?.pause();
     } else {
       setIsPlaying(true);
-      audioRef.current.play();
+      audioRef.current?.play();
     }
   };
 
-  const handleClick = (e: any) => {
+  const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     props.setIsMenuShowing(false);
     props.voiceNameInputRef.current.value = props.voiceName;

@@ -3,11 +3,11 @@
 import { generateTextToSpeech } from "@/app/actions/actions";
 import GenerateButton from "@/components/shared/GenerateButtonOnSubmit";
 import { revalidatePath } from "next/cache";
-import React, { Dispatch, FC, FormEvent, useRef, useState } from "react";
+import React, { Dispatch, FC, FormEvent, InputHTMLAttributes, useRef, useState } from "react";
 import VoiceNameOption from "./VoiceNameItem";
 
 type Props = {
-  audio: string;
+  audio: string
   setAudio: Dispatch<React.SetStateAction<string>>;
   isMenuShowing: boolean;
   setIsMenuShowing: Dispatch<React.SetStateAction<boolean>>;
@@ -38,12 +38,12 @@ type Props = {
 const AddVoiceForm: FC<Props> = (props) => {
 
   const ref = useRef<HTMLFormElement>(null);
-  const voiceNameInputRef = useRef<any>();
-  const voiceIdInputRef = useRef<any>();
+  const voiceNameInputRef = useRef<HTMLInputElement>(null!);
+  const voiceIdInputRef = useRef<HTMLInputElement>(null!);
   const [tokenCount, setTokenCount] = useState(0);
   const [generateStatus, setGenerateStatus] = useState('Generate');
 
-  const handleTextareaInput = (e: any) => {
+  const handleTextareaInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.value)
     setTokenCount(e.target.value.trim().length)
   }
@@ -87,7 +87,7 @@ const AddVoiceForm: FC<Props> = (props) => {
     //ref?.current?.reset();
   }
 
-  const handleShowingMenu = (e:any) => {
+  const handleShowingMenu = (e:React.MouseEvent) => {
     e.stopPropagation();
     console.log('click')
     if (props.isMenuShowing) {
@@ -231,7 +231,7 @@ const AddVoiceForm: FC<Props> = (props) => {
             //defaultValue={props.voice?props.voice.text:''}
             rows={8}
             placeholder="Type or paste text here..."
-            onChange={handleTextareaInput}
+            onChange={()=>handleTextareaInput}
           />
         </div>
         <div className="mt-1 flex justify-between">

@@ -15,7 +15,7 @@ type Props = {
 const VoiceItemBox: FC<Props> = (props) => {
 
   const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef<any>();
+  const audioRef = useRef<HTMLAudioElement>(null!);
 
   const onPreviewClick = () => {
     if (isPlaying) {
