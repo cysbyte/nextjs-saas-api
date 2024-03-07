@@ -9,6 +9,7 @@ import {
 } from "@/lib/stripe";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
+import prisma from "@/lib/prismadb";
 import React from "react";
 
 const Case = async () => {
