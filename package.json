@@ -29,6 +29,7 @@
     "redux": "^5.0.1",
     "sharp": "^0.33.2",
     "stripe": "^14.18.0",
+    "styled-components": "^6.1.8",
     "uuid": "^9.0.1"
   },
   "devDependencies": {

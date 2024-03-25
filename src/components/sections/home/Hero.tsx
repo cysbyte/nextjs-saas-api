@@ -2,7 +2,7 @@ import Button from "@/components/shared/Button";
 import Image from "next/image";
 import React from "react";
 import Wrapper from "../../shared/Wrapper";
-import usecase from '/public/usecase.png';
+import usecase from '/public/usecase.svg';
 
 const Hero = () => {
   return (
