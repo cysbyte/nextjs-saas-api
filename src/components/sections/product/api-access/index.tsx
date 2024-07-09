@@ -29,16 +29,16 @@ const Case = () => {
                   <path
                     d="M1.33331 8.00016C1.33331 8.00016 3.33331 3.3335 7.99998 3.3335C12.6666 3.3335 14.6666 8.00016 14.6666 8.00016C14.6666 8.00016 12.6666 12.6668 7.99998 12.6668C3.33331 12.6668 1.33331 8.00016 1.33331 8.00016Z"
                     stroke="#94A3B8"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
                   <path
                     d="M8 10C9.10457 10 10 9.10457 10 8C10 6.89543 9.10457 6 8 6C6.89543 6 6 6.89543 6 8C6 9.10457 6.89543 10 8 10Z"
                     stroke="#94A3B8"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
                 </svg>
               </div>

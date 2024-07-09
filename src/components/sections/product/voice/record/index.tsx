@@ -26,23 +26,23 @@ const Case = () => {
                         <path
                           d="M14 10V12.6667C14 13.0203 13.8595 13.3594 13.6095 13.6095C13.3594 13.8595 13.0203 14 12.6667 14H3.33333C2.97971 14 2.64057 13.8595 2.39052 13.6095C2.14048 13.3594 2 13.0203 2 12.6667V10"
                           stroke="#0F172A"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                         />
                         <path
                           d="M11.3334 5.33333L8.00002 2L4.66669 5.33333"
                           stroke="#0F172A"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                         />
                         <path
                           d="M8 2V10"
                           stroke="#0F172A"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                         />
                       </svg>
 
@@ -67,23 +67,23 @@ const Case = () => {
                       <path
                         d="M8 1.33325C7.46957 1.33325 6.96086 1.54397 6.58579 1.91904C6.21071 2.29411 6 2.80282 6 3.33325V7.99992C6 8.53035 6.21071 9.03906 6.58579 9.41413C6.96086 9.78921 7.46957 9.99992 8 9.99992C8.53043 9.99992 9.03914 9.78921 9.41421 9.41413C9.78929 9.03906 10 8.53035 10 7.99992V3.33325C10 2.80282 9.78929 2.29411 9.41421 1.91904C9.03914 1.54397 8.53043 1.33325 8 1.33325Z"
                         stroke="#0F172A"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                       <path
                         d="M12.6667 6.66675V8.00008C12.6667 9.23776 12.175 10.4247 11.2999 11.2999C10.4247 12.1751 9.23772 12.6667 8.00004 12.6667C6.76236 12.6667 5.57538 12.1751 4.70021 11.2999C3.82504 10.4247 3.33337 9.23776 3.33337 8.00008V6.66675"
                         stroke="#0F172A"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                       <path
                         d="M8 12.6667V14.6667"
                         stroke="#0F172A"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                     </svg>
 

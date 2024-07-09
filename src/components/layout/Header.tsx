@@ -38,8 +38,8 @@ const Header = async () => {
                       <path
                         d="M3.5 4.5L6.5 7.5L9.5 4.5"
                         stroke="#111827"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                     </svg>
                     <svg
@@ -53,8 +53,8 @@ const Header = async () => {
                       <path
                         d="M9.5 7.5L6.5 4.5L3.5 7.5"
                         stroke="#0F172A"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                     </svg>
                   </div>

@@ -66,23 +66,23 @@ const PricingPlanBox: FC<IProps> = ({
                       <path
                         d="M8.33342 14.6666C12.0153 14.6666 15.0001 11.6818 15.0001 7.99992C15.0001 4.31802 12.0153 1.33325 8.33342 1.33325C4.65152 1.33325 1.66675 4.31802 1.66675 7.99992C1.66675 11.6818 4.65152 14.6666 8.33342 14.6666Z"
                         stroke="#6366F1"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                       <path
                         d="M8.3335 10.6667V8"
                         stroke="#6366F1"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                       <path
                         d="M8.3335 5.33325H8.34016"
                         stroke="#6366F1"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                     </g>
                     <defs>
@@ -107,9 +107,9 @@ const PricingPlanBox: FC<IProps> = ({
                     <path
                       d="M13.3334 4L6.00008 11.3333L2.66675 8"
                       stroke="#10B981"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                   </svg>
                 )}

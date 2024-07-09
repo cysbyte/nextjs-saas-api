@@ -1553,16 +1553,16 @@ const RecordControl: FC<Props> = (props) => {
               <path
                 d="M12 4L4 12"
                 stroke="#0F172A"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
               <path
                 d="M4 4L12 12"
                 stroke="#0F172A"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
             <p className="ml-2 text-sm">Cancel</p>

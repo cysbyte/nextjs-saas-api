@@ -21,9 +21,9 @@ const QuestionBox: React.FC<IProps> = ({ question, answer }) => {
             <path
               d="M4 6L8 10L12 6"
               stroke="#0F172A"
-              stroke-width="1.33333"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="1.33333"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
         ) : (
@@ -37,9 +37,9 @@ const QuestionBox: React.FC<IProps> = ({ question, answer }) => {
             <path
               d="M12 10L8 6L4 10"
               stroke="#0F172A"
-              stroke-width="1.33333"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="1.33333"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
         )}

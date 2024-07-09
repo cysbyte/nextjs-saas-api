@@ -5,8 +5,8 @@ import React from "react";
 
 const GoogleAuthButton = () => {
 
-  const handleClick = () => {
-    signIn('google', {
+  const handleClick = async () => {
+    await signIn('google', {
       callbackUrl: '/'
      });
   }
