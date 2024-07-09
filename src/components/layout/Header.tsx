@@ -15,11 +15,20 @@ const Header = async () => {
     <header className="h-auto z-20 sticky inset-0 backdrop-blur-md py-0 bg-white bg-opacity-90">
       <Wrapper>
         <div className="flex justify-between py-5 items-center">
-          <Link className="hover:text-teal-700 duration-300" href={"/"}>
+          <div className="flex">
+            <Link className="hover:text-teal-700 duration-300" href={"/"}>
             <div>
               <Image className="w-[69]" src={logo} alt="Minimax AI Voice Generator" />
             </div>
-          </Link>
+            </Link>
+            <Link
+              className="ml-5 px-3 py-2 hover:shadow-lg hover:scale-105 bg-blue-500 text-white active:scale-100 duration-300 border-2 rounded-md"
+              href='https://github.com/cysbyte/saas-api-nextjs'
+            >
+              Github
+            </Link>
+          </div>
+          
 
           <div className="m-auto hidden lg:block">
             <ul className="flex h-full items-center duration-300 gap-x-4 sm:gap-x-8 text-16">
@@ -101,6 +110,7 @@ const Header = async () => {
             </Link>
           </ul>
           }
+          
           {
             session && <Avatar name={session.user?.name} imageUrl={session.user?.image} />          
           }
