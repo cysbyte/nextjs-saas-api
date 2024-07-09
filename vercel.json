@@ -1,16 +1,16 @@
 {
     "functions": {
       "app/api/**/*": {
-        "maxDuration": 60
+        "maxDuration": 59
       },
       "app/product/**/*": {
-        "maxDuration": 60
+        "maxDuration": 59
       },
       "app/actions/actions.ts": {
-        "maxDuration": 60
+        "maxDuration": 59
       },
       "app/api/text-to-speech/route.ts": {
-        "maxDuration": 60
+        "maxDuration": 59
       }
     }
   }
