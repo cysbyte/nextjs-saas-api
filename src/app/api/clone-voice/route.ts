@@ -18,6 +18,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const text = formData.get("text") as string;
   const userId = formData.get("userId") as string;
 
+  const _mp3_url = "https://saas-minimax.s3.ap-northeast-1.amazonaws.com/" ;
+  return NextResponse.json({ mp3_url: _mp3_url, status: 200 });
+
   // let result = await uploadAudio(formData);
   // const fileId = result.file.file_id;
   // const customVoiceId = "Voice_id_" + uuidv4();
