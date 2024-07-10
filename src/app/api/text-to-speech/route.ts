@@ -13,6 +13,10 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const text = formData.get("text") as string;
   const userId = formData.get('userId') as string;
 
+  const _mp3_url =
+    "https://saas-minimax.s3.ap-northeast-1.amazonaws.com/";
+  return NextResponse.json({ mp3_url: _mp3_url });
+
   const response = await fetch(
     `http://saas-api-lb-1226519020.ap-northeast-1.elb.amazonaws.com/api/text-to-speech`,
     {
