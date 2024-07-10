@@ -49,6 +49,8 @@ const AddVoiceForm: FC<Props> = (props) => {
   }
   
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
+
+    return;
     if (generateStatus === 'Generating') return;
     
     try {

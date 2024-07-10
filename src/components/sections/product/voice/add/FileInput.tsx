@@ -24,7 +24,7 @@ const FileInput:FC<Props> = (props) => {
     const [value, setValue] = useState('');
 
     const handleSubmit = async (event: any) => {
-    event.preventDefault();
+      event.preventDefault();
       /* get current files using ref */
       try {
           // props.setIsUploading(true);
