@@ -201,4 +201,4 @@ const MyCreatedBox: FC<Props> = (props) => {
   );
 };
 
-export default MyCreatedBox;
+export default React.memo(MyCreatedBox);

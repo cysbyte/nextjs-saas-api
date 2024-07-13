@@ -129,4 +129,4 @@ const VoiceItemBox: FC<Props> = (props) => {
   );
 };
 
-export default VoiceItemBox;
+export default React.memo(VoiceItemBox);

@@ -23,7 +23,7 @@ const Header = async () => {
             </Link>
             <Link
               className="ml-5 px-3 py-2 hover:shadow-lg hover:scale-105 bg-blue-500 text-white active:scale-100 duration-300 border-2 rounded-md"
-              href='https://github.com/cysbyte/saas-api-nextjs'
+              href='https://github.com/cysbyte/nextjs.saas-api'
             >
               Github
             </Link>
